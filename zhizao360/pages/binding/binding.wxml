@@ -1,0 +1,29 @@
+<!--pages/login/login.wxml-->
+<view class="loginView">
+    <text class="text">手机</text>
+    <input type="number" bindinput="verifyNumber" value="{{number}}" placeholder="11位手机号" maxlength="11" auto-focus  style="width:120px;" />
+    <button id="codeBtn" bindtap="sendCode" >发送验证码</button>
+</view>    
+<view class="loginView">
+    <text class="text">验证码</text>
+    <input type="text" bindblur="getImportCode"  value='{{importCode}}' placeholder="填写验证码" maxlength="4" />
+</view>  
+<view class="loginView" hidden="{{noLogin}}">
+    <text class="text">企业全称</text>
+    <input type="number" placeholder="填写单位全称"  />
+</view>  
+<view class="loginView" hidden="{{noRecord}}">
+    <text class="text">账号类型</text>
+    <input type="number" value="{{type}}" placeholder="请选择类型"  />
+    <icon type="info" bindtap="selectType"  />
+</view>  
+<view class="selectTypeBox">
+        <picker-view indicator-style="height: 40px;" style="width: 100%; height: 100px;" value="{{value}}" bindchange="bindChange">
+            <picker-view-column>
+                <view class="colInfo">采购商</view>
+                <view class="colInfo">供应商</view>
+                <view class="colInfo">采购商+供应商</view>
+            </picker-view-column>
+        </picker-view>
+    </view>
+<button id="bindingBtn" bindtap="binding" >绑定</button>

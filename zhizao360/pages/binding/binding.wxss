@@ -1,0 +1,29 @@
+/* pages/login/login.wxss */
+.loginView{
+   display:inline-flex;
+   height:50px;
+   width:100%;
+   align-items:center;
+   border-bottom: 1px solid #ccc;
+}
+.text{
+    width: 90px;
+    padding-left: 10px;
+}
+#codeBtn{ 
+    width: auto;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 10px;
+}
+#bindingBtn{
+    margin: 200px 20px 0 20px;
+    background-color: #26499d;
+    color:#fff;
+}
+
+.colInfo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
