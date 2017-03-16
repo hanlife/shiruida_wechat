@@ -10,7 +10,7 @@ App({
     var that = this
     if(this.globalData.userInfo){
       typeof cb == "function" && cb(this.globalData.userInfo)
-    }else{
+  }else{
       //调用登录接口
       wx.login({
         success: function () {
@@ -26,5 +26,15 @@ App({
   },
   globalData:{
     userInfo:null
+  },
+  countDown:(time)=>{
+   var downTime =  setInterval(()=>{
+        time--;
+        if(time<1){
+          clearInterval(downTime);
+        }
+     },1000)
+     return  time;
   }
+
 })

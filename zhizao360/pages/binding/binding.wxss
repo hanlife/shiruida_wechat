@@ -1,6 +1,6 @@
 /* pages/login/login.wxss */
 .loginView{
-   display:inline-flex;
+   display:flex;
    height:50px;
    width:100%;
    align-items:center;
@@ -26,4 +26,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.typeView{
+    height: 50px;
+    line-height:50px;
+    border-bottom: 1px solid #ccc;
 }
