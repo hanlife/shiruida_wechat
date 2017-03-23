@@ -1,0 +1,98 @@
+
+<!--page/home/photoMannage/photoMannage.wxml-->
+
+<view class="images-wrapper mg-t30">
+         <view class="jc">
+              <text class="images-text">封面图片</text>
+              <text class="grey">{{panel1Sum}}/1</text>
+         </view>
+          <view class="images-list">
+            <block wx:key="*this" wx:for-items="{{panel1ImageList}}" wx:for-index="index" wx:for-item="imgSrc">
+              <view class="por mg-r50">
+                <!--<view class="image-close" bindtap="removeImage" data-id="{{index}}"  data-index="1" >x</view>-->
+                <image src="{{imgSrc}}" class="images-image" data-src="{{imgSrc}}" data-index="1" bindtap="previewImage"></image>
+              </view>
+            </block>
+            <image src="/image/addImage.png" class="images-image images-plus"  bindtap="panel1ChooseImage"></image>
+          </view>
+</view>
+
+<view class="images-wrapper">
+         <view class="jc">
+              <text class="images-text">大门照片</text>
+              <text class="grey">{{panel2Sum}}/1</text>
+         </view>
+          <view class="images-list">
+            <block wx:key="*this" wx:for-items="{{panel2ImageList}}" wx:for-index="index" wx:for-item="imgSrc">
+              <view class="por mg-r50">
+                <!--<view class="image-close" bindtap="removeImage" data-id="{{index}}" data-index="2">x</view>-->
+                <image src="{{imgSrc}}" class="images-image" data-src="{{imgSrc}}" data-index="2" bindtap="previewImage"></image>
+              </view>
+            </block>
+            <image src="/image/addImage.png" class="images-image images-plus" bindtap="panel2ChooseImage"></image>
+          </view>
+</view>
+
+<view class="images-wrapper">
+         <view class="jc">
+              <text class="images-text">加工设备</text>
+              <view class="image-del" hidden="{{delflag3}}" bindtap="delImages" data-index="3">-</view>
+         </view>
+          <view class="images-list">
+            <block wx:key="*this" wx:for-items="{{panel3ImageList}}" wx:for-index="index" wx:for-item="imgSrc">
+              <view class="por mg-r50">
+                <view class="image-close" hidden="{{closeflag3}}"  bindtap="removeImage" data-id="{{index}}" data-index="3">-</view>
+                <image src="{{imgSrc}}" class="images-image" data-src="{{imgSrc}}" data-index="3" bindtap="previewImage"></image>
+              </view>
+            </block>
+            <image src="/image/addImage.png" class="images-image images-plus" bindtap="panelChooseImage" data-index="3"></image>
+          </view>
+</view>
+
+<view class="images-wrapper">
+         <view class="jc">
+              <text class="images-text">检测设备</text>
+              <view class="image-del" hidden="{{delflag4}}" bindtap="delImages" data-index="4" >-</view>
+         </view>
+          <view class="images-list">
+            <block wx:key="*this" wx:for-items="{{panel4ImageList}}" wx:for-index="index" wx:for-item="imgSrc">
+              <view class="por mg-r50">
+                <view class="image-close" hidden="{{closeflag4}}"  bindtap="removeImage" data-id="{{index}}" data-index="4">-</view>
+                <image src="{{imgSrc}}" class="images-image" data-src="{{imgSrc}}" data-index="4" bindtap="previewImage"></image>
+              </view>
+            </block>
+            <image src="/image/addImage.png" class="images-image images-plus" bindtap="panelChooseImage" data-index="4"></image>
+          </view>
+</view>
+
+<view class="images-wrapper">
+         <view class="jc">
+              <text class="images-text">办公区域</text>
+              <view class="image-del" hidden="{{delflag5}}" bindtap="delImages" data-index="5">-</view>
+         </view>
+          <view class="images-list">
+            <block wx:key="*this" wx:for-items="{{panel5ImageList}}" wx:for-index="index" wx:for-item="imgSrc">
+              <view class="por mg-r50">
+                <view class="image-close" hidden="{{closeflag5}}"  bindtap="removeImage" data-id="{{index}}" data-index="5">-</view>
+                <image src="{{imgSrc}}" class="images-image" data-src="{{imgSrc}}" data-index="5" bindtap="previewImage"></image>
+              </view>
+            </block>
+            <image src="/image/addImage.png" class="images-image images-plus" bindtap="panelChooseImage" data-index="5"></image>
+          </view>
+</view>
+
+<view class="images-wrapper">
+         <view class="jc">
+              <text class="images-text">产品图片</text>
+              <view class="image-del" hidden="{{delflag6}}" bindtap="delImages" data-index="6" >-</view>
+         </view>
+          <view class="images-list">
+            <block wx:key="*this" wx:for-items="{{panel6ImageList}}" wx:for-index="index" wx:for-item="imgSrc">
+              <view class="por mg-r50">
+                <view class="image-close" hidden="{{closeflag6}}" bindtap="removeImage" data-id="{{index}}" data-index="6">-</view>
+                <image src="{{imgSrc}}" class="images-image" data-src="{{imgSrc}}" data-index="6" bindtap="previewImage"></image>
+              </view>
+            </block>
+            <image src="/image/addImage.png" class="images-image images-plus" bindtap="panelChooseImage" data-index="6"></image>
+          </view>
+</view>

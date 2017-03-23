@@ -1,0 +1,50 @@
+<!--page/home/body/body.wxml-->
+<view class="view-body pd-t30">
+    <view class="panel bg-fff mg-b30 border-tb1px" bindtap="toMyInfo">
+      <view class="ai">
+            <image class="headImage fl" src="src"></image>
+            <view class="fl mg-l20">
+                <view>微信呢称</view>
+                <view>18819478666</view>
+            </view>
+        </view>
+        <view class="ai">
+            <image class="qrcodeImage" catchtap="QRcodeTap" src="src" ></image>
+            <text class="arrow mg-l20">></text>
+        </view>
+    </view>
+    <view class="border-tb1px pd-l30 mg-b30 bg-fff">
+      <navigator class="border-b1px h88" url="/page/home/industiyInfor/industiyInfor" open-type="navigate" >
+        企业认证<text class="text">待审核</text><text class="arrow fr" >></text>
+      </navigator>
+      <picker class="h88"  bindchange="bindPickerChange" value="{{pickerIndex}}" range="{{pickerArray}}">
+        <view class="picker">
+          账号类型<text class="text">{{pickerArray[pickerIndex]}}</text> 
+        </view>
+      </picker>
+    </view>
+    <view class="border-tb1px pd-l30 mg-b30 bg-fff">
+            <navigator class="jc border-b1px h88" url="/page/home/photoMannage/photoMannage" open-type="navigate">
+                  相册管理 <text class="arrow">></text>
+            </navigator>
+            <view class="jc border-b1px h88" bindtap="toEquipment">
+                  设备管理 <text class="arrow">></text>
+            </view>
+            <navigator class="jc h88" url="/page/home/mybussine/mybussine" open-type="navigate">
+                  公司主页 <text class="arrow">></text>
+            </navigator>
+    </view>
+    <view class="border-tb1px pd-l30 bg-fff">
+        <view class="jc border-b1px h88">
+            联系客服 <text class="arrow">></text>
+      </view>
+      <view class="jc h88">
+            关于我们 <text class="arrow">></text>
+      </view>
+    </view>
+    <button class="button" bindtap="relieveBind">解绑退出</button>
+
+</view>
+
+
+

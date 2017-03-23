@@ -1,0 +1,54 @@
+{
+  "pages": [
+    
+    "page/home/body/body",
+  
+
+    "page/ordinarylist/index/index",
+    "page/member/login",
+    "page/ordinarylist/release/release",
+    "page/supplier/supplier",
+    
+    "page/home/mybussine/mybussine",
+    "page/home/qrcode/qrcode",
+    "page/home/myInformation/myInformation",
+    "page/home/photoMannage/photoMannage",
+    "page/home/equipment/equipment",
+    "page/home/equipment/add/addEquipment",
+    "page/home/equipment/amend/amendEquipment",
+    "page/home/equipment/detail/detail",
+    "page/home/homepageSupplier/homepageSupplier",
+    "page/home/industiyInfor/industiyInfor"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#3a59a6",
+    "navigationBarTitleText": "智造360",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "page/ordinarylist/index/index",
+        "text": "闲置产能" 
+      },
+      {
+        "pagePath": "page/member/login",
+        "text": "供方企业"
+      },
+      {
+        "pagePath": "page/home/body/body",
+        "text": "我的"
+      }
+    ],
+    "color": "#666666",
+    "selectedColor": "#26499d",
+    "backgroundColor": "white",
+    "borderStyle": "black"
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}

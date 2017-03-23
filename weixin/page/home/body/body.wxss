@@ -1,0 +1,26 @@
+/* page/home/body/body.wxss */
+@import "../common/homeCommon.wxss";
+.mg-l20{ margin-left: 20rpx; }
+
+.panel{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 152rpx;
+    padding-left: 30rpx;
+}
+.text{ 
+    color:#b2b2b2;
+    margin-left: 50rpx;
+}
+
+.headImage{
+   width: 115rpx;
+   height: 115rpx;
+   border: 1px solid #ccc;
+}
+.qrcodeImage{
+    width: 34px;
+    height: 34px;
+    border:1px solid #ccc;
+}

@@ -1,0 +1,13 @@
+<template name="itme-home-head">
+  <view>
+    <text></text>
+    <text></text>
+  </view>
+</template>
+
+<template name="itme-home-foot">
+  <view>
+    <text></text>
+    <text></text>
+  </view>
+</template>

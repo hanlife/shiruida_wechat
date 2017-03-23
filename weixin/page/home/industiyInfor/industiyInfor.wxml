@@ -1,0 +1,51 @@
+<!--page/home/industiyInfor/industiyInfor.wxml-->
+<view class="view-body pd-t30">
+    <view class="border-tb1px pd-l30">
+        <view class="ai border-b1px h88">
+            <text class="w85">公司名称</text><input  type="text"  bindinput="bindinput" placeholder="请填写公司全称" value="{{companyName}}" />
+            <view class="icon-close"  bindinput="clearText" hidden="{{clearFlag}}" ></view>
+        </view>
+        <view class="border-b1px h88">
+            <text class="fl w85">选择地区</text> 
+                <input  class="fl addressSelect" value="{{address}}" bindtap="actionSheetTap" placeholder="地区选择"    /> 
+            <view class="jc-end h88">
+            <icon class="flex mg-r30" bindtap="chooseLocation"  type="info" size="23"></icon>
+            </view>
+        </view>
+        <view class="flex border-b1px pd-tb30">
+            <text class="w85 lh1">详细地址</text><textarea  class="addressDetail" value="{{addressDetail}}" auto-height  placeholder="街道门牌信息"/>
+        </view>
+        <view class="flex pd-tb30">
+            <text class="as w85 lh1">营业执照</text>
+            <view class="images-list as">
+                <block wx:key="*this" wx:for-items="{{photoArray}}" wx:for-index="index" wx:for-item="imgSrc">
+                <view class="por mg-r50">
+                    <image src="{{imgSrc}}" class="images-image" data-src="{{imgSrc}}"  bindtap="previewImage"></image>
+                </view>
+                </block>
+                <image src="/image/addImage.png" class="images-image images-plus" bindtap="chooseImage"></image>
+            </view>
+        </view>
+
+
+    </view>
+
+    <action-sheet hidden="{{provinceHidden}}" bindchange="actionSheetChange">
+                <block wx:key="*this" wx:for-items="{{provinceItems}}">
+                    <action-sheet-item class="item" bindtap="bind{{item}}" data-id="{{item}}">{{item}}</action-sheet-item>
+                </block>
+    </action-sheet>
+    <action-sheet hidden="{{cityHidden}}" >
+        <block wx:key="*this" wx:for-items="{{cityItems}}">
+            <action-sheet-item class="item" bindtap="bind{{item}}" data-id="{{item}}">{{item}}</action-sheet-item>
+        </block>
+    </action-sheet>
+    <action-sheet hidden="{{countyHidden}}" >
+        <block wx:key="*this" wx:for-items="{{countyItems}}">
+            <action-sheet-item class="item" bindtap="bind{{item}}" data-id="{{item}}">{{item}}</action-sheet-item>
+        </block>
+    </action-sheet>
+
+    <button class="button">{{buttonText}}</button>
+</view>
+

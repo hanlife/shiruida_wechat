@@ -1,0 +1,12 @@
+/* page/home/photoMannage/photoMannage.wxss */
+@import "../common/homeCommon.wxss";
+.images-wrapper{
+    min-height: 170rpx;
+    border-top: 1rpx solid #D6D6DB;
+    border-bottom: 1rpx solid #D6D6DB;
+    background-color: #fff; 
+    padding:30rpx;
+    color:#000;
+    margin-bottom: 30rpx;
+}
+

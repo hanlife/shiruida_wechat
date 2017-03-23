@@ -1,0 +1,101 @@
+/* page/ordinarylist/index/index.wxss */
+@import "../../../module/headSearch.wxss";
+page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ordinarylist-lists {
+  margin-top: 30rpx;
+  background-color: #fff;
+  padding: 0 30rpx;
+  border-bottom: 1rpx solid #dadada;
+  border-top: 1rpx solid #dadada;
+}
+
+.ordinarylist-lists:last-child {
+  margin-bottom: 45rpx;
+}
+
+.list-title {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: left;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.list-title-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  color: #999;
+  font-size: 26rpx;
+}
+
+.list-title-distance {
+  flex: 1;
+  text-align: right;
+  font-size: 20rpx;
+}
+
+.list-type {
+  border-bottom: 1rpx solid #eee;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: left;
+  height: 88rpx;
+  line-height: 88rpx;
+}
+.list-type:last-child{
+    border-bottom: 0;
+}
+
+.list-devicename {
+  flex: 1;
+  text-align: left;
+  font-size: 28rpx;
+}
+
+.list-devicetotle {
+  display: block;
+  line-height: 25rpx;
+}
+
+.list-devicetotle:first-child {
+  margin-top: 20rpx;
+  color: #26499d;
+}
+
+.list-number {
+  flex: 1;
+  text-align: right;
+  font-size: 20rpx;
+}
+
+.list-devicetotle-num {
+  font-size: 28rpx;
+}
+
+.ordinarylist-load {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  background-color: #fff;
+}
+
+.release-btn {
+  position: fixed;
+  bottom: 50rpx;
+  right: 50rpx;
+  background-color: red;
+  width: 100rpx;
+  height: 100rpx;
+  z-index: 999;
+}

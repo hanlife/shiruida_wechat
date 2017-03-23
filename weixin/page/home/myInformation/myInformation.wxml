@@ -1,0 +1,30 @@
+<!--page/home/myInformation/myInformation.wxml-->
+
+<view class="view-body">
+     <form class="" bindsubmit="formSubmit" bindreset="formReset">
+                <view class="border-tb1px pd-l30 mg-t30 bg-fff">
+                        <view class="view-box border-b1px ">
+                                <text >姓名</text><input type="text" name="name" placeholder="填写姓名" placeholder-style=" color:#b2b2b2"/>
+                        </view>
+                        <view class="view-box border-b1px ">
+                                <text>手机</text> <input type="number" name="phone" placeholder="11位手机号" placeholder-style="color:#b2b2b2"/>
+                        </view>
+                        <view class="view-box border-b1px ">
+                                <text>QQ</text>  <input type="number" name="QQ" placeholder="填写QQ号" placeholder-style="color:#b2b2b2"/>
+                        </view>
+                        <view class="view-box border-b1px ">
+                                <text>微信</text>  <input type="text" name="wechat" placeholder="填写微信号" placeholder-style="color:#b2b2b2"/>
+                        </view>
+                        <view class="view-box"> 
+                        <text>公开</text> <view class="b2b2b2 fl">手机公开在公司主页</view> 
+                        <switch class="fr mg-r30" name="open" checked bindchange="switchChange"/>
+                        </view>
+                </view>
+        <button class="button" form-type="submit">确定</button>
+        </form>
+</view>
+
+ <!--<modal class="modal" hidden="{{modalHidden}}"  no-cancel  bindconfirm="modalConfirm" >
+            <view class="successTip">提交成功</view>
+            <view> 子账号申请已提交成功，等待主账号审核通过</view>
+</modal>-->

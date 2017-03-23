@@ -1,0 +1,35 @@
+
+<!--page/ordinarylist/release/release.wxml-->
+<view class="device-tip">
+  <text>最多可以添加三种设备</text>
+</view>
+<block wx:for="{{device_list}}" wx:for-index="idx" wx:for-item="itemName">
+  <view class="device-list">
+    <view class="device-list-name">
+      <text class="device-name">设备名称</text>
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{deviceArray}}" range-key="name" data-index="{{idx}}" class="device-picker">
+        <text class="device-chose device-chose-ph" wx:if="{{itemName.deviceName.length==0}}">请选择设备名称</text>
+        <text class="device-chose" wx:else>{{itemName.deviceName}}</text>
+        <text class="device-icon">></text>
+      </picker>
+    </view>
+    <view class="device-num">
+      <text class="device-name">闲置数量</text>
+      <view class="device-reduce">
+        <text hidden="{{deleteDevice}}" bindtap="device_delete" data-index="{{idx}}">-</text>
+      </view>
+      <view class="device-operate">
+        <text class="num-reduce" bindtap="num_Reduce" data-index="{{idx}}">-</text>
+        <text class="device-quantity">{{itemName.deviceNum}}</text>
+        <text class="num-add" bindtap="num_Add" data-index="{{idx}}">+</text>
+      </view>
+    </view>
+  </view>
+</block>
+<view class="add-device" hidden="{{addDevice}}" bindtap="device_add">
+  <text class="icon-add">+</text>
+  <text>添加闲置产能</text>
+</view>
+<view bindtap="Eventbinding" class="btn-area">
+  <button type="primary" class="btn-bind">发布</button>
+</view>

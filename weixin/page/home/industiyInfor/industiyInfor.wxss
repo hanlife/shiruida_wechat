@@ -1,0 +1,34 @@
+/* page/home/industiyInfor/industiyInfor.wxss */
+@import "../common/homeCommon.wxss";
+
+.addressDetail{ 
+    min-height: 122rpx;
+    width:525rpx;
+    padding-right: 5rpx;
+}
+.addressSelect{
+    height: 88rpx;
+    width: 430rpx;
+    line-height:88rpx;
+}
+.jc-end{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.map_container{ 
+    height: 300px; 
+    width: 100%; 
+} 
+ 
+.map { 
+    height: 100%; 
+    width: 100%; 
+}
+.icon-close{
+    width: 20rpx;
+    height: 20rpx;
+    background-color: darkorchid;
+}
+
+     

@@ -1,0 +1,22 @@
+<!--page/home/equipment/equipment.wxml-->
+<view class="view-body pd-t30">
+    <view class="pd-l30 border-tb1px">
+        <block wx:for="{{equipmentArray}}"  >
+            <navigator class="jc h88 border-b1px" url="/page/home/equipment/detail/detail?id=1">
+                <view>{{item.name}}</view>
+                <view class="ai">
+                    <text class="mg-r10">{{item.number}}</text>
+                    <icon class="flex mg-r30" type="info"></icon>
+                </view>
+            </navigator>
+        </block>
+        <view class="h88">
+          <navigator class="ai" url="/page/home/equipment/detail/detail?id=0">
+            <icon type="info" class="flex mg-r10"></icon> 
+            <text>添加闲置设备</text>
+          </navigator> 
+        </view>
+         
+    </view>
+
+</view>

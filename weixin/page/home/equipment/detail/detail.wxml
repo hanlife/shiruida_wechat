@@ -1,0 +1,42 @@
+<!--page/home/equipment/detail/detail.wxml-->
+<view class="view-body pd-t30">
+        <view class="border-tb1px pd-l30">
+            <view class="border-b1px h88">
+                <picker bindchange="bindPickerChange" value="{{TypeIndex}}" range="{{Type}}">
+                    <view class="picker">
+                    <text class="w85 fl" >当前选择</text>
+                    <input  type="text" class="h88 fl" placeholder="请选择设备类型" value="{{Type[TypeIndex]}}" />
+                    <view class="arrow fr">></view>
+                    </view>
+                </picker>
+            </view>
+            <view class="ai border-b1px h88">
+                <text class="w85">设备名称</text> <input  type="text" class="w500"/>
+            </view>
+            <view class="ai border-b1px h88">
+                <text class="w85">设备品牌</text> <input  type="text" class="w500"/>
+            </view>
+            <view class="jc border-b1px h88 ai-center">
+                <text class="w85">设备数量</text>
+                <view class="flex ai-center cut-addBox mg-r30" >
+                    <view class="cut-add" bindtap="cutNumber" >-</view>
+                    <input type="number" class="number" bindblur="numberInput"  value="{{number}}"/>
+                    <view class="cut-add" bindtap="addNumber" >+</view>
+                </view> 
+            </view>
+            <view class=" border-b1px h88">
+                <picker bindchange="bindPickerChange" value="{{DensityIndex}}" range="{{Density}}">
+                    <view>
+                        <text class="w85 fl" >当前选择</text> 
+                        <input type="text" class="h88 fl" placeholder="请选择设备精密度" value="{{Density[DensityIndex]}}" />
+                        <view class="arrow fr">></view>
+                    </view>
+                </picker>
+            </view>
+            <view class="ai h88">
+                <text class="w85">加工行程</text> <input  type="text" class="w500" placeholder="机器加工半径及范围(15字以内)" />
+            </view>
+        </view>
+        <button class="button">{{buttonText}}</button>
+
+</view>

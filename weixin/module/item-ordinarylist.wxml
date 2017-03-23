@@ -1,0 +1,149 @@
+
+<!--头部搜索-->
+<template name="itme-ordinarylist-head">
+  <view class="ordinarylist-head">
+    <view class="search-input" wx:if="{{isShow}}">
+      <text class="icon-search" style="left:{{left}};"></text>
+      <input type="text" style="width:{{width}};text-align: {{textLeft}};padding-left:{{paddingLeft}}" bindinput="EventSearch" bindfocus="EventFocus" bindblur="EventBlur" placeholder="搜索设备、产品" placeholder-class="input-ph" />
+      <text style="display:{{inputFocus}}" class="search-console" bindtap="EventConsole">取消</text>
+    </view>
+    <view class="search-list">
+      <view class="search-address" bindtap="choseArea" data-Id="1">
+        <text style="color:{{searchId==1?'#26499d':'#000000'}}">区域</text>
+        <text class="icon-arrow" style="background-image:url('{{searchId==1?\'../../../../icon/icon-arrow-b.png\':\'../../../../icon/icon-arrow.png\'}}')"></text>
+      </view>
+      <view class="search-type" bindtap="choseType" data-Id="2">
+        <text style="color:{{searchId==2?'#26499d':'#000000'}}">设备类型</text>
+        <text class="icon-arrow" style="background-image:url('{{searchId==2?\'../../../../icon/icon-arrow-b.png\':\'../../../../icon/icon-arrow.png\'}}')"></text>
+      </view>
+      <view class="search-more" bindtap="choseMore" data-Id="3">
+        <text style="color:{{searchId==3?'#26499d':'#000000'}}">更多</text>
+        <text class="icon-arrow" style="background-image:url('{{searchId==3?\'../../../../icon/icon-arrow-b.png\':\'../../../../icon/icon-arrow.png\'}}')"></text>
+      </view>
+    </view>
+  </view>
+
+  <!--区域-->
+  <view class="ordinarylist-box" hidden="{{searchId==1?false:true}}">
+    <view class="area-head">
+      <view class="area-address">
+        <text class="area-city">城市：</text>
+        <text class="area-detail">{{Address}}</text>
+        <text class="area-icon">></text>
+        <view class="area-posation" bindtap="reposition">
+          <text class="icon-posation"></text>
+          <text>重新定位</text>
+        </view>
+      </view>
+    </view>
+    <view class="area-body">
+      <view class="area-body-left">
+        <view class="{{area_select == 0 ? 'area-active':''}}" data-idx="0" bindtap="choseDistrict">
+          <text>区域</text>
+        </view>
+        <view class="{{area_select == 1 ? 'area-active':''}}" data-idx="1" bindtap="choseDistrict">
+          <text>附近</text>
+        </view>
+      </view>
+      <view class="area-body-right">
+        <scroll-view scroll-y="true" style="height: {{areaHeight}}px;">
+          <view class="arer-list" data-index="999" bindtap="choseCondition">
+            <text data-index="0" style="color:{{showIndex==999?'#24699d':'#666666'}}">不限</text>
+            <icon type="success_no_circle" size="20" hidden="{{showIndex==999?false:true}}"></icon>
+          </view>
+          <view wx:for="{{array}}" wx:for-index="index" wx:for-item="item">
+            <view class="arer-list" data-index="{{index}}" bindtap="choseCondition">
+              <text style="color:{{showIndex==index?'#24699d':'#666666'}}">{{item.message}}</text>
+              <icon type="success_no_circle" size="20" hidden="{{showIndex==index?false:true}}"></icon>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+
+  <!--设备类型-->
+  <view class="ordinarylist-box" hidden="{{searchId==2?false:true}}">
+    <scroll-view scroll-y="true" style="height: {{deviceTypeHeight}}px;" class="deviceType">
+      <view>
+        <view class="typeList" catchtap="deviceType" data-index="{{typeList.length}}" data-value="不限">
+          <icon type="{{choseArr[typeList.length]== 'false' ?'success':'circle'}}" size="24"></icon>
+          <text>不限</text>
+        </view>
+      </view>
+      <view wx:for="{{typeList}}" wx:for-index="idx" wx:for-item="itemType">
+        <view class="typeList" catchtap="deviceType" data-index="{{idx}}" data-typeId="{{itemType.Id}}" data-value="{{itemType.Name}}">
+          <icon type="{{choseArr[idx]=='true'?'success':'circle'}}" size="24"></icon>
+          <text>{{itemType.Name}}</text>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="type-tip">
+      <text>最多可选三项</text>
+    </view>
+    <view bindtap="EventOrdinary" class="btn-area">
+      <button type="primary" class="btn-bind">确定</button>
+    </view>
+  </view>
+
+  <!--更多-->
+  <view class="ordinarylist-box" hidden="{{searchId==3?false:true}}">
+    <view class="more-box">
+      <view class="more-left" style="height: {{areaHeight}}px;">
+        <view class="{{more_select == 0 ? 'more-active':''}}" data-idx="0" bindtap="MoreSelect">
+          <text>主营行业</text>
+        </view>
+        <view class="{{more_select == 1 ? 'more-active':''}}" data-idx="1" bindtap="MoreSelect">
+          <text>员工人数</text>
+        </view>
+        <view class="{{more_select == 2 ? 'more-active':''}}" data-idx="2" bindtap="MoreSelect">
+          <text>加工类型</text>
+        </view>
+      </view>
+
+      <!--加工类型+员工人数-->
+      <view class="more-right">
+        <scroll-view scroll-y="true" style="height: {{areaHeight}}px;" hidden="{{more_select == 0 ? true:false}}">
+          <view class="more-list" data-index="-1" data-id="-1" bindtap="choseMore_right">
+            <text data-index="0">不限</text>
+            <icon type="{{MoreTypeId=='-1'?'success':'circle'}}" size="24"></icon>
+          </view>
+          <view wx:for="{{MoreArray}}" wx:for-index="index" wx:for-item="item">
+            <view class="more-list txt-hid" data-index="{{index}}" data-id="{{item.Id}}" bindtap="choseMore_right">
+              <text>{{item.Name}}</text>
+              <icon type="{{MoreTypeId==item.Id?'success':'circle'}}" size="24"></icon>
+            </view>
+          </view>
+        </scroll-view>
+
+        <!--主营行业-->
+        <view class="IndustryLevel-o" hidden="{{more_select == 0 ? false:true}}">
+          <scroll-view scroll-y="true" style="height: {{areaHeight}}px;">
+            <view wx:for="{{MainIndustryArray}}" wx:for-index="index" wx:for-item="item">
+              <view class="more-list txt-hid" style="color:{{ParentId==index?'#26499d':'#000000'}}" data-index="{{index}}" data-typeid="{{item.ParentId}}" bindtap="choseIndustry">
+                <text>{{item.Name}}</text>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+        <view class="IndustryLevel-t" hidden="{{more_select == 0 ? false:true}}">
+          <scroll-view scroll-y="true" style="height: {{areaHeight}}px;">
+            <view wx:for="{{MainIndustryArray_T}}" wx:for-index="index" wx:for-item="item">
+              <view class="more-list" data-index="{{index}}" data-typeid="{{item.Id}}" data-parentid="{{item.ParentId}}" bindtap="choseIndustry_T">
+                <text>{{item.Name}}</text>
+                <icon type="{{ChildId==item.Id?'success':'circle'}}" size="24"></icon>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+    <view class="more-btn">
+      <button class="more-empty" type="default" bindtap="EventEmpty">清空选项</button>
+      <button class="more-result" type="primary" bindtap="EventResult">确定</button>
+    </view>
+  </view>
+
+  <!--底框-->
+  <view class="ordinarylist-bottom" catchtap="areaHide" hidden="{{searchId==0?true:false}}"></view>
+</template>

@@ -1,0 +1,16 @@
+/* page/home/myInformation/myInformation.wxss */
+@import "../common/homeCommon.wxss";
+.view-box{
+    height: 88rpx;
+    line-height: 88rpx;
+}
+text{
+    float: left;
+    width: 80rpx;
+    margin-right: 100rpx;
+}
+input{
+    height: 88rpx;
+    line-height: 88rpx;
+    color:#b2b2b2;
+}

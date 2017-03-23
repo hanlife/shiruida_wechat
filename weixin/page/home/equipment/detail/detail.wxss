@@ -1,0 +1,20 @@
+/* page/home/equipment/detail/detail.wxss */
+@import "../../common/homeCommon.wxss";
+.number{
+    width: 86rpx;
+    height: 42rpx;
+    line-height: 42rpx;
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    text-align: center;
+}
+.cut-add{
+    width: 42rpx;
+    height: 42rpx;
+    line-height: 42rpx;
+    text-align: center;
+}
+.cut-addBox{
+    border: 1px solid #D6D6DB;
+}
+.w500{ width:500rpx; }

@@ -1,0 +1,298 @@
+/*module*/
+
+.ordinarylist-head {
+  width: 100%;
+  z-index: 999;
+  height: 160rpx;
+}
+
+.search-input {
+  margin: 16rpx;
+  background-color: #fff;
+  position: relative;
+  height: 56rpx;
+}
+
+.search-input input {
+  display: inline-block;
+  border-radius: 8rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  text-align: center;
+  font-size: 30rpx;
+  border: 1rpx solid #eaeaef;
+}
+
+.search-console {
+  display: inline-block;
+  margin-left: 20rpx;
+  color: #26499d;
+  font-size: 32rpx;
+  vertical-align: top;
+  height: 56rpx;
+  line-height: 56rpx;
+}
+
+.icon-search {
+  display: inline-block;
+  width: 25rpx;
+  height: 25rpx;
+  position: absolute;
+  background: url("../../../../icon/icon-search.png") no-repeat;
+  background-size: 100%;
+  left: 225rpx;
+  top: 19rpx;
+}
+
+.search-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  background-color: #fff;
+  height: 70rpx;
+  line-height: 70rpx;
+  color: #000;
+  font-size: 30rpx;
+}
+
+.search-address {
+  flex: 1;
+}
+
+.search-type {
+  box-sizing: border-box;
+  flex: 1;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
+.search-more {
+  flex: 1;
+}
+
+.ordinarylist-box {
+  position: fixed;
+  top: 162rpx;
+  bottom: 200rpx;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  z-index: 999;
+}
+
+.area-head {
+  height: 88rpx;
+  line-height: 88rpx;
+  border-bottom: 1rpx solid #ccc;
+  padding: 0 24rpx 0 32rpx;
+  overflow: hidden;
+}
+
+.area-address {
+}
+
+.area-address text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.area-city {
+}
+
+.area-detail {
+  display: inline-block;
+  color: #26499d;
+  width: 360rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.area-posation {
+  float: right;
+  width: 180rpx;
+}
+
+.area-icon {
+  font-weight: bold;
+}
+
+.icon-posation {
+  width: 23rpx;
+  height: 23rpx;
+  background: url("../../../../icon/icon-posation.png") no-repeat;
+  background-size: 100%;
+  margin-right: 10rpx;
+  margin-bottom: 5rpx;
+}
+
+.area-body {
+  line-height: 88rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.ordinarylist-bottom {
+  opacity: 0.7;
+  background-color: #000;
+  position: fixed;
+  bottom: 0;
+  height: 200rpx;
+  width: 100%;
+  z-index: 11;
+}
+
+.area-body-left {
+  margin-left: 32rpx;
+  flex: 1;
+}
+
+.area-body-right {
+  flex: 1;
+  background-color: #efeff4;
+  padding-right: 24rpx;
+  height: 100%;
+}
+
+.arer-list {
+  margin-left: 29rpx;
+  border-bottom: 1rpx solid #fff;
+  overflow: hidden;
+}
+
+.arer-list icon {
+  float: right;
+  margin-top: 15rpx;
+  height: 73rpx;
+}
+
+.icon-arrow {
+  display: inline-block;
+  width: 16rpx;
+  height: 9rpx;
+  background: url("../../../../icon/icon-arrow.png") no-repeat;
+  background-size: 100%;
+  margin-bottom: 8rpx;
+  margin-left: 8rpx;
+}
+
+.area-active {
+  color: #26499d;
+}
+
+.typeList {
+  height: 88rpx;
+  line-height: 88rpx;
+  margin-left: 30rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+}
+
+.typeList icon {
+  vertical-align: middle;
+  height: 56rpx;
+}
+
+.typeList text {
+  margin-left: 20rpx;
+  color: #000;
+  font-size: 34rpx;
+}
+
+.type-tip {
+  text-align: center;
+  color: #999;
+  font-size: 28rpx;
+  margin: 30rpx;
+}
+
+/*更多*/
+
+.more-box {
+  overflow: hidden;
+  line-height: 88rpx;
+  color: #000;
+  font-size: 34rpx;
+}
+
+.more-left {
+  float: left;
+  width: 180rpx;
+  text-align: center;
+  background-color: #efeff4;
+}
+
+.more-right {
+  float: left;
+  width: 540rpx;
+  background-color: #fff;
+  margin-left: 30rpx;
+}
+
+.more-active {
+  background-color: #fff;
+}
+
+.more-list {
+  border-bottom: 1rpx solid #e5e5e5;
+  overflow: hidden;
+}
+
+.more-list icon {
+  vertical-align: middle;
+  float: right;
+  height: 48rpx;
+  margin-top: 20rpx;
+  margin-right: 30rpx;
+}
+
+.more-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.more-btn button {
+  flex: 1;
+  border-radius: 0;
+  border: 1rpx solid #d6d5d6;
+  margin: 0;
+}
+
+button.more-empty {
+  background-color: #fff;
+  color: #000;
+  border-right: 0;
+}
+
+button.more-result {
+  background-color: #26499d;
+  color: #fff;
+}
+
+.IndustryLevel-o {
+  background-color: #fff;
+  width: 185rpx;
+  border-right: 1rpx solid #e5e5e5;
+  float: left;
+}
+.IndustryLevel-o .more-list{
+  border: 0;
+  text-align: left;
+  width:100%;
+}
+
+.IndustryLevel-t {
+  width: 325rpx;
+  margin-left: 29rpx;
+  float: left;
+}
+
+.IndustryLevel-t .more-list text{
+  display: inline-block;
+  width:240rpx;
+}
+
