@@ -1,0 +1,48 @@
+{
+  "pages":[
+    "pages/home/body/body",
+    "pages/binding/binding",
+    "pages/idleProduct/idleProduct",
+    "pages/supplier/supplier",
+    "pages/myself/myself",
+    "pages/home/mybussine/mybussine",
+    "pages/home/qrcode/qrcode",
+    "pages/home/myInformation/myInformation",
+    "pages/home/photoMannage/photoMannage",
+    "pages/home/equipment/equipment",
+    "pages/home/equipment/add/addEquipment",
+    "pages/home/equipment/amend/amendEquipment",
+    "pages/home/businessAttribute/businessAttribute",
+    "pages/home/homepageSupplier/homepageSupplier",
+    "pages/home/industiyInfor/industiyInfor",
+    "pages/home/address/address",
+    "pages/home/address/add/addAddress"
+  ],
+  "window":{
+    "navigationBarBackgroundColor": "#26499d",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "智造360",
+    "backgroundColor": "#eee",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh":false
+  },
+  "tabBar": {
+    "color":"black",
+    "selectedColor":"#26499d",
+    "backgroundColor":"#eee",
+    "borderStyle":"black",
+    "list":[{
+        "pagePath":"pages/idleProduct/idleProduct",
+        "text":"闲置产能"
+      },{
+        "pagePath":"pages/supplier/supplier",
+        "text":"供方企业"
+      },{
+        "pagePath":"pages/myself/myself",
+        "text":"我的"
+      }
+    ]
+  },
+  "position":"bottom"
+  
+}

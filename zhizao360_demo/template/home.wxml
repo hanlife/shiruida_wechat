@@ -1,0 +1,7 @@
+ <template name="list">
+          <block wx:for="{{array}}"  wx:for-item="v" >
+                <navigator url="{{v.url}}" open-type="navigate" >
+                    {{v.message}}           
+                </navigator>            
+          </block>
+ </template>

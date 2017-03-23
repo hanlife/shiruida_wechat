@@ -1,0 +1,57 @@
+<!--page/home/body/body.wxml-->
+   <!--<block wx:for="{{array}}">
+     <block wx:if="{{ item.message == '账号类型' }}">
+        <picker bindchange="bindPickerChange" value="{{pickerIndex}}" range="{{pickerArray}}">
+            <view class="picker">
+            账号类型：{{pickerArray[pickerIndex]}}
+            </view>
+        </picker>
+     </block>  
+     <block wx:else>
+        <navigator url="{{item.url}}" open-type="navigate">
+            <view>
+                {{index}}:{{item.message}}
+            </view>
+        </navigator>
+     </block>   
+   </block>-->
+  <text>999999999999999999</text>
+   <import  src="/template/home.wxml"> </import>
+   <view style="margin-top:50px;">
+     <template is="list" data="{{array:array}}" />
+   </view>
+
+
+<view class="section">
+  <textarea bindblur="bindTextAreaBlur" auto-height placeholder="自动变高" />
+</view>
+<text>{{textLength}}</text>
+<view class="section">
+  <textarea bindinput="bindinput" placeholder="placeholder颜色是红色的" placeholder-style="color:red;"  />
+</view>
+
+<view class="section">
+  <textarea placeholder="这是一个可以自动聚焦的textarea" auto-focus />
+</view>
+<view class="section">
+  <textarea placeholder="这个只有在按钮点击的时候才聚焦" focus="{{focus}}" />
+  <view class="btn-area">
+    <button bindtap="bindButtonTap">使得输入框获取焦点</button>
+  </view>
+</view>
+<view class="section">
+  <form bindsubmit="bindFormSubmit">
+    <textarea placeholder="form 中的 textarea" name="textarea"/>
+    <button form-type="submit"> 提交 </button>
+  </form>
+</view>
+
+<contact-button 
+  type="default-light" 
+  size="20"
+  session-from="weapp"
+>
+</contact-button>
+ 
+
+
