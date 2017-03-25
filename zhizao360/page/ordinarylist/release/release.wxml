@@ -15,8 +15,7 @@
     </view>
     <view class="device-num">
       <text class="device-name">闲置数量</text>
-      <view class="device-reduce">
-        <text hidden="{{deleteDevice}}" bindtap="device_delete" data-index="{{idx}}">-</text>
+      <view class="device-reduce" hidden="{{deleteDevice}}" bindtap="device_delete" data-index="{{idx}}">
       </view>
       <view class="device-operate">
         <text class="num-reduce" bindtap="num_Reduce" data-index="{{idx}}">-</text>

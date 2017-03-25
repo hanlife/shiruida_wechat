@@ -1,1 +1,73 @@
 /* page/home/mybussine/mybussine.wxss */
+@import "../common/homeCommon.wxss";
+.swiper-item{
+    display: block;
+    height: 424rpx;
+}
+.swiper-box{
+   position: relative;
+}
+.pictrueSumBox{
+  position: absolute;
+  top:28rpx;
+  right: 30rpx;
+}
+.swiperNav{
+    position: absolute;
+    left: 0;
+    bottom:0;
+    height: 60rpx;
+    width:100%;
+    background-color: rgba(53,53,53,0.5);
+  
+
+}
+.swiperNav-itemBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.swiperNav-item{
+    display:inline-block;
+    padding: 0 25rpx;
+    color: #B8B8B8;
+    line-height: 1;
+}
+.bd-r1px{ border-right: 1px solid #B8B8B8;}
+.navShow{ color:#fff; }
+.scroll-view_H{
+    white-space: nowrap;
+}
+.titleNav{
+    display: flex;
+    height: 70rpx;
+    align-items: center;
+    background-color: #fafafa;
+    color:#666;
+}
+.title-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33.33%;
+    height: 100%;
+}
+.titleShow{
+    color:#000;
+    background-color: #fff;
+}
+.contactText{
+      width:180rpx; 
+}
+.companyLocation-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 78rpx;
+    padding:0 30rpx;
+}
+.icon-heart{
+    width: 30rpx;
+    height: 30rpx;
+}

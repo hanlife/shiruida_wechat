@@ -1,2 +1,89 @@
 <!--page/home/mybussine/mybussine.wxml-->
-<text>page/home/mybussine/mybussine.wxml</text>
+<import src="../common/homeCommon.wxml"></import>
+<view class="view-body">
+
+      <view class="swiper-box">
+            <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}"
+                        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+                  <block wx:for-items="{{pictrue[pictrueIndex]}}">
+                        <swiper-item>
+                        <view class="swiper-item " style="background:{{item}}"></view>
+                        </swiper-item>
+                  </block>
+            </swiper>
+            <view class="pictrueSumBox">
+               <text>{{currentNum}}/{{totalNum}}</text>
+            </view>   
+            <view class="swiperNav">
+                  <view class="swiperNav-itemBox"> 
+                        <scroll-view class="scroll-view_H" scroll-x="true" style="width: 100%">
+                        <block wx:for="{{swiperNavArray}}">
+                              <view class="swiperNav-item {{index == swiperNavArray.length-1 ? '':'bd-r1px' }} {{index == pictrueIndex ? 'navShow':'' }}"
+                              bindtap="switchNav" data-index="{{index}}" >{{item}}</view>
+                              </block>
+                        </scroll-view>
+                       
+                  </view>
+                  
+            </view>
+      </view>
+       <view class="companyLocation bg-fff border-b1px mg-b30">
+           <view class="companyLocation-item">深圳市龙岗区布吉街道文诚商业广场</view>
+           <view class="companyLocation-item">
+              <view class="flex ai-center"> 
+                   <image class="icon-address" src="/icon/icon_addressGray.png"></image>
+                   <text class="mg-l15">2.5KM</text>
+               </view> 
+              <view class="flex ai-center">
+                 <image class="icon-heart" src="/icon/icon_heart.png"></image> 
+                 <text class="mg-l7">收藏</text> 
+               </view>
+           </view>
+           <view class="companyLocation-item">
+             <view class="flex ai-center">  
+                  <template is="icon-address"></template>
+                  <text class="mg-l15">深圳市龙岗区布吉街道文诚商业广场</text>
+             </view>
+             <image class="arrow mg-l20" src="/icon/arrow.png"></image>  
+           </view>
+       </view>
+       <view class="border-tb1px">
+            <view class="titleNav">
+          <block wx:for="{{titleNavArray}}">
+              <view class="title-item {{index == titleShowIndex ? 'titleShow':'' }}" bindtap="selectTitle" data-index="{{index}}">{{item}}</view>
+          </block>
+       </view>
+      <view class="content bg-fff" >
+        <view hidden="{{content1}}">
+             <template is="companyIntroduce" data="{{...companyIntroduce}}"></template>
+        </view>
+        <view hidden="{{content2}}">
+             <template is="equipmentList" data="{{Array:equipmentListArray}}"></template>
+        </view> 
+        <view  hidden="{{content3}}">
+              <block wx:for="{{contactArray}}">
+                  <view class="{{index == contactArray.length-1 ? '':'border-b1px' }} ">
+                        <view class="flex border-b1px h88 mg-l30">
+                             <text class="contactText">姓名</text><text>{{item.name}}</text>   
+                        </view>
+                        <view class="flex border-b1px h88 mg-l30" bindtap="makePhoneCall" data-phone="{{item.phone}}">
+                              <text class="contactText">手机</text><text>{{item.phone}}</text> 
+                        </view>
+                        <view class="flex border-b1px h88 mg-l30">
+                              <text class="contactText">QQ</text><text>{{item.QQ ? item.QQ :'--' }}</text>
+                        </view>
+                        <view class="flex h88 mg-l30">
+                              <text class="contactText">微信</text><text>{{item.wechat ? item.wechat :'--' }}</text>
+                        </view>
+                  </view>
+              </block>     
+             
+        </view>
+      </view> 
+       </view>
+      
+      
+</view>
+
+
+

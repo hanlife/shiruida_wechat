@@ -1,1 +1,5 @@
-{}
+{
+    "navigationBarTitleText": "供方企业",
+    "enablePullDownRefresh": "true",
+    "backgroundTextStyle": "dark"
+}

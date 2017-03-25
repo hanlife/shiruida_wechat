@@ -1,4 +1,5 @@
 // page/ordinarylist/index/index.js
+var bmap = require('../../../utils/bmap-wx.min.js');
 var app = require('../../../utils/common.js');//
 var util = require('../../../utils/util.js');//公共JS
 var ordinaryData = require('../../../utils/ordinaryData.js');//模拟数据
@@ -12,35 +13,12 @@ var PQty = ordinaryData.data.PQty; //员工人数
 var formatLocation = util.formatLocation;
 var appInstance = getApp(); //获取全局对象
 
-var header = {
-  //顶部搜索框
-  isShow: true, //搜索框
-  left: "225rpx", //搜索图标左边距
-  width: "100%",  //搜索框宽度
-  textLeft: "center", //搜索框字体对齐
-  paddingLeft: "0", //搜索框左边距
-  inputFocus: "none", //取消按钮
-  //区域筛选
-  searchId: "0",  //筛选类型
-  areaHeight: "700rpx", //筛选区高度
-  showIndex: "999", //区域右侧scoll
-  array: [{ message: "a" }, { message: "b" }, { message: "c" }, { message: "d" }, { message: "a" }, { message: "b" }, { message: "c" }, { message: "d" }, { message: "a" }, { message: "b" }, { message: "c" }, { message: "d" }],//区域右侧列表数据
-  Address: "ddddd",//距离
-  area_select: "0", //区域 0 附近 1
-  //设备类型
-  deviceTypeHeight: "500rpx",
-  typeList: DeviceType,   //设备类型
-  choseArr: [],
-  choseTemp: 0,
-  //更多
-  MoreArray: PQty,
-  more_select: "0", //主营行业 0 员工人数 1 加工类型 2
-  MainIndustryArray: IndustryList,  //一级行业
-  MainIndustryArray_T: IndustryList[0].SubIndustries,//二级行业
-  MoreTypeId: "-1",
-  ParentId: '0', //一级行业选中id
-  ChildId: ""//二级行业选中id
-};
+search.data.typeList = DeviceType;
+search.data.MoreArray = PQty;
+search.data.MoreTypeArray = ProducessType;
+search.data.MainIndustryArray = IndustryList;
+search.data.MainIndustryArray_T = IndustryList[0].SubIndustries;
+var header = search.data;
 
 Page({
   data: {
@@ -52,7 +30,8 @@ Page({
   },
   // 区域选择
   choseArea: function (e) {
-    header = search.choseArea(e, header)
+    header = search.choseArea(e, header);
+    console.log(header)
     this.setData({
       item_head: header
     })
@@ -64,9 +43,15 @@ Page({
       item_head: header
     })
   },
-  //确认
+  //设备类型确认
   EventOrdinary: function () {
-
+    if (header.choseTemp == "0") {
+      header.DeviceName = "设备类型";
+    } else if (header.choseTemp == "1") {
+      header.DeviceName = header.Data.DeviceName[0].value;
+    } else {
+      header.DeviceName = "多选";
+    }
     header.searchId = 0;
     this.setData({
       item_head: header
@@ -77,6 +62,13 @@ Page({
     header = search.choseMore(e, header)
     this.setData({
       item_head: header
+    })
+  },
+  //选择地区
+  choseposition: function () {
+    header = search.choseposition(header);
+    this.setData({
+      item_head: header,
     })
   },
   //重新定位
@@ -124,33 +116,36 @@ Page({
   },
   //二级行业选择
   choseIndustry_T: function (e) {
-    var idx = e.currentTarget.dataset.typeid;
-    header.ChildId = idx;
+    header = search.choseIndustry_T(e, header);
     this.setData({
       item_head: header
     })
   },
   //右侧选择
   choseMore_right: function (e) {
-    var idx = e.currentTarget.dataset.id;
-    header.MoreTypeId = idx;
+    header = search.choseMore_right(e, header);
+    this.setData({
+      item_head: header
+    })
+  },
+  //右侧选择
+  choseMoreType_right: function (e) {
+    header = search.choseMoreType_right(e, header);
     this.setData({
       item_head: header
     })
   },
   //清空按钮
   EventEmpty: function () {
-    header.MoreTypeId = "-1";
-    header.ParentId = '0';
-    header.ChildId = "";
+    header = search.EventEmpty(header);
     this.setData({
       item_head: header
     })
   },
   //确定按钮
   EventResult: function () {
-
     header.searchId = 0;
+    header = search.checkMore(header);
     this.setData({
       item_head: header
     })
@@ -188,34 +183,34 @@ Page({
   },
   //输入框聚焦
   EventFocus: function (e) {
+    header = search.EventFocus(e, header);
     this.setData({
-      item_head: {
-        isShow: true,
-        left: "20rpx",
-        width: "580rpx",
-        textLeft: "left",
-        paddingLeft: "50rpx",
-        inputFocus: "inline-block"
-      }
+      item_head: header
     })
   },
-  //输入框移除焦点
-  EventBlur: function (e) {
+  //搜索结果
+  SearchResult: function (e) {
+    header.inputValue = e.detail.value;
     console.log(e.detail.value)
+
+  },
+  //取消
+  EventConsole: function () {
+    header = search.EventConsole(header);
     this.setData({
-      item_head: {
-        isShow: true,
-        left: "225rpx",
-        width: "100%",
-        textLeft: "center",
-        paddingLeft: "0",
-        inputFocus: "none"
-      }
+      item_head: header
     })
+  },
+  //自定义分享标题
+  onShareAppMessage: function () {
+    return {
+      title: '自定义分享标题',
+      path: 'page/ordinarylist/index/index'
+    }
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    console.log(DeviceType)
+    header = search.bmap_fn(bmap, header);
   },
   onReady: function () {
     // 页面渲染完成
@@ -228,14 +223,25 @@ Page({
     var H = app.app.getSystemInfo().windowHeight;
     var W = app.app.getSystemInfo().windowWidth;
     var con_H = parseInt(H - (W / 750 * 160));
-    var areaH = parseInt(H - (W / 750 * 450));
-    var TypeH = parseInt(H - (W / 750 * 600));
-    header.areaHeight = areaH;
-    header.deviceTypeHeight = TypeH;
+    header = search.setHeight(header);
     this.setData({
       con_Height: con_H,
       item_head: header
     })
+    wx.request({
+      url: "https://localhost:8060/test.txt",
+      data: '',
+      method: 'get',
+      header: { 'content-type': 'application/json' },
+      success: function (res) {
+        console.log(res)
+        return typeof cb == "function" && cb(res.data)
+      },
+      fail: function () {
+        return typeof cb == "function" && cb(false)
+      }
+    })
+
   },
   onHide: function () {
     // 页面隐藏

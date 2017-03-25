@@ -1,0 +1,37 @@
+/* page/home/qrcode/detail/detail.wxss */
+@import "../../common/homeCommon.wxss";
+.header{ 
+    width: 524rpx;
+    text-align: center;
+}
+.title-bar{
+    display: flex;
+    align-items: center;
+    height: 70rpx;
+}
+.icon-bar { 
+    width: 5rpx;
+    height: 100%;
+    background-color: #e5e5e5;
+}
+.title-des{
+    margin-left: 8rpx;
+    height: 100%；
+}
+.mapBox{
+      overflow: hidden;
+      border-radius: 5rpx;
+      margin:30rpx 30rpx 0 30rpx; 
+      padding-bottom: 40rpx;
+}
+#map{
+    border-radius: 5rpx;
+}
+.footer{
+    line-height: 1;
+    margin: 18rpx 0  30rpx 0;
+}
+.bar-blue{
+    height: 20rpx;
+    background-color: #26499d;
+}

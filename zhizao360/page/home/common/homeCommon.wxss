@@ -1,48 +1,100 @@
 /* home module  */
+.view-body{
+    font-size: 30rpx;
+    background-color: #efeff4;
+}
+.border-b1px{ border-bottom: 1rpx solid #E5E5E5; }
 .border-tb1px{
     border-bottom:1rpx solid #D6D6DB;
     border-top:  1rpx solid #D6D6DB;
 }
-.border-b1px{ border-bottom: 1rpx solid #E5E5E5; }
+.bolder{ font-weight: bolder; }
 .button{
+    height: 88rpx;
     margin: 60rpx 30rpx 0 30rpx;
     background-color: #26499d;
     color:#fff;
+    font-size: 36rpx;
 }
-.bolder{ font-weight: bolder; }
+.buttonT{
+    height: 86rpx;
+    margin: 0 30rpx;
+    border: 1px solid #26499d;
+    background-color: #fff;
+    color:#26499d;
+    font-size: 36rpx;
+}
+
 .h88{ 
     height: 88rpx;
     line-height: 88rpx;
 }
+
 .pd-t30{ padding-top: 30rpx; }
 .pd-b30{ padding-bottom: 30rpx; }
+.pd-l30{ padding-left: 30rpx; }
+.pd-tb20{
+    padding-top: 20rpx;
+    padding-bottom: 20rpx;
+}
 .pd-tb30{
       padding-top: 30rpx;
       padding-bottom: 30rpx;
 }
-.pd-l30{ padding-left: 30rpx; }
-.mg-t30{ margin-top: 30rpx;}
-.mg-b30{ margin-bottom: 30rpx;}
+.pd-lr30{ 
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+}
+.pd30{ padding: 30rpx;}
+
+.mg-t10{ margin-top: 10rpx; }
+.mg-t20{ margin-top: 20rpx; }
+.mg-t30{ margin-top: 30rpx; }
+.mg-t60{ margin-top: 60rpx; }
+
+.mg-b28{ margin-bottom: 28rpx; }
+.mg-b30{ margin-bottom: 30rpx; }
+.mg-b36{ margin-bottom: 36rpx; }
+.mg-b40{ margin-bottom: 40rpx; }
+
+.mg-r10{ margin-right: 10rpx; }
 .mg-r30{ margin-right: 30rpx;}
 .mg-r50{ margin-right: 50rpx; }
-.mg-r10{ margin-right: 10rpx; }
+
+.mg-l7{ margin-left: 7rpx; }
+.mg-l15{ margin-left: 15rpx;}
+.mg-l20{ margin-left: 20rpx; }
+.mg-l30{ margin-left:30rpx;  }
+
+.mg-lr30{
+     margin-left: 30rpx;
+     margin-right: 30rpx;
+     }
 .lh1{ line-height: 1; }
 
-.w85{ width: 200rpx; }
+.w200{ width:200rpx; }
 .w500{ width:500rpx; }
+.w300{ width:300rpx;}
+
 
 /* content color */
 .light{ color:#b2b2b2; }
 .grey{ color:#888; }
 .semi { color:#353535; }
 .black { color:#000; }
+.fff{ color: #fff; }
+.c999{ color:#999; }
+.c333{ color:#333; }
 
 .bg-fff{ background-color: #fff; }
+.bg-yellow{ 
+    background-color: #FF9000;
+}
 
 .arrow{
-    color: #b2b2b2;
-    font-weight: bolder;
-    font-size: 40rpx;
+    display: inline-block;
+    width: 16rpx;
+    height: 25rpx;
     margin-right: 30rpx;
 }
 .flex{ display: flex; }
@@ -50,41 +102,51 @@
     display: flex;
     justify-content: space-between;
 }
+.jc-between{
+    display: flex;
+    justify-content: space-between;
+}
+.jc-center{
+    display: flex;
+    justify-content: center;
+}
 .ai{
     display: flex;
     align-items: center;
 }
 .ai-center{ align-items: center; }
-.as{
-     align-self: flex-start;
-}
+.as{  align-self: flex-start; }
+
 .fl{ float:left; }
 .fr{ float: right; }
 .por{ position: relative; }
 
+/* font size*/
+.fs20{ font-size: 20rpx; }
+.fs28{ font-size: 28rpx; }
+.fs34{ font-size: 34rpx; }
+.fs36{ font-size: 36rpx; }
+.fs40{ font-size: 40rpx; }
+.fs48{ font-size: 48rpx; }
+
+
 /* image css */
+.add-imageBox{
+    height: 114rpx;
+    width: 114rpx;
+    border: 1rpx solid #b2b2b2;
+
+}
+.add-images{
+    height: 56rpx;
+    width: 56rpx;
+}
 .images-image{
     height: 114rpx;
     width: 114rpx;
 }
-.images-plus{
-    border: 1rpx solid #b2b2b2;
-}
-.image-close{
-    position: absolute;
-    right: 0;
-    top:0;
-    color:#fff;
-    background-color:black;
-    width:114rpx;
-    height:114rpx;
-    opacity:0.3;
-    text-align:center;
-    font-size:40pt;
-    font-weight:bolder;
-    line-height:57px;
 
-}
+
 .images-list{
     display: flex;
     flex-wrap: wrap;
@@ -97,4 +159,64 @@
     line-height: 33rpx;
     text-align: center;
     color: #576b95;
+}
+/*公司介绍模板*/
+.companyIntroduce-item{
+    line-height: 1;
+}
+
+.companyIntroduceText{
+    display: inline-block;
+    width:150rpx;
+}
+.companyIntroduceTextarea{
+    width:500rpx;
+    display:inline-block;
+}
+
+/*设备清单*/
+.equipmentList-item{
+   padding: 30rpx 30rpx 30rpx 0;
+}  
+.equipmentList-item>view{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 1;
+    
+}
+
+/* 联系我们 */
+.sumText{
+    padding: 0 13rpx;
+    font-size: 26rpx;
+    height: 36rpx;
+    line-height: 36rpx;
+    border-radius: 18rpx;
+}
+
+/*二维码*/
+.qrcodeBox{
+    background-color: #fff;
+    padding:40rpx;
+}
+.qrcode-item{   }
+.logo-image{
+    width:330rpx;
+    height: 221rpx;
+}
+.qrcode-image{
+    width: 370rpx;
+    height:370rpx;
+    border:1px solid #ccc;
+}
+
+/* icon */
+.icon-address{
+    width: 24rpx;
+    height: 34rpx;
+}
+.icon_addBlue{
+    width:31rpx;
+    height: 31rpx;
 }

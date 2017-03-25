@@ -1,6 +1,13 @@
 // page/home/qrcode/qrcode.js
 Page({
-  data:{},
+  data:{
+    qrcodeObj:{
+       logo:'/icon/logo.png',
+       title:'机械加工定制服务平台',
+       qrcode:'',
+       des:'微信【扫一扫】即可获得联系方式及公司详细信息'
+    }
+  },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
   },
@@ -15,5 +22,11 @@ Page({
   },
   onUnload:function(){
     // 页面关闭
+  },
+  generalize:function(e){
+    console.log(1)
+        wx.navigateTo({
+          url: '/page/home/qrcode/detail/detail'
+        })
   }
 })

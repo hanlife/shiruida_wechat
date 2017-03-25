@@ -1,0 +1,76 @@
+<template name="companyIntroduce" >
+         <view class="pd30"> 
+                <view class="jc  companyIntroduce-item mg-b40">
+                     <view class="ai ">
+                          <text class="companyIntroduceText">所属地区：</text><text>{{a}}</text>
+                     </view>
+                     <view class="ai w300 ">
+                          <text class="companyIntroduceText">厂房面积：</text><text>{{b}}</text>
+                     </view>
+                </view>
+                <view class="jc  companyIntroduce-item mg-b40">
+                     <view class="ai">
+                         <text class="companyIntroduceText">年营业额：</text><text>{{c}}</text>
+                     </view>
+                     <view class="ai w300">
+                         <text class="companyIntroduceText">员工人数：</text><text>{{d}}</text>
+                     </view>
+                </view>
+                <view class="jc  companyIntroduce-item mg-b36">
+                     <view class="ai">
+                           <text class="companyIntroduceText">加工类型：</text><text>{{e}}</text>
+                     </view>
+                     <view></view>
+                </view>
+                <view class="companyIntroduce-itemLast">
+                     <view class="flex">
+                           <text class="companyIntroduceText">企业简介：</text>
+                           <text class="companyIntroduceTextarea ">{{f}}</text>
+                     </view>
+                </view>
+         </view>
+</template>
+
+<template name="equipmentList">
+       <view class="pd-l30">
+           <block wx:for="{{Array}}">
+                 <view class="equipmentList-item   {{index == Array.length-1 ? '': 'border-b1px' }} ">
+                    <view>
+                         <view>
+                            <text class="mg-r30">{{item.a}}</text> 
+                            <text>{{item.b}}</text> 
+                         </view>
+                         <view class="sumText bg-yellow fff">{{item.c}}</view>
+                    </view>
+                    <view class="pd-tb20">
+                        <view>{{item.d}}</view>
+                        <view class="sumText">{{item.e}}</view>
+                    </view>
+                    <view>{{item.f}}</view>
+                 </view>
+           </block>
+       </view>
+</template>    
+
+<template name="qrcode">
+    <view class="qrcodeBox">
+        <view class="qrcode-item tc">
+            <image class="logo-image" src="{{logo}}"></image>
+        </view>
+        <view class="qrcode-item tc fs36 c333">{{title}}</view>
+        <view class="qrcode-item tc">
+            <image class="qrcode-image" src="{{qrcode}}"></image>
+        </view>
+        <view class="qrcode-item tc fs20">{{des}}</view>
+    </view>
+</template>    
+
+<template name="icon-address">
+     <image class="icon-address" src="/icon/icon_address.png"></image>
+</template>    
+
+<template name="add-imageBox" >
+     <view class="add-imageBox jc-center ai-center" bindtap="{{bindtap}}" data-index="{{index}}" >
+               <image src="/icon/icon_add.png" class="add-images"  ></image>
+    </view>
+</template>

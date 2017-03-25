@@ -12,33 +12,6 @@ Page({
     }, 
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    var that = this; 
-        // 新建百度地图对象 
-        var BMap = new bmap.BMapWX({ 
-            ak: 'oPufGCXIP6BGyj67bBO3KVsG5G7Qa9G4' 
-        }); 
-        var fail = function(data) { 
-            console.log(data) 
-        }; 
-        var success = function(data) { 
-            wxMarkerData = data.wxMarkerData; 
-            that.setData({ 
-                markers: wxMarkerData 
-            }); 
-            that.setData({ 
-                latitude: wxMarkerData[0].latitude 
-            }); 
-            that.setData({ 
-                longitude: wxMarkerData[0].longitude 
-            }); 
-        } 
-        // 发起regeocoding检索请求 
-        BMap.regeocoding({ 
-            fail: fail, 
-            success: success, 
-            iconPath: '../../img/marker_red.png', 
-            iconTapPath: '../../img/marker_red.png' 
-        })
   },
   onReady:function(){
     // 页面渲染完成

@@ -1,2 +1,11 @@
 <!--page/home/qrcode/qrcode.wxml-->
-<text>page/home/qrcode/qrcode.wxml</text>
+<import src="../common/homeCommon.wxml" />  
+
+<view class="view-body">
+   <view class="content mg-lr30">
+      <template is="qrcode" data="{{...qrcodeObj}}"/>   
+   </view>
+    <button class="buttonT mg-t60" bindtap="generalize">生成推广图片</button>
+</view>
+
+ 

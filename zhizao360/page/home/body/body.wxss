@@ -18,9 +18,9 @@
    width: 115rpx;
    height: 115rpx;
    border: 1px solid #ccc;
+   border-radius: 5rpx;
 }
 .qrcodeImage{
-    width: 34px;
-    height: 34px;
-    border:1px solid #ccc;
+    width: 59rpx;
+    height: 59rpx;
 }

@@ -9,4 +9,18 @@
     color:#000;
     margin-bottom: 30rpx;
 }
-
+.image-close{
+    position: absolute;
+    right: 0;
+    top:0;
+    width:114rpx;
+    height:114rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.icon-delete{
+     width: 22rpx;
+     height: 24rpx;
+}

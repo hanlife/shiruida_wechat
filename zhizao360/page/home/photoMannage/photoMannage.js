@@ -1,6 +1,12 @@
 // page/home/photoMannage/photoMannage.js
 Page({
   data:{
+    eventObj:{
+         ChooseImage1: "ChooseImage1",
+         ChooseImage2: "ChooseImage2",
+         ChooseImage:"ChooseImage"
+    },
+    iconDeleteUrl:"/image/icon_delete.png",
     serviceUrl1:"",
     serviceUrl2:"",
     serviceUrl3:"",
@@ -42,7 +48,7 @@ Page({
   onUnload:function(){
     // 页面关闭
   }, 
-  panel1ChooseImage: function (e) {
+  ChooseImage1: function (e) {
     console.log(e)
     var that = this
     wx.chooseImage({
@@ -53,17 +59,11 @@ Page({
           panel1Sum: res.tempFilePaths.length,
           panel1ImageList: res.tempFilePaths
         })
-        wx.request({
-                url: this.data.serviceUrl1, //仅为示例，并非真实的接口地址
-                data:res.tempFilePaths,
-                success: function(res) {
-                  console.log(res.data)
-                }
-            })
+       
       }
     })
   },
-  panel2ChooseImage: function (e) {
+  ChooseImage2: function (e) {
     var that = this
     wx.chooseImage({
       count: this.data.panel1limitSum,
@@ -73,17 +73,11 @@ Page({
           panel2Sum: res.tempFilePaths.length,
           panel2ImageList: res.tempFilePaths
         })
-        wx.request({
-                url: this.data.serviceUrl2, //仅为示例，并非真实的接口地址
-                data:res.tempFilePaths,
-                success: function(res) {
-                  console.log(res.data)
-                }
-            })
+       
       }
     })
   },
-  panelChooseImage:function(e){
+ ChooseImage:function(e){
      console.log(e)
      var that = this
      console.log(e.currentTarget.dataset.index)
@@ -94,56 +88,44 @@ Page({
       success: function (res) {
         console.log(res)
         if( index == 3){
+            for(let i =0;i<res.tempFilePaths.length;i++ ){
+                  that.data.panel3ImageList.push(res.tempFilePaths[i]);
+            }
             that.setData({
-                 panel3ImageList: res.tempFilePaths,
+                 panel3ImageList: that.data.panel3ImageList,
                  delflag3:false
             })
-            wx.request({
-                url: this.data.serviceUrl3, //仅为示例，并非真实的接口地址
-                data:res.tempFilePaths,
-                success: function(res) {
-                  console.log(res.data)
-                }
-            })
+           
         }
          if( index == 4){
+            for(let i =0;i<res.tempFilePaths.length;i++ ){
+                  that.data.panel4ImageList.push(res.tempFilePaths[i]);
+            }
             that.setData({
-                 panel4ImageList: res.tempFilePaths,
+                 panel4ImageList: that.data.panel4ImageList,
                  delflag4:false
             })
-            wx.request({
-                url: this.data.serviceUrl4, //仅为示例，并非真实的接口地址
-                data:res.tempFilePaths,
-                success: function(res) {
-                  console.log(res.data)
-                }
-            })
+           
         }
          if( index == 5){
+           for(let i =0;i<res.tempFilePaths.length;i++ ){
+                  that.data.panel5ImageList.push(res.tempFilePaths[i]);
+            }
             that.setData({
-                 panel5ImageList: res.tempFilePaths,
+                 panel5ImageList: that.data.panel5ImageList,
                  delflag5:false
             })
-            wx.request({
-                url: this.data.serviceUrl5, //仅为示例，并非真实的接口地址
-                data:res.tempFilePaths,
-                success: function(res) {
-                  console.log(res.data)
-                }
-            })
+           
         }
          if( index == 6){
+           for(let i =0;i<res.tempFilePaths.length;i++ ){
+                  that.data.panel6ImageList.push(res.tempFilePaths[i]);
+            }
             that.setData({
-                 panel6ImageList: res.tempFilePaths,
+                 panel6ImageList: that.data.panel6ImageList,
                  delflag6:false
             })
-            wx.request({
-                url: this.data.serviceUrl6, //仅为示例，并非真实的接口地址
-                data:res.tempFilePaths,
-                success: function(res) {
-                  console.log(res.data)
-                }
-            })
+            
         }
         
       }

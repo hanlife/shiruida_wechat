@@ -26,9 +26,9 @@
     width: 100%; 
 }
 .icon-close{
-    width: 20rpx;
-    height: 20rpx;
-    background-color: darkorchid;
+    width: 30rpx;
+    height: 30rpx;
 }
+.companyName{ width:465rpx; }
 
      

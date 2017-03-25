@@ -50,7 +50,7 @@
   line-height: 88rpx;
   vertical-align: middle;
   font-size: 34rpx;
-  color:#333333;
+  color: #333;
 }
 
 .input-ph {
@@ -68,39 +68,53 @@
 
 .device-operate {
   float: right;
-  width: 174rpx;
-  height: 44rpx;
-  border: 1rpx solid #c7c7cc;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  text-align: center;
-  margin-top: 20rpx;
-  line-height: 44rpx;
-  margin-right: 13rpx;
+  width: 240rpx;
+  height: 60rpx;
+  border: 1rpx solid #c8c8cd;
+  margin-top: 14rpx;
+  line-height: 60rpx;
+  margin-right: 18rpx;
 }
 
 .num-reduce {
-  flex: 1;
+  display: inline-block;
+  text-align: center;
+  width: 60rpx;
+  height: 60rpx;
   color: #666;
   font-weight: bold;
+  font-size: 50rpx;
 }
 
 .device-quantity {
-  border-right: 1rpx solid #c7c7cc;
-  border-left: 1rpx solid #c7c7cc;
-  flex: 2;
+  display: inline-block;
+  text-align: center;
+  width: 115rpx;
+  height: 60rpx;
+  border-right: 1rpx solid #c8c8cd;
+  border-left: 1rpx solid #c8c8cd;
   color: #000;
+  vertical-align: top;
+  font-size: 46rpx;
 }
 
 .num-add {
-  flex: 1;
+  text-align: center;
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
   color: #666;
   font-weight: bold;
+  font-size: 50rpx;
 }
 
 .device-reduce {
   float: right;
+  background: url("../../../icon/icon-delete.png") no-repeat;
+  width: 40rpx;
+  height: 42rpx;
+  margin-top: 22rpx;
+  background-size: 100%;
 }
 
 .add-device {
@@ -128,6 +142,7 @@
 .btn-area {
   margin-top: 60rpx;
 }
-.device-chose.device-chose-ph{
-    color:#999999;
+
+.device-chose.device-chose-ph {
+  color: #999;
 }

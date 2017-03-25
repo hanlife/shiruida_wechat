@@ -2,26 +2,32 @@
 <!--page/ordinarylist/index/index.wxml-->
 <import src="../../../module/item-ordinarylist.wxml" />
 <template is="itme-ordinarylist-head" data="{{...item_head}}" />
-
 <scroll-view style="height:{{con_Height}}px;" scroll-y="true" bindscrolltolower="EventLoad" lower-threshold="0">
-  <view class="ordinarylist-lists" wx:for="{{company_list}}" wx:for-item="item" wx:for-index="index">
+  <view class="ordinarylist-lists" wx:for="{{company_list}}" wx:for-item="item" wx:for-index="index" wx:key="company_list">
     <view class="list-title">
       <text class="list-title-name">{{item.EnterpriseName}}</text>
-      <text class="list-title-distance">距您<text style="font-size:26rpx;">{{item.Distance}}</text>KM</text>
+      <view class="list-title-distance">距您
+        <text style="font-size:24rpx;">{{item.Distance}}</text>KM</view>
     </view>
-    <view class="list-type" wx:for="{{item.TypeList}}" wx:for-item="itemType" wx:for-index="indexType">
-      <view  class="list-devicename">
+    <view class="list-type" wx:for="{{item.TypeList}}" wx:key="TypeList" wx:for-item="itemType" wx:for-index="indexType">
+      <view class="list-devicename">
         <text>{{itemType.ProcessType}}</text>
       </view>
       <view class="list-number">
-        <text class="list-devicetotle">闲<text class="list-devicetotle-num">{{itemType.DeviceQty}}</text>台</text>
         <text class="list-devicetotle">共{{itemType.MainIndesutry}}台</text>
+        <view class="list-devicetotle">
+          <text style="color:#ff9000">闲</text>
+          <text class="list-devicetotle-num">{{itemType.DeviceQty}}</text>
+          <text>台</text>
+        </view>
       </view>
     </view>
   </view>
 </scroll-view>
-   <view class="ordinarylist-load" hidden="{{loadShow}}">正在加载...</view>
-
-   <view class="release-btn">
-    <navigator url="/page/ordinarylist/release/release" open-type="navigate" hover-class="other-navigator-hover">发布闲置产能</navigator>
-   </view>
+<view class="ordinarylist-load" hidden="{{loadShow}}">
+  <image src="src"></image>
+  <text>正在加载...</text>
+</view>
+<view class="release-btn">
+  <navigator url="/page/ordinarylist/release/release" open-type="navigate" hover-class="other-navigator-hover"></navigator>
+</view>

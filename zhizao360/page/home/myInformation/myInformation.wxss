@@ -6,11 +6,12 @@
 }
 text{
     float: left;
-    width: 80rpx;
-    margin-right: 100rpx;
+    width: 180rpx;
 }
 input{
     height: 88rpx;
     line-height: 88rpx;
-    color:#b2b2b2;
+}
+.view-boxLast{
+    height: 88rpx;
 }

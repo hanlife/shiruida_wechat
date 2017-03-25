@@ -26,13 +26,9 @@ var pageObject = {
   },
   bindinput:function(e){
       if(e.detail.value.length > 0){
-              this.setData({
-                clearFlag:false
-              })
+              this.setData({ clearFlag:false })
       }else{
-            this.setData({
-                clearFlag:true
-              })
+            this.setData({ clearFlag:true })
       }     
   },
   clearText:function(){
@@ -113,45 +109,45 @@ var pageObject = {
   }
 }
 
-for (var i = 0; i < provinceItems.length; ++i) {
-  (function(itemName) {
-    pageObject['bind' + itemName] = function(e) {
-      this.setData({
-           provinceHidden: !this.data.provinceHidden,
-           cityHidden:!this.data.countyHidden,
-           province:e.currentTarget.dataset.id
-      })
-      console.log('click' + itemName, e)
-    }
-  })(provinceItems[i])
-}
+// for (var i = 0; i < provinceItems.length; ++i) {
+//   (function(itemName) {
+//     pageObject['bind' + itemName] = function(e) {
+//       this.setData({
+//            provinceHidden: !this.data.provinceHidden,
+//            cityHidden:!this.data.countyHidden,
+//            province:e.currentTarget.dataset.id
+//       })
+//       console.log('click' + itemName, e)
+//     }
+//   })(provinceItems[i])
+// }
 
-for (var i = 0; i < cityItems.length; ++i) {
-  (function(itemName) {
-    pageObject['bind' + itemName] = function(e) {
-      this.setData({
-           cityHidden:!this.data.cityHidden,
-           countyHidden: !this.data.countyHidden,
-           city:e.currentTarget.dataset.id
-      })
-      console.log('click' + itemName, e)
-    }
-  })(cityItems[i])
-}
+// for (var i = 0; i < cityItems.length; ++i) {
+//   (function(itemName) {
+//     pageObject['bind' + itemName] = function(e) {
+//       this.setData({
+//            cityHidden:!this.data.cityHidden,
+//            countyHidden: !this.data.countyHidden,
+//            city:e.currentTarget.dataset.id
+//       })
+//       console.log('click' + itemName, e)
+//     }
+//   })(cityItems[i])
+// }
 
-for (var i = 0; i < countyItems.length; ++i) {
-  (function(itemName) {
-    pageObject['bind' + itemName] = function(e) {
-      this.setData({
-           countyHidden: !this.data.countyHidden,
-           county:e.currentTarget.dataset.id,
-           hasAddress:true
+// for (var i = 0; i < countyItems.length; ++i) {
+//   (function(itemName) {
+//     pageObject['bind' + itemName] = function(e) {
+//       this.setData({
+//            countyHidden: !this.data.countyHidden,
+//            county:e.currentTarget.dataset.id,
+//            hasAddress:true
 
-      })
-      console.log('click' + itemName, e)
-    }
-  })(countyItems[i])
-}
+//       })
+//       console.log('click' + itemName, e)
+//     }
+//   })(countyItems[i])
+// }
 Page(pageObject)
 
 
