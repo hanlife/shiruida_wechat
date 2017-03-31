@@ -1,0 +1,4 @@
+<!--page/home/aboutUs/aboutUs.wxml-->
+<view>
+    <image src="{{content}}"></image>
+</view>

@@ -1,4 +1,6 @@
 // page/home/qrcode/detail/detail.js
+var  utils = require('../../../../utils/util.js');
+
 Page({
   data:{
    companyIntroduceObj:{
@@ -10,7 +12,7 @@ Page({
       f:"打死U盾会啊施工队啊是功大于过打碎的噶是一个多余啊是孤独呀告诉遇到过",
       g:"dsajoidhsu"
     },
-      equipmentListArray:[
+    equipmentListArray:[
            {
              a:"三菱机电机",
              b:"0.005-0.01mm",
@@ -68,6 +70,8 @@ Page({
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
+   
+
   },
   onReady:function(){
     // 页面渲染完成

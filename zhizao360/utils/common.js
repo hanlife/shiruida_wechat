@@ -47,7 +47,7 @@ var app = function () {
                 }
             })
             return SystemInfo;
-        }
+        },
     }
 }();
 module.exports = { app }

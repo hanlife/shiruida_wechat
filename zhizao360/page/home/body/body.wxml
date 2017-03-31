@@ -1,55 +1,69 @@
 <!--page/home/body/body.wxml-->
 <view class="view-body pd-t30 fs34">
     <view class="panel bg-fff mg-b30 border-tb1px" bindtap="toMyInfo">
-      <view class="ai">
+        <view class="ai">
             <image class="headImage fl" src="{{avatarUrl}}"></image>
             <view class="fl mg-l20 fs40">
-                <view>{{nickName}}</view>
+                <view class="nickName ell">{{nickName}}</view>
                 <view>18819478666</view>
             </view>
         </view>
         <view class="ai">
-            <image class="qrcodeImage" catchtap="QRcodeTap" src="/icon/qrcode.png" ></image>
-            <image class="arrow mg-l20" src="/icon/arrow.png"></image>
+            <image class="qrcodeImage" catchtap="QRcodeTap" src="/icon/qrcode.png"></image>
+            <image class="arrow mg-l20" src="{{imageUrl.iconArrow}}"></image>
         </view>
     </view>
     <view class="border-tb1px pd-l30 mg-b30 bg-fff">
-      <navigator class="border-b1px h88 jc-between ai-center" url="/page/home/industiyInfor/industiyInfor" open-type="navigate" >
-          <view>
-              企业认证<text class="text">待审核</text>
-          </view>
-          <view >
-             <image class="arrow fr" src="/icon/arrow.png"></image>
-          </view>
-      </navigator>
-      <picker class="h88"  bindchange="bindPickerChange" value="{{pickerIndex}}" range="{{pickerArray}}">
-        <view class="picker">
-          账号类型<text class="text">{{pickerArray[pickerIndex]}}</text> 
-        </view>
-      </picker>
+        <navigator class="border-b1px h88 jc-between ai-center" url="/page/home/industiyInfor/industiyInfor" open-type="navigate">
+            <view>
+                <text>企业认证</text>
+                <text class="text">{{checkStatusText}}</text>
+            </view>
+            <view>
+                <image class="arrow fr" src="{{imageUrl.iconArrow}}"></image>
+            </view>
+        </navigator>
+        <picker class="h88" bindchange="bindPickerChange" value="{{pickerIndex}}" range="{{pickerArray}}">
+            <view class="picker">
+                <text>企业性质</text>
+                <text class="text">{{pickerArray[pickerIndex]}}</text>
+            </view>
+        </picker>
     </view>
-    <view class="border-tb1px pd-l30 mg-b30 bg-fff">
+    <block wx:if="{{pickerIndex == 1}}">
+        <view class="border-tb1px pd-l30 mg-b30 bg-fff">
             <navigator class="jc-between border-b1px h88 ai-center" url="/page/home/photoMannage/photoMannage" open-type="navigate">
-                  相册管理 <image class="arrow" src="/icon/arrow.png"></image>
+                相册管理
+                <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
             </navigator>
             <view class="jc-between border-b1px h88 ai-center" bindtap="toEquipment">
-                  设备管理<image class="arrow" src="/icon/arrow.png"></image>
+                设备管理
+                <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
             </view>
             <navigator class="jc-between h88 ai-center" url="/page/home/mybussine/mybussine" open-type="navigate">
-                  公司主页 <image class="arrow" src="/icon/arrow.png"></image>
+                公司主页
+                <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
             </navigator>
-    </view>
+        </view>
+    </block>
+
     <view class="border-tb1px pd-l30 bg-fff">
-        <view class="jc-between border-b1px h88 ai-center">
-            联系客服 <image class="arrow" src="/icon/arrow.png"></image>
-      </view>
-      <view class="jc-between h88 ai-center">
-            关于我们 <image class="arrow" src="/icon/arrow.png"></image>
-      </view>
+
+        <navigator class="jc-between h88 ai-center" url="/page/home/aboutUs/aboutUs" open-type="navigate">
+            关于我们
+            <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
+        </navigator>
     </view>
+
     <button class="buttonT mg-t60" bindtap="relieveBind">解绑退出</button>
 
+
+    <view class="jc ai-center btnContactBox">
+        <view class="jc-between ai-center btnContact">
+            <contact-button type="default-light" class="rrr" size="27" session-from="weapp"></contact-button>
+        </view>
+    </view>
+
+
+
 </view>
-
-
-

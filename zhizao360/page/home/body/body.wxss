@@ -24,3 +24,36 @@
     width: 59rpx;
     height: 59rpx;
 }
+.nickName{  width: 450rpx; }
+
+.btnContactBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 30rpx;
+    right: 30rpx;
+    width: 88rpx;
+    height: 88rpx;
+    border-radius: 44rpx;
+    /*background-color: #B4DBF0;*/
+}
+.btnContact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    width: 80rpx;
+    height: 80rpx;
+    background-color: #226CE7;
+    border-radius: 40rpx;
+    box-shadow: 0rpx 0rpx 20rpx 8rpx #B4DBF0;
+}
+.arrow{
+    vertical-align: center;
+}
+.rrr{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -5,7 +5,7 @@
    <view class="content mg-lr30">
       <template is="qrcode" data="{{...qrcodeObj}}"/>   
    </view>
-    <button class="buttonT mg-t60" bindtap="generalize">生成推广图片</button>
+    <!--<button class="buttonT mg-t60" bindtap="generalize">生成推广图片</button>-->
 </view>
 
  

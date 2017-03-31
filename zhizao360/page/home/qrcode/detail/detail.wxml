@@ -11,7 +11,7 @@
       </view> 
       <view class="title-bar">
           <view class="icon-bar"></view>
-          <view class="title-des">公司介绍</view>
+          <view class="title-des bloder">公司介绍</view>
       </view>
       <view class="bg-fff">
           <template is="companyIntroduce" data="{{...companyIntroduceObj}}"></template>
@@ -19,14 +19,14 @@
 
       <view class="title-bar">
           <view class="icon-bar"></view>
-          <view class="title-des">设备清单</view>
+          <view class="title-des bloder">设备清单</view>
       </view>
       <view class="bg-fff">
           <template is="equipmentList" data="{{Array:equipmentListArray}}"></template>
       </view>
       <view class="title-bar">
           <view class="icon-bar"></view>
-          <view class="title-des">公司地址</view>
+          <view class="title-des bloder">公司地址</view>
       </view>
       <view class="bg-fff">
           <view class="mg-lr30 border-tb1px fs34 black">深圳市龙岗区南湾街道南岭健民路开心商业4Fdsaudhuisahduisha</view>
@@ -37,7 +37,7 @@
       </view>
        <view class="title-bar">
           <view class="icon-bar"></view>
-          <view class="title-des">联系方式</view>
+          <view class="title-des bloder">联系方式</view>
       </view>
       <view class="bg-fff">
         <template is="qrcode" data="{{...qrcodeObj}}"  ></template>

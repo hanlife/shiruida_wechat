@@ -58,16 +58,18 @@
     background-color: #fff;
 }
 .contactText{
+      display: inline-block;
       width:180rpx; 
 }
 .companyLocation-item{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     height: 78rpx;
     padding:0 30rpx;
 }
 .icon-heart{
     width: 30rpx;
     height: 30rpx;
+}
+.bannerImage{
+    width: 100%;
+    height: 100%;
 }

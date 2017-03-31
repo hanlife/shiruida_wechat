@@ -6,7 +6,7 @@ var data = {
                 "EnterpriseId": 2590,
                 "EnterpriseName": "深圳市仕瑞达自动化设备深圳市仕瑞达自动化设备有限公司有限公司",
                 "MainIndesutry": "91",
-                "ProcessType": "模具设计加工",
+                "ProcessType": "CNC",
                 "WorkerQty": "213",
                 "DeviceQty": "32",
                 "Area": "广东省深圳市龙岗区",
@@ -14,7 +14,7 @@ var data = {
                 "ProductionCapacity": 213,
                 "ParentIndustryName": null,
                 "IndustryName": null,
-                "TypeList": [{ "ProcessType": "设备名称", "DeviceQty": 2, "MainIndesutry": 3 }, { "ProcessType": "设备名称", "DeviceQty": 2, "MainIndesutry": 3 }, { "ProcessType": "设备名称", "DeviceQty": 2, "MainIndesutry": 3 }]
+                "TypeList": [{ "ProcessType": "设备名称", "DeviceQty": 100, "MainIndesutry": 3 }, { "ProcessType": "设备名称", "DeviceQty": 2, "MainIndesutry": 100 }, { "ProcessType": "设备名称", "DeviceQty": 2, "MainIndesutry": 3 }]
             },
             {
                 "EnterpriseId": 2590,

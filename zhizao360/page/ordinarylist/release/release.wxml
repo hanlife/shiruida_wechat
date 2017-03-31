@@ -7,7 +7,7 @@
   <view class="device-list">
     <view class="device-list-name">
       <text class="device-name">设备名称</text>
-      <picker bindchange="bindPickerChange" value="{{index}}" range="{{deviceArray}}" range-key="name" data-index="{{idx}}" class="device-picker">
+      <picker bindchange="bindPickerChange" value="0" range="{{deviceArray}}" range-key="Name" data-index="{{idx}}" class="device-picker">
         <text class="device-chose device-chose-ph" wx:if="{{itemName.deviceName.length==0}}">请选择设备名称</text>
         <text class="device-chose" wx:else>{{itemName.deviceName}}</text>
         <text class="device-icon">></text>

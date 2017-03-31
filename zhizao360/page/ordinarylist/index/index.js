@@ -2,43 +2,110 @@
 var bmap = require('../../../utils/bmap-wx.min.js');
 var app = require('../../../utils/common.js');//
 var util = require('../../../utils/util.js');//公共JS
-var ordinaryData = require('../../../utils/ordinaryData.js');//模拟数据
-var search = require('../../../module/headSearch.js');//头部搜索共用JS
-var search = search.search;
-var Data = ordinaryData.data.Data.Items;//列表数据
-var IndustryList = ordinaryData.data.IndustryList;//主营行业
-var ProducessType = ordinaryData.data.ProducessType;//加工类型
-var DeviceType = ordinaryData.data.DeviceType;//设备类型
-var PQty = ordinaryData.data.PQty; //员工人数
+var headSearch = require('../../../module/headSearch.js');//头部搜索共用JS
+var search = headSearch.search;
 var formatLocation = util.formatLocation;
 var appInstance = getApp(); //获取全局对象
 
-search.data.typeList = DeviceType;
-search.data.MoreArray = PQty;
-search.data.MoreTypeArray = ProducessType;
-search.data.MainIndustryArray = IndustryList;
-search.data.MainIndustryArray_T = IndustryList[0].SubIndustries;
-var header = search.data;
+var header = {
+  Data: {
+    District: [],
+    Nearby: [],
+    DeviceName: [],
+    Address: {},
+    MoreName: {
+      Industry: {
+        Name: '',
+        Id: ''
+      },
+      StaffNum: {
+        Name: '',
+        Id: ''
+      },
+      MoreType: {
+        Name: '',
+        Id: ''
+      }
+    },
+    Totle: 0
+  },
+  AddressColor: false,
+  DeviceColor: false,
+  MoreColor: false,
+  //顶部搜索框
+  isShow: true, //搜索框
+  inputValue: '',
+  left: "225rpx", //搜索图标左边距
+  width: "100%",  //搜索框宽度
+  textLeft: "center", //搜索框字体对齐
+  paddingLeft: "0", //搜索框左边距
+  inputFocus: "none", //取消按钮
+  SearchList: [],//搜索关联内容
+  Searching: true,
+  AddressName: "区域",
+  //区域筛选
+  searchId: "0",  //筛选类型
+  areaHeight: "700rpx", //筛选区高度
+  showIndex: "999", //区域右侧scoll
+  array: [],//区域右侧列表数据
+  Address: '',//距离
+  latitude: '',
+  longitude: '',
+  area_select: "0", //区域 0 附近 1
+  //设备类型
+  deviceTypeHeight: "500rpx",
+  typeList: [],   //设备类型
+  choseArr: [],
+  choseTemp: 0,
+  DeviceName: "设备类型",
+  //更多
+  MoreName: "更多",
+  MoreArray: [],//员工人数
+  MoreTypeArray: [],//加工类型
+  more_select: "0", //主营行业 0 员工人数 1 加工类型 2
+  MainIndustryArray: [],  //一级行业
+  MainIndustryArray_T: [],//二级行业
+  MoreTypeId: "-1",
+  MoreId: "-1",
+  ParentId: '0', //一级行业选中id
+  ChildId: "",//二级行业选中id
+  pageId: 1  //页面ID
+};
+//搜索条件
+var request = {
+  KeyWord: "",
+  Provinid: "",
+  Cityid: "",
+  Countyid: "",
+  DeviceType: [],
+  Distanc: "",
+  Industry: [],
+  PQty: "",
+  ProcessTypeId: [],
+  Longitude: 0,
+  Latitude: 0,
+  MaxResultCount: "10",
+  CurrentPageNumber: "1",
+};
 
 Page({
   data: {
     con_Height: 0,
     loadShow: true,
     item_head: header,
-    company_list: Data,
-    keyWord: ""
+    company_list: [],
+    keyWord: "",
+    dataList: false,
+    loading: '正在加载...',
+    isImLogin: false,
   },
-  // 区域选择
+  //进入该公司详情页
+  ToSupplier: function (e) {
+    search.ToSupplier(e);
+  },
+  // 区域+设备类型+更多
   choseArea: function (e) {
     header = search.choseArea(e, header);
-    console.log(header)
-    this.setData({
-      item_head: header
-    })
-  },
-  //设备类型
-  choseType: function (e) {
-    header = search.choseType(e, header)
     this.setData({
       item_head: header
     })
@@ -47,26 +114,30 @@ Page({
   EventOrdinary: function () {
     if (header.choseTemp == "0") {
       header.DeviceName = "设备类型";
+      header.DeviceColor = false;
+      request.DeviceType = [];
     } else if (header.choseTemp == "1") {
       header.DeviceName = header.Data.DeviceName[0].value;
+      header.DeviceColor = true;
+      request.DeviceType.push(header.Data.DeviceName[0].Id)
     } else {
       header.DeviceName = "多选";
+      header.DeviceColor = true;
+      for (var i = 0; i < header.Data.DeviceName.length; i++) {
+        request.DeviceType.push(header.Data.DeviceName[i].Id)
+      }
     }
     header.searchId = 0;
     this.setData({
       item_head: header
     })
-  },
-  //更多
-  choseMore: function (e) {
-    header = search.choseMore(e, header)
-    this.setData({
-      item_head: header
-    })
+    GetCapacityList(this);
   },
   //选择地区
   choseposition: function () {
     header = search.choseposition(header);
+
+
     this.setData({
       item_head: header,
     })
@@ -87,8 +158,7 @@ Page({
   },
   //区域右侧
   choseCondition: function (e) {
-    var index = e.target.dataset.index;
-    header.showIndex = index;
+    header = search.choseCondition(e, header);
     this.setData({
       item_head: header
     })
@@ -102,14 +172,14 @@ Page({
   },
   //更多左侧nav
   MoreSelect: function (e) {
-    header = search.MoreSelect(e, header, PQty, ProducessType);
+    header = search.MoreSelect(e, header);
     this.setData({
       item_head: header
     })
   },
   //主营行业选择
   choseIndustry: function (e) {
-    header = search.choseIndustry(e, header, IndustryList);
+    header = search.choseIndustry(e, header);
     this.setData({
       item_head: header
     })
@@ -149,6 +219,18 @@ Page({
     this.setData({
       item_head: header
     })
+    request.PQty = header.Data.MoreName.StaffNum.Id;
+    if (header.Data.MoreName.MoreType.Id != "") {
+      request.ProcessTypeId = header.Data.MoreName.MoreType.Id;
+    } else {
+      request.ProcessTypeId = [];
+    }
+    if (header.Data.MoreName.Industry.Id != "") {
+      request.Industry = [header.Data.MoreName.Industry.Id];
+    } else {
+      request.Industry = [];
+    }
+    GetCapacityList(this);
   },
   //上拉加载
   EventLoad: function () {
@@ -157,22 +239,44 @@ Page({
       loadShow: false,
     })
     wx.showNavigationBarLoading();
-    setTimeout(function () {
-      var List = that.data.company_list.concat(Data);
-      that.setData({
-        loadShow: true,
-        company_list: List,
-      })
-      wx.hideNavigationBarLoading();
-    }, 1000)
+    request.CurrentPageNumber++;
+    getQuery(this);
   },
   //下拉刷新
   onPullDownRefresh: function () {
     wx.showNavigationBarLoading();
-    setTimeout(function () {
-      wx.stopPullDownRefresh()
-      wx.hideNavigationBarLoading();
-    }, 1000)
+    request = {
+      KeyWord: "",
+      Provinid: "",
+      Cityid: "",
+      Countyid: "",
+      DeviceType: [],
+      Distanc: "",
+      Industry: [],
+      PQty: "",
+      ProcessTypeId: [],
+      Longitude: 0,
+      Latitude: 0,
+      MaxResultCount: "10",
+      CurrentPageNumber: "1",
+    };
+    appInstance.reqPost("Device/GetCapacityList", function (res) {
+      if (res.Succeed) {
+        if (res.Data.Items.length > 0) {
+          var List = res.Data.Items;
+          wx.stopPullDownRefresh()
+          wx.hideNavigationBarLoading();
+          that.setData({
+            loadShow: true,
+            company_list: List,
+          })
+        } else {
+          that.setData({
+            dataList: true,
+          })
+        }
+      }
+    }, { request: request })
   },
   //隐藏区域选择
   areaHide: function () {
@@ -190,7 +294,6 @@ Page({
   },
   //搜索结果
   SearchResult: function (e) {
-    header.inputValue = e.detail.value;
     console.log(e.detail.value)
 
   },
@@ -201,6 +304,16 @@ Page({
       item_head: header
     })
   },
+  //输入确定
+  EventBlur: function (e) {
+    request.KeyWord = e.detail.value;
+    header = search.EventConsole(header);
+    this.setData({
+      item_head: header
+    })
+    GetCapacityList(this);
+    request.KeyWord = '';
+  },
   //自定义分享标题
   onShareAppMessage: function () {
     return {
@@ -210,37 +323,43 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
+
+    header = search.sevice(header);//获取头部搜索条件内容
     header = search.bmap_fn(bmap, header);
-  },
-  onReady: function () {
-    // 页面渲染完成
-    for (var i = 0; i < header.typeList.length + 1; i++) {
-      header.choseArr[i] = "false"
-    }
-  },
-  onShow: function () {
     // 页面显示
+    var Islogin = wx.getStorageSync('isImLogin');
     var H = app.app.getSystemInfo().windowHeight;
     var W = app.app.getSystemInfo().windowWidth;
     var con_H = parseInt(H - (W / 750 * 160));
     header = search.setHeight(header);
+
     this.setData({
       con_Height: con_H,
-      item_head: header
+      item_head: header,
+      isImLogin: Islogin
     })
-    wx.request({
-      url: "https://localhost:8060/test.txt",
-      data: '',
-      method: 'get',
-      header: { 'content-type': 'application/json' },
-      success: function (res) {
-        console.log(res)
-        return typeof cb == "function" && cb(res.data)
+    wx.showLoading({
+      title: '数据加载中',
+    })
+  },
+  onShow: function () {
+    // 获取闲置产能
+    GetCapacityList(this);
+
+  },
+  onReady: function () {
+    // 页面渲染完成
+    util.UserRequest({
+      url: 'AddLog',
+      method: 'post',
+      data: {
+        input: appInstance.globalData.addLog
       },
-      fail: function () {
-        return typeof cb == "function" && cb(false)
+      callback: function (res) {
+
       }
     })
+
 
   },
   onHide: function () {
@@ -250,3 +369,59 @@ Page({
     // 页面关闭
   }
 })
+
+// 获取闲置产能
+function GetCapacityList(t) {
+  request.CurrentPageNumber = 1;
+  appInstance.reqPost("Device/GetCapacityList", function (res) {
+    if (res.Succeed) {
+      if (res.Data.Items.length > 0) {
+        header.Data.Totle = res.Data.TotalCount;
+        t.setData({
+          dataList: false,
+          company_list: res.Data.Items,
+        })
+        console.log(t.data.company_list)
+      } else {
+        t.setData({
+          dataList: true,
+        })
+      }
+      wx.hideLoading();
+    }
+  }, { request: request })
+}
+// 搜索请求
+function getQuery(that) {
+  if (request.CurrentPageNumber * 10 > header.Data.Totle) {
+    that.setData({
+      loading: "已加载全部",
+    })
+    setTimeout(function () {
+      that.setData({
+        loadShow: true,
+        loading: "加载中...",
+      })
+      wx.hideNavigationBarLoading();
+    }, 2000)
+  } else {
+    appInstance.reqPost("Device/GetCapacityList", function (res) {
+      if (res.Succeed) {
+        if (res.Data.Items.length > 0) {
+          header.Data.Totle = res.Data.TotalCount;
+          var List = that.data.company_list.concat(res.Data.Items);
+          wx.hideNavigationBarLoading();
+          that.setData({
+            loadShow: true,
+            company_list: List,
+          })
+        } else {
+          that.setData({
+            dataList: true,
+          })
+        }
+      }
+    }, { request: request })
+  }
+
+}

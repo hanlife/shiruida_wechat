@@ -1,153 +1,174 @@
 // page/home/industiyInfor/industiyInfor.js
-var provinceItems = ['province1', 'province2', 'province3', 'province4','province5', 'province6'];
-var cityItems     = ['city1','city2','city3','city4','city5','city6'];
-var countyItems   = ['county1','county2','county3','county4','county5','county6'];
-var status = ["待提交","待审核","审核通过","审核不通过"];
+var utils = require('../../../utils/util.js');
+var app = getApp();
+const data  =   wx.getStorageSync("industiyInforData");
 var pageObject = {
   data: {
-    companyName:"",
-    clearFlag:true,
-    provinceHidden: true,
-    cityHidden: true,
-    countyHidden: true,
-    provinceItems: provinceItems,
-    cityItems:cityItems,
-    countyItems:countyItems,
-    hasAddress:true,
-    address:"",
-    addressDetail:"",
-    province:"",
-    city:"",
-    county:"",
-    photoArray:[],
-    latitude: '', 
-    longitude: '', 
-    buttonText:"提交审核"
+    companyName: data.companyName,       //公司名称
+    address: data.address,           //地区
+    addressDetail: data.addressDetail,     //详细地址   
+    photoArray: data.photoArray,        //营业执照
+    province: data.province ,
+    city: data.city,
+    county: data.county,
+    longitude: data.longitude,
+    latitude: data.latitude,
+    status: data.status,
+    buttonText: data.buttonText || "提交审核",   //按钮文字
+    btnFlag: data.btnFlag || false,  
+
+    clearFlag: true,
+    hasAddress: true
   },
-  bindinput:function(e){
-      if(e.detail.value.length > 0){
-              this.setData({ clearFlag:false })
-      }else{
-            this.setData({ clearFlag:true })
-      }     
-  },
-  clearText:function(){
-      this.setData({
-        companyName:""
+  bindinput: function (e) {
+    if (e.detail.value.length > 0) {
+      this.setData({ 
+        clearFlag: false,
+        companyName:e.detail.value
+       })
+    } else {
+      this.setData({ 
+        clearFlag: true,
+        companyName:e.detail.value
       })
+    }
   },
-  chooseLocation:function(){
-     wx.chooseLocation({
-      success: (res)=> {
-        var provinceArray = res.address.split("省",2);
+  clearText: function () {
+    this.setData({
+      companyName: ""
+    })
+  },
+  chooseLocation: function () {
+
+    wx.chooseLocation({
+      success: (res) => {
+        console.log(res)
+        var provinceArray = res.address.split("省", 2);
         console.log(provinceArray)
-        var cityArray = provinceArray[1].split("市",2);
+        var cityArray = provinceArray[1].split("市", 2);
         console.log(cityArray)
-        if(cityArray[1].indexOf("县") != -1){
-            var county = cityArray[1].substring(0,cityArray[1].indexOf("县")+1);
-            var detail = cityArray[1].split("县",2)[1];
+        if (cityArray[1].indexOf("县") != -1) {
+          var county = cityArray[1].substring(0, cityArray[1].indexOf("县") + 1);
+          var detail = cityArray[1].split("县", 2)[1];
         }
-        if(cityArray[1].indexOf("区") != -1){
-            var county = cityArray[1].substring(0,cityArray[1].indexOf("区")+1);
-            var detail = cityArray[1].split("区",2)[1];
+        if (cityArray[1].indexOf("区") != -1) {
+          var county = cityArray[1].substring(0, cityArray[1].indexOf("区") + 1);
+          var detail = cityArray[1].split("区", 2)[1];
         }
         var province = provinceArray[0];
         var city = cityArray[0];
 
         console.log(res)
         this.setData({
-            address: province +"省 " + city + "市 " + county ,
-            addressDetail: detail +" "+ res.name,
-            province:province +"省",
-            city: city + "市",
-            county: county 
+          address: province + "省 " + city + "市 " + county,
+          addressDetail: detail + " " + res.name,
+          province: province + "省",
+          city: city + "市",
+          county: county,
+          longitude:res.longitude,
+          latitude:res.latitude
         })
       }
     })
   },
-  actionSheetChange: function(e) {
-    this.setData({
-      provinceHidden: !this.data.provinceHidden
-    })
-  },
-  chooseImage:function(){
+  
+  ChooseImage: function () {
     var that = this;
-       wx.chooseImage({
-         count: 1, // 最多可以选择的图片张数，默认9
-         success: function(res){
-           // success
-           that.setData({
-             photoArray:res.tempFilePaths
-           })
-           wx.uploadFile({
-                url: 'http://example.weixin.qq.com/upload', //仅为示例，非真实的接口地址
-                filePath: res.tempFilePaths[0],
-                name: 'file',
-                formData:{
-                  'user': 'test'
-                },
-                success: function(res){
-                  var data = res.data
-                  //do something
-                }
-            })
-         },
-         fail: function() {
-           // fail
-         },
-         complete: function() {
-           // complete
-         }
-       })
+    wx.chooseImage({
+      count: 3, // 最多可以选择的图片张数，默认9
+      success: function (res) {
+        // success
+        wx.showLoading({
+          title: '上传中...',
+          mask: true,
+        })
+        wx.uploadFile({
+          url:  app.globalData.rootUrl + '/WXApi/Enterprise/Upload',
+          filePath: res.tempFilePaths[0],
+          name: 'image',
+          success: function (res) {
+            console.log("++++++++++++++++++")
+            //do something
+            wx.hideLoading();
+          }
+        })
+        
+      }
+
+    })
 
   },
-  previewImage:function(e){
+  previewImage: function (e) {
     wx.previewImage({
-            current: e.currentTarget.dataset.src,
-            urls: this.data.photoArray
-         })
+      current: e.currentTarget.dataset.src,
+      urls: this.data.photoArray
+    })
+  },
+  //提交审核
+  submitCheck: function () {
+    var that = this;
+    var massage = '';
+
+    if (!that.data.companyName) {
+      massage += '公司名称名称不能为空；'
+    }
+    if (!(that.data.province && that.data.city && that.data.county) ) {
+      massage += '选择地区不能为空；'
+    }
+    if (!that.data.addressDetail) {
+      massage += '详细地址不能为空；'
+    }
+    if (!that.data.photoArray[0]) {
+      massage += '营业执照不能为空；'
+    }
+    if (massage) {
+      wx.showModal({
+        title: '提示',
+        content: massage,
+        showCancel:'false',
+        confirmText: '知道了',
+        success: function (res) {
+
+        }
+      })
+      return;
+    }
+
+    var obj = {
+      Name: that.data.companyName,            //公司名称
+      Province: that.data.province,           //省
+      City: that.data.city,                   //市
+      County: that.data.county,               //县
+      Address: that.data.addressDetail,       //详细地址
+      Longitude: that.data.longitude,         //经度   
+      Latitude: that.data.latitude,           //维度 
+      LicenseImage: that.data.photoArray[0],  //营业执照图片路径
+      Status: that.data.status                //状态
+    }
+
+    utils.EnterpriseRequest({
+      url: 'SubmitCertification',
+      method: 'POST',
+      data: obj,
+      callback: function (res) {
+        wx.showToast({
+          title:"提交成功",
+          icon:"success",
+          duration:1000
+        })
+      }
+    })
+
+  },
+  onLoad: function () {
+    console.log(app)
+    console.log()
+    
+
   }
 }
 
-// for (var i = 0; i < provinceItems.length; ++i) {
-//   (function(itemName) {
-//     pageObject['bind' + itemName] = function(e) {
-//       this.setData({
-//            provinceHidden: !this.data.provinceHidden,
-//            cityHidden:!this.data.countyHidden,
-//            province:e.currentTarget.dataset.id
-//       })
-//       console.log('click' + itemName, e)
-//     }
-//   })(provinceItems[i])
-// }
 
-// for (var i = 0; i < cityItems.length; ++i) {
-//   (function(itemName) {
-//     pageObject['bind' + itemName] = function(e) {
-//       this.setData({
-//            cityHidden:!this.data.cityHidden,
-//            countyHidden: !this.data.countyHidden,
-//            city:e.currentTarget.dataset.id
-//       })
-//       console.log('click' + itemName, e)
-//     }
-//   })(cityItems[i])
-// }
-
-// for (var i = 0; i < countyItems.length; ++i) {
-//   (function(itemName) {
-//     pageObject['bind' + itemName] = function(e) {
-//       this.setData({
-//            countyHidden: !this.data.countyHidden,
-//            county:e.currentTarget.dataset.id,
-//            hasAddress:true
-
-//       })
-//       console.log('click' + itemName, e)
-//     }
-//   })(countyItems[i])
-// }
 Page(pageObject)
 
 

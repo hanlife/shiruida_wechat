@@ -18,6 +18,7 @@
 }
 .buttonT{
     height: 86rpx;
+    line-height: 86rpx;
     margin: 0 30rpx;
     border: 1px solid #26499d;
     background-color: #fff;
@@ -83,8 +84,10 @@
 .semi { color:#353535; }
 .black { color:#000; }
 .fff{ color: #fff; }
+.eee{ color:#eee; }
 .c999{ color:#999; }
 .c333{ color:#333; }
+
 
 .bg-fff{ background-color: #fff; }
 .bg-yellow{ 
@@ -123,6 +126,7 @@
 
 /* font size*/
 .fs20{ font-size: 20rpx; }
+.fs26{ font-size: 26rpx; }
 .fs28{ font-size: 28rpx; }
 .fs34{ font-size: 34rpx; }
 .fs36{ font-size: 36rpx; }
@@ -160,6 +164,14 @@
     text-align: center;
     color: #576b95;
 }
+.ell{
+  white-space:nowrap;
+ text-overflow:ellipsis;
+ overflow:hidden;
+}
+
+
+
 /*公司介绍模板*/
 .companyIntroduce-item{
     line-height: 1;
@@ -200,7 +212,6 @@
     background-color: #fff;
     padding:40rpx;
 }
-.qrcode-item{   }
 .logo-image{
     width:330rpx;
     height: 221rpx;
@@ -219,4 +230,13 @@
 .icon_addBlue{
     width:31rpx;
     height: 31rpx;
+}
+.icon-minus{
+    width:34rpx;
+    height: 34rpx;
+    margin-right: 30rpx;
+}
+.icon-phone{
+    width: 58rpx;
+    height: 58rpx;
 }
