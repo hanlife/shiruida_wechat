@@ -1,21 +1,37 @@
 var code = null;
 
 App({
+  globalData: {
+    userInfo: null,
+    //用户信息
+    code: code,
+    addLog: {},
+    rootUrl: 'https://www.im360b2b.com',
+    RegisterLocation: '',
+    EnterpriseId: '',
+    myInformationData: '',
+    Id: '',
+    guideline: false,
+    shareTitle: {},
+    IsMainMember: '',
+    EnterpriseNatures:''
+  },
   onLaunch: function () {
     var _t = this;
+    //操作指引
+    if (wx.getStorageSync('rd_session') == "") {
+      _t.globalData.guideline = true;
+    }
     // wx.checkSession({
     //   success: function () {
     //     //session 未过期，并且在本生命周期一直有效
     //   },
     //   fail: function () {
     //     //登录态过期
-       
-    //     // wx.login() //重新登录
+
     //   }
     // })
-     this.getUserInfo();
-    //调用API从本地缓存中获取数据
-
+    _t.getUserInfo(); //重新登录
     //获取系统信息
     wx.getSystemInfo({
       success: function (res) {
@@ -69,15 +85,15 @@ App({
       success: function (res) {
         _t.globalData.addLog.Latitude = res.latitude
         _t.globalData.addLog.Longitude = res.longitude
-
       }
     })
-
+    //请求分享数据
+    _t.reqGet("BaseData/GetNatures", function (res) {
+          _t.globalData.EnterpriseNatures = res;
+    })
   },
   //当小程序启动，或从后台进入前台显示
   onShow: function () {
-
-
   },
   getUserInfo: function (cb) {
     var that = this;
@@ -90,7 +106,7 @@ App({
           code = loginres.code;
           setStorage("code", loginres.code);
           wx.request({
-            url: 'http://www.im360b2b.com/wxapi/user/login',
+            url: that.globalData.rootUrl + '/wxapi/user/login',
             header: {
               'X-WX-Code': loginres.code,
               'X-WX-Encrypted-Data': that.globalData.addLog.EncryptedData,
@@ -98,16 +114,13 @@ App({
             },
             success: function (res) {
               if (res.data.Succeed) {
-
-                setStorage("rd_session", res.data.Data.rd_session);
-
                 var cookie = res.data.Data.ASPXAUTH.Name + "=" + res.data.Data.ASPXAUTH.Value + ";" + res.data.Data.NET_SessionId.Name + "=" + res.data.Data.NET_SessionId.Value;
                 setStorage("cookie", cookie);
-
+                setStorage("rd_session", res.data.Data.rd_session);
                 setStorage("IsWxBind", res.data.Data.IsWxBind); //手机号是否绑定
                 setStorage("IsWxLogin", res.data.Data.IsWxLogin); //code换session_key是否成功
                 setStorage("isImLogin", res.data.Data.isImLogin); //平台是否登录成功
-
+                cb && cb(res.data);
               }
             },
             fail: function () { }
@@ -116,49 +129,38 @@ App({
       })
 
       function setStorage(key, val) {
-        wx.setStorage({
-          key: key,
-          data: val
-        });
+        wx.setStorageSync(key, val);
       }
     }
   },
-  globalData: {
-    userInfo: null,
-    //用户信息
-    code: code,
-    addLog: {},
-    rootUrl: 'http://www.im360b2b.com',
-    RegisterLocation: ''
-  },
   //Get数据请求
   reqGet: function (url, cb, data, header) {
-    var rootDocment = 'http://www.im360b2b.com/wxapi/';//你的域名
+    var rootDocment = this.globalData.rootUrl + '/wxapi/';//你的域名
     wx.request({
       url: rootDocment + url,
       data: data || {},
       method: "get",
-      header: header || { 'X-WX-Code': code },
+      header: header || { 'content-type': 'application/json', 'X-WX-Code': code },
       success: function (res) {
         return typeof cb == "function" && cb(res.data)
       },
-      fail: function () {
+      fail: function (res) {
         return typeof cb == "function" && cb(false)
       }
     })
   },
   //Post数据请求
   reqPost: function (url, cb, data, header) {
-    var rootDocment = 'http://www.im360b2b.com/wxapi/';//你的域名
+    var rootDocment = this.globalData.rootUrl + '/wxapi/';//你的域名
     wx.request({
       url: rootDocment + url,
       data: data || {},
       method: "post",
-      header: header || { 'X-WX-Code': code },
+      header: header || { 'content-type': 'application/json', 'X-WX-Code': code },
       success: function (res) {
         return typeof cb == "function" && cb(res.data)
       },
-      fail: function () {
+      fail: function (res) {
         return typeof cb == "function" && cb(false)
       }
     })

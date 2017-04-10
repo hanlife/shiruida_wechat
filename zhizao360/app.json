@@ -1,22 +1,20 @@
 {
   "pages": [
-    "page/ordinarylist/index/index",
+    "page/ordinarylist/index",
     "page/home/body/body",
     "page/home/myInformation/myInformation",
     "page/home/equipment/detail/detail",
-    "page/member/login",
     "page/ordinarylist/release/release",
+    "page/member/login",
     "page/supplier/supplier",
-    
     "page/home/equipment/equipment",
-    "page/home/equipment/add/addEquipment",
-    "page/home/equipment/amend/amendEquipment",
     "page/home/homepageSupplier/homepageSupplier",
     "page/home/industiyInfor/industiyInfor",
     "page/home/qrcode/qrcode",
     "page/home/qrcode/detail/detail",
-    
-    "page/home/aboutUs/aboutUs"
+    "page/home/photoMannage/photoMannage",
+    "page/home/aboutUs/aboutUs",
+    "page/home/mybussine/mybussine"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -27,20 +25,26 @@
   "tabBar": {
     "list": [
       {
-        "pagePath": "page/ordinarylist/index/index",
-        "text": "闲置产能"
+        "pagePath": "page/ordinarylist/index",
+        "text": "闲置产能",
+        "iconPath": "icon/icon-ordinary.png",
+        "selectedIconPath": "icon/icon-ordinary-a.png"
       },
       {
         "pagePath": "page/supplier/supplier",
-        "text": "供方企业"
+        "text": "供方企业",
+        "iconPath": "icon/icon-supplier.png",
+        "selectedIconPath": "icon/icon-supplier-a.png"
       },
       {
         "pagePath": "page/home/body/body",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "icon/icon-home.png",
+        "selectedIconPath": "icon/icon-home-a.png"
       }
     ],
     "color": "#666666",
-    "selectedColor": "#387be8",
+    "selectedColor": "#1986ff",
     "backgroundColor": "white",
     "borderStyle": "black"
   },

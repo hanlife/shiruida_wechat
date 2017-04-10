@@ -5,7 +5,7 @@
             <image class="headImage fl" src="{{avatarUrl}}"></image>
             <view class="fl mg-l20 fs40">
                 <view class="nickName ell">{{nickName}}</view>
-                <view>18819478666</view>
+                <view>{{iphone}}</view>
             </view>
         </view>
         <view class="ai">
@@ -14,33 +14,82 @@
         </view>
     </view>
     <view class="border-tb1px pd-l30 mg-b30 bg-fff">
-        <navigator class="border-b1px h88 jc-between ai-center" url="/page/home/industiyInfor/industiyInfor" open-type="navigate">
-            <view>
-                <text>企业认证</text>
-                <text class="text">{{checkStatusText}}</text>
+        <blcok wx:if="{{IsMainMember}}">
+            <navigator class="border-b1px h88 jc-between ai-center" url="/page/home/industiyInfor/industiyInfor" open-type="navigate">
+                <view>
+                    <text>企业认证</text>
+                    <text class="text">{{checkStatusText}}</text>
+                </view>
+                <view>
+                    <image class="arrow fr" src="{{imageUrl.iconArrow}}"></image>
+                </view>
+            </navigator>
+            <picker class="h88" bindchange="bindPickerChange" value="{{pickerIndex}}" range="{{pickerArray}}" range-key="Name" disabled="{{natureFlag}}">
+                <view class="h88 jc-between ai-center">
+                    <view>
+                        <text>企业性质</text>
+                        <text class="text">{{pickerArray[pickerIndex].Name}}</text>
+                    </view>
+
+                    <view>
+                        <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
+                    </view>
+                </view>
+
+            </picker>
+        </blcok>
+        <block wx:else>
+            <view class="border-b1px h88 jc-between ai-center" catchtap="ischild">
+                <view>
+                    <text>企业认证</text>
+                    <text class="text">{{checkStatusText}}</text>
+                </view>
+                <view>
+                    <image class="arrow fr" src="{{imageUrl.iconArrow}}"></image>
+                </view>
             </view>
-            <view>
-                <image class="arrow fr" src="{{imageUrl.iconArrow}}"></image>
+            <view class="h88" catchtap="ischild" >
+                <view class="h88 jc-between ai-center">
+                    <view>
+                        <text>企业性质</text>
+                        <text class="text">{{pickerArray[pickerIndex].Name}}</text>
+                    </view>
+
+                    <view>
+                        <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
+                    </view>
+                </view>
+
             </view>
-        </navigator>
-        <picker class="h88" bindchange="bindPickerChange" value="{{pickerIndex}}" range="{{pickerArray}}">
-            <view class="picker">
-                <text>企业性质</text>
-                <text class="text">{{pickerArray[pickerIndex]}}</text>
-            </view>
-        </picker>
+        </block>
+
+
+
     </view>
     <block wx:if="{{pickerIndex == 1}}">
         <view class="border-tb1px pd-l30 mg-b30 bg-fff">
-            <navigator class="jc-between border-b1px h88 ai-center" url="/page/home/photoMannage/photoMannage" open-type="navigate">
-                相册管理
-                <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
-            </navigator>
-            <view class="jc-between border-b1px h88 ai-center" bindtap="toEquipment">
-                设备管理
-                <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
-            </view>
-            <navigator class="jc-between h88 ai-center" url="/page/home/mybussine/mybussine" open-type="navigate">
+            <block wx:if="{{IsMainMember}}">
+                <navigator class="jc-between border-b1px h88 ai-center" url="/page/home/photoMannage/photoMannage" open-type="navigate">
+                    相册管理
+                    <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
+                </navigator>
+                <view class="jc-between border-b1px h88 ai-center" bindtap="toEquipment">
+                    设备管理
+                    <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
+                </view>
+            </block>
+            <blcok wx:else>
+                <view class="jc-between border-b1px h88 ai-center" catchtap="ischild">
+                    相册管理
+                    <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
+                </view>
+                <view class="jc-between border-b1px h88 ai-center" catchtap="ischild">
+                    设备管理
+                    <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
+                </view>
+            </blcok>
+
+            <navigator class="jc-between h88 ai-center" url="/page/home/mybussine/mybussine?enterpriseId={{EnterpriseId}}" open-type="navigate">
                 公司主页
                 <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
             </navigator>

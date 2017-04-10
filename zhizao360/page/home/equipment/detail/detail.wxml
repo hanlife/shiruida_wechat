@@ -8,7 +8,8 @@
                     <view class="jc ai-center">
                       <view>
                         <text class="w200 fl" >设备类型</text>
-                        <input  type="text" class="h88 fl" placeholder="请选择设备类型" value="{{TypeName}}" />
+                        <input  type="text" class="h88 fl" placeholder="请选择设备类型" value="{{TypeName}}" hidden />
+                        <text class="h88 fl c999">{{TypeName ? TypeName : "请选择设备类型"  }}</text>
                       </view>
                         <image class="arrow fr" src="{{imageUrl.iconArrow}}"></image>
                     </view>
@@ -33,7 +34,8 @@
                     <view class="jc ai-center">
                         <view>
                            <text class="w200 fl" >设备精度</text> 
-                           <input type="text" name="preciseLevel" class="h88 fl" placeholder="请选择设备精密度" value="{{DensityName}}" />
+                           <input type="text" name="preciseLevel" class="h88 fl" placeholder="请选择设备精密度" value="{{DensityName}}"  hidden/>
+                           <text class="h88 fl c999" >{{DensityName ?  DensityName : '请选择设备精密度'}}</text>
                         </view>
                         <image class="arrow fr" src="{{imageUrl.iconArrow}} "></image>
                     </view>

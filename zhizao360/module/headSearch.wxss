@@ -1,5 +1,38 @@
 /*module*/
 
+.guideImg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 750rpx;
+  height: 100%;
+  z-index: 999;
+}
+
+.guideImg image {
+  width: 750rpx;
+  height: 100%;
+}
+
+.guideIcon {
+  width: 56rpx;
+  height: 56rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+  z-index: 9999;
+}
+
+.noneData {
+  position: fixed;
+  top: 200rpx;
+  bottom: 200rpx;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 9;
+}
+
 .ordinarylist-head {
   width: 100%;
   z-index: 999;
@@ -8,7 +41,6 @@
 
 .search-input {
   margin: 16rpx;
-  background-color: #fff;
   position: relative;
   height: 56rpx;
 }
@@ -20,6 +52,7 @@
   line-height: 56rpx;
   text-align: center;
   font-size: 30rpx;
+  background-color: #fff;
   border: 1rpx solid #eaeaef;
 }
 
@@ -38,10 +71,9 @@
   width: 25rpx;
   height: 25rpx;
   position: absolute;
-  background: url("../../../../icon/icon-search.png") no-repeat;
-  background-size: 100%;
   left: 225rpx;
   top: 19rpx;
+  z-index: 99;
 }
 
 .search-list {
@@ -124,10 +156,7 @@
 .icon-posation {
   width: 23rpx;
   height: 23rpx;
-  background: url("../../../../icon/icon-posation.png") no-repeat;
-  background-size: 100%;
   margin-right: 10rpx;
-  margin-bottom: 5rpx;
 }
 
 .area-body {
@@ -179,8 +208,6 @@
   display: inline-block;
   width: 16rpx;
   height: 9rpx;
-  background: url("../../../../icon/icon-arrow.png") no-repeat;
-  background-size: 100%;
   margin-bottom: 8rpx;
   margin-left: 8rpx;
 }
@@ -258,6 +285,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 750rpx;
 }
 
 .more-btn button {
@@ -292,6 +323,12 @@ button.more-result {
   border: 0;
   text-align: left;
   width: 100%;
+}
+
+.choseIndustry_name {
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .IndustryLevel-t {

@@ -15,8 +15,7 @@
     </view>
     <view class="device-num">
       <text class="device-name">闲置数量</text>
-      <view class="device-reduce" hidden="{{deleteDevice}}" bindtap="device_delete" data-index="{{idx}}">
-      </view>
+      <image src="image/icon-delete.png" class="device-reduce" hidden="{{deleteDevice}}" bindtap="device_delete" data-index="{{idx}}"></image>
       <view class="device-operate">
         <text class="num-reduce" bindtap="num_Reduce" data-index="{{idx}}">-</text>
         <text class="device-quantity">{{itemName.deviceNum}}</text>
@@ -26,9 +25,12 @@
   </view>
 </block>
 <view class="add-device" hidden="{{addDevice}}" bindtap="device_add">
-  <text class="icon-add">+</text>
+  <image src="image/icon_addBlue.png" class="icon-add"></image>
   <text>添加闲置产能</text>
 </view>
 <view bindtap="Eventbinding" class="btn-area">
-  <button type="primary" class="btn-bind">发布</button>
+  <button type="primary" class="btn-bind" disabled="{{btn_disabled}}">发布</button>
+</view>
+<view class="enabled-time">
+  <text hidden="{{!btn_disabled}}">距离下次发布还有：{{EnabledTime}}</text>
 </view>

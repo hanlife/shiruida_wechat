@@ -1,5 +1,6 @@
 // page/home/aboutUs/aboutUs.js
 var utils = require('../../../utils/util.js');
+var app = getApp();
 
 Page({
   data:{
@@ -7,17 +8,12 @@ Page({
   },
   onLoad:function(options){
      var that = this;
-
      utils.BaseDataRequest({
       url:'GetAboutUs',
       callback:function(res){
-console.log(res)
        that.setData({
-         content: res.data.Data.Content
+         content: app.globalData.rootUrl + res.data.Data.Content
        })
-        
-        console.log("关于我们")
-        console.log(res.data.Data.Content)
       }
     })
      

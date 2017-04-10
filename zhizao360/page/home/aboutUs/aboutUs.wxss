@@ -1,2 +1,2 @@
 /* page/home/aboutUs/aboutUs.wxss */
-image{ width: 100%;}
+image{ width: 100%;  }

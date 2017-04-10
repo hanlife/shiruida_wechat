@@ -110,11 +110,9 @@
 
 .device-reduce {
   float: right;
-  background: url("../../../icon/icon-delete.png") no-repeat;
   width: 40rpx;
   height: 42rpx;
   margin-top: 22rpx;
-  background-size: 100%;
 }
 
 .add-device {
@@ -131,8 +129,6 @@
   width: 30rpx;
   height: 30rpx;
   line-height: 30rpx;
-  background-color: #7d92c4;
-  color: #fff;
   font-weight: bold;
   text-align: center;
   border-radius: 50%;
@@ -145,4 +141,8 @@
 
 .device-chose.device-chose-ph {
   color: #999;
+}
+
+.enabled-time{
+  text-align: center;
 }

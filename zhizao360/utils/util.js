@@ -1,3 +1,6 @@
+var app = require('../app.js');
+var appInstance = getApp(); //获取全局对象
+
 function formatTime(time) {
   if (typeof time !== 'number' || time < 0) {
     return time
@@ -29,7 +32,8 @@ function formatLocation(longitude, latitude) {
     latitude: latitude.toString().split('.')
   }
 }
-var rootUrl = 'http://www.im360b2b.com/wxapi/';
+
+var rootUrl = appInstance.globalData.rootUrl + '/wxapi/';
 function request(obj) {
   // var  obj = {         参数格式
   //     url:obj.url ,
@@ -44,13 +48,18 @@ function request(obj) {
     url: obj.url,
     method: obj.method || 'GET',
     data: obj.data || {},
-    header:obj.header ||  {
+    header: obj.header || {
       cookie: cookie,
-      'X-WX-Code':code,
+      'X-WX-Code': code,
       rd_session: rd_session
     },
     success: function (res) {
-      typeof obj.callback == 'function' && obj.callback(res);
+      if (res.isImLogin != undefined && !res.isImLogin) {
+        app.getUserInfo();
+      }
+      else {
+        typeof obj.callback == 'function' && obj.callback(res);
+      }
     }
   })
 }
@@ -78,10 +87,35 @@ function EnterpriseRequest(obj) {
   request(obj);
 }
 
+// EnterpriseImage/
+function EnterpriseImageRequest(obj) {
+  obj.url = rootUrl + 'EnterpriseImage/' + obj.url;
+  request(obj);
+}
+
 // MemberInfo/
 function MemberInfoRequest(obj) {
   obj.url = rootUrl + 'MemberInfo/' + obj.url;
   request(obj);
+}
+
+function distanc(data, header) {
+  for (var i = 0; i < data.length; i++) {
+    if (data[i].Distance != 0) {
+      data[i].Distance = parseFloat(data[i].Distance).toFixed(1);
+    }
+    if (header.pageId == 2 && data[i].MainIndesutry != null) {
+      //根据二级行业ID找一级二级行业名称
+      for (var j = 0; j < header.MainIndustryArray.length; j++) {
+        for (var k = 0; k < header.MainIndustryArray[j].SubIndustries.length; k++) {
+          if (data[i].MainIndesutry == header.MainIndustryArray[j].SubIndustries[k].Id) {
+            data[i].MainIndesutry = header.MainIndustryArray[j].Name + ">" + header.MainIndustryArray[j].SubIndustries[k].Name;
+          }
+        }
+      }
+    }
+  }
+  return data;
 }
 
 module.exports = {
@@ -93,5 +127,7 @@ module.exports = {
   DeviceRequest: DeviceRequest,
   UserRequest: UserRequest,
   EnterpriseRequest: EnterpriseRequest,
-  MemberInfoRequest: MemberInfoRequest
+  MemberInfoRequest: MemberInfoRequest,
+  EnterpriseImageRequest: EnterpriseImageRequest,
+  distanc: distanc
 }

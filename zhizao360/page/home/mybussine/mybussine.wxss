@@ -73,3 +73,9 @@
     width: 100%;
     height: 100%;
 }
+.Distance{
+    width: 585rpx;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}

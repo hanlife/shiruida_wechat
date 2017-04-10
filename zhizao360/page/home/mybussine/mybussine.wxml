@@ -1,13 +1,13 @@
-
 <!--page/home/mybussine/mybussine.wxml-->
 <import src="../common/homeCommon.wxml"></import>
 <view class="view-body">
   <view class="swiper-box">
-    <swiper bindchange="swiperImg" indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <block wx:key="*this" wx:for="{{pictrue[pictrueIndex]}}">
+    <swiper bindchange="swiperImg" indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" interval="{{interval}}"
+      duration="{{duration}}" current="{{currentNum-1}}">
+      <block wx:key="*this" wx:for="{{pictrue}}">
         <swiper-item>
           <view class="swiper-item">
-            <image class="bannerImage" src="{{item}}"></image>
+            <image class="bannerImage" src="{{rootUrl}}{{item.Original}}"></image>
           </view>
         </swiper-item>
       </block>
@@ -18,71 +18,75 @@
     <view class="swiperNav">
       <view class="swiperNav-itemBox">
         <scroll-view class="scroll-view_H" scroll-x="true" style="width: 100%">
-          <block wx:key="*this" wx:for="{{swiperNavArray}}">
-            <view class="swiperNav-item {{index == swiperNavArray.length-1 ? '':'bd-r1px' }} {{index == pictrueIndex ? 'navShow':'' }}" bindtap="switchNav" data-index="{{index}}">{{item}}</view>
-          </block>
-        </scroll-view>
-      </view>
+<block wx:key="*this" wx:for="{{swiperNavArray}}">
+  <view class="swiperNav-item {{index == swiperNavArray.length-1 ? '':'bd-r1px' }} {{index == pictrueIndex ? 'navShow':'' }}"
+    bindtap="switchNav" data-index="{{index}}" data-type="{{item.type}}">{{item.name}}</view>
+</block>
+</scroll-view>
+</view>
+</view>
+</view>
+<view class="companyLocation bg-fff border-b1px mg-b30">
+  <view class="jc ai-center companyLocation-item black fs36">{{companyInfo.Name}}</view>
+  <view class="jc ai-center companyLocation-item">
+    <view class="flex ai-center">
+      <image class="icon-address" src="/icon/icon_addressGray.png"></image>
+      <text class="mg-l15">{{companyInfo.Distance}}KM</text>
+    </view>
+    <view class="flex ai-center " catchtap="BtnCollect">
+      <image class="icon-heart" src="{{ collectFlag ? '/icon/icon_heartT.png' : '/icon/icon_heart.png' }}"></image>
+      <text class="mg-l7">{{ collectFlag ? '已收藏':'收藏'}}</text>
     </view>
   </view>
-  <!--<view class="companyLocation bg-fff border-b1px mg-b30">
-    <view class="jc ai-center companyLocation-item">深圳市龙岗区布吉街道文诚商业广场</view>
-    <view class="jc ai-center companyLocation-item">
-      <view class="flex ai-center">
-        <image class="icon-address" src="/icon/icon_addressGray.png"></image>
-        <text class="mg-l15">2.5KM</text>
-      </view>
-      <view class="flex ai-center " catchtap="BtnCollect">
-        <image class="icon-heart" src="{{ collectFlag ? '/icon/icon_heartT.png' : '/icon/icon_heart.png' }}"></image>
-        <text class="mg-l7">{{ collectFlag ? '已收藏':'收藏'}}</text>
-      </view>
+  <view class="jc ai-center companyLocation-item" bindtap="oppenMap" data-latitude="{{companyInfo.Latitude}}" data-longitude="{{companyInfo.Longitude}}">
+    <view class="flex ai-center">
+      <template is="icon-address"></template>
+      <text class="mg-l15  Distance black">{{companyInfo.Address==''?'--':companyInfo.Address}}</text>
     </view>
-    <view class="jc ai-center companyLocation-item">
-      <view class="flex ai-center">
-        <template is="icon-address"></template>
-        <text class="mg-l15">深圳市龙岗区布吉街道文诚商</text>
-      </view>
-      <image class="arrow mg-l20" src="/icon/arrow.png"></image>
-    </view>
+    <image class="arrow mg-l20" src="../../../icon/icon_arrow.png"></image>
   </view>
-  <view class="border-tb1px">
-    <view class="titleNav">
-      <block wx:key="*this" wx:for="{{titleNavArray}}">
-        <view class="title-item {{index == titleShowIndex ? 'titleShow':'' }}" bindtap="selectTitle" data-index="{{index}}">{{item}}</view>
+</view>
+<view class="border-tb1px">
+  <view class="titleNav">
+    <block wx:key="*this" wx:for="{{titleNavArray}}">
+      <view class="title-item {{index == titleShowIndex ? 'titleShow':'' }}" bindtap="selectTitle" data-index="{{index}}">{{item}}</view>
+    </block>
+  </view>
+  <view class="content bg-fff">
+    <view hidden="{{content1}}">
+      <template is="companyIntroduce" data="{{...companyIntroduce}}"></template>
+    </view>
+    <view hidden="{{content2}}">
+      <template is="equipmentList" data="{{Array:equipmentListArray}}"></template>
+    </view>
+    <view hidden="{{content3}}">
+      <block wx:key="*this" wx:for="{{contactArray}}">
+        <view class="{{index == contactArray.length-1 ? '':'border-b1px' }} black">
+          <view class="flex border-b1px h88 mg-l30">
+            <text class="contactText">姓名</text>
+            <text>{{item.Name ? item.Name : '--'}}</text>
+          </view>
+          <view class="jc ai-center border-b1px h88 mg-l30" bindtap="makePhoneCall" data-phone="{{item.Mobile}}">
+            <view>
+              <text class="contactText">手机</text>
+              <text>{{item.Mobile ? item.Mobile:'--'}}</text>
+            </view>
+            <block wx:if="{{item.Mobile && true}}">
+              <template is="icon-phone"></template>
+            </block>
+
+          </view>
+          <view class="flex border-b1px h88 mg-l30">
+            <text class="contactText">QQ</text>
+            <text>{{item.QQ ? item.QQ :'--' }}</text>
+          </view>
+          <view class="flex h88 mg-l30">
+            <text class="contactText">微信</text>
+            <text>{{item.Wechat ? item.Wechat :'--' }}</text>
+          </view>
+        </view>
       </block>
     </view>
-    <view class="content bg-fff">
-      <view hidden="{{content1}}">
-        <template is="companyIntroduce" data="{{...companyIntroduce}}"></template>
-      </view>
-      <view hidden="{{content2}}">
-        <template is="equipmentList" data="{{Array:equipmentListArray}}"></template>
-      </view>
-      <view hidden="{{content3}}">
-        <block wx:key="*this" wx:for="{{contactArray}}">
-          <view class="{{index == contactArray.length-1 ? '':'border-b1px' }} black">
-            <view class="flex border-b1px h88 mg-l30">
-              <text class="contactText">姓名</text>
-              <text>{{item.name}}</text>
-            </view>
-            <view class="jc ai-center border-b1px h88 mg-l30" bindtap="makePhoneCall" data-phone="{{item.phone}}">
-              <view>
-                <text class="contactText">手机</text>
-                <text>{{item.phone}}</text>
-              </view>
-              <template is="icon-phone"></template>
-            </view>
-            <view class="flex border-b1px h88 mg-l30">
-              <text class="contactText">QQ</text>
-              <text>{{item.QQ ? item.QQ :'--' }}</text>
-            </view>
-            <view class="flex h88 mg-l30">
-              <text class="contactText">微信</text>
-              <text>{{item.wechat ? item.wechat :'--' }}</text>
-            </view>
-          </view>
-        </block>
-      </view>
-    </view>
-  </view>-->
+  </view>
+</view>
 </view>

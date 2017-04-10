@@ -2,8 +2,6 @@
 var utils = require('../../../../utils/util.js');
 var app = getApp();
 var pagedata = wx.getStorageSync('equipmentDetailData');
-console.log(pagedata);
-console.log(app)
 Page({
   data: {
     imageUrl: {
@@ -152,7 +150,7 @@ Page({
     var DeviceType = that.data.Type[that.data.TypeIndex].Id;
     var message = '';
 
-    if (!DeviceType) {
+    if (!that.data.TypeName) {
       message += "设备类型不能为空；"
     }
     if (!val.name) {
@@ -167,9 +165,7 @@ Page({
     if (!val.preciseLevel) {
       message += "设备密度不能为空；"
     }
-    if (!val.produceRange) {
-      message += "设备行程不能为空；"
-    }
+    
     if (message && true) {
       wx.showModal({
         title: '提示',

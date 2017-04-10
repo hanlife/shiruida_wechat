@@ -4,34 +4,34 @@
         <view class="jc  companyIntroduce-item mg-b40">
             <view class="ai ">
                 <text class="companyIntroduceText">所属地区：</text>
-                <text class="black">{{a}}</text>
+                <text class="black">{{County ? County : '--' }}</text>
             </view>
             <view class="ai w300 ">
                 <text class="companyIntroduceText">厂房面积：</text>
-                <text class="black">{{b}}</text>
+                <text class="black">{{Acreage ? Acreage :'--'  }}</text>
             </view>
         </view>
         <view class="jc  companyIntroduce-item mg-b40">
             <view class="ai">
                 <text class="companyIntroduceText">年营业额：</text>
-                <text class="black">{{c}}</text>
+                <text class="black">{{Sale ? Sale : '--' }}</text>
             </view>
             <view class="ai w300">
                 <text class="companyIntroduceText">员工人数：</text>
-                <text class="black">{{d}}</text>
+                <text class="black">{{Staff ? Staff : '--' }}</text>
             </view>
         </view>
         <view class="jc  companyIntroduce-item mg-b36">
             <view class="ai">
                 <text class="companyIntroduceText">加工类型：</text>
-                <text class="black">{{e}}</text>
+                <text class="black">{{ProcessType ?  ProcessType : '--' }}</text>
             </view>
             <view></view>
         </view>
         <view class="companyIntroduce-itemLast">
             <view class="flex">
                 <text class="companyIntroduceText">企业简介：</text>
-                <text class="companyIntroduceTextarea black">{{f}}</text>
+                <text class="companyIntroduceTextarea black">{{Brief ? Brief : '--' }}</text>
             </view>
         </view>
     </view>
@@ -43,17 +43,15 @@
         <block wx:key="*this"  wx:for="{{Array}}">
             <view class="equipmentList-item   {{index == Array.length-1 ? '': 'border-b1px' }} 999">
                 <view>
-                    <view>
-                        <text class="mg-r30">{{item.a}}</text>
-                        <text>{{item.b}}</text>
-                    </view>
-                    <view class="sumText bg-yellow fff"><text class="fs26 mg-r10 eee">{{item.c}}</text> <text class="fs34">{{item.num}}</text></view>
+                        <text class="mg-r30">{{item.Brand ? item.Brand : ''}}</text>
+                        <text>{{item.PreciseLevel ? item.PreciseLevel : '' }}</text>
+                    <view class="sumText bg-yellow fff"><text class="fs26 mg-r10 eee">闲置数</text> <text class="fs34">{{item.CapacityQty ? item.CapacityQty  : 0 }}</text></view>
                 </view>
                 <view class="pd-tb20">
-                    <view class="black">{{item.d}}</view>
-                    <view class="sumText"><text class="fs28 mg-r10">{{item.e}}</text> <text class="fs36 black">{{item.totalNum}}</text></view>
+                    <view class="black">{{item.Name ? item.Name  : '' }}</view>
+                    <view class="sumText"><text class="fs28 mg-r10">总台数</text> <text class="fs36 black">{{item.Amount ? item.Amount : 0 }}</text></view>
                 </view>
-                <view>{{item.f}}</view>
+                <view>{{item.ProduceRange ? item.ProduceRange : ''}}</view>
             </view>
         </block>
     </view>

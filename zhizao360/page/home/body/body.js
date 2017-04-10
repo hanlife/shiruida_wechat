@@ -9,113 +9,111 @@ Page({
     },
     nickName: "",           //微信名称
     avatarUrl: "",          //微信头像Url
-    iphone: "18819478660",  //手机号 
-    pickerArray: ["采购商", "供应商"],
-    pickerIndex: 0,
+    iphone: "",  //手机号 
+    pickerArray: [],
+    pickerIndex: 1,
     equipmentUrlFlag: true,   //判断是否有添加设备信息  有则跳转设备信息页面  没则添砖添加设备页面
-    checkStatusText: ""
+    checkStatusText: "",
+    EnterpriseId: '',
+    natureFlag: '',
+    IsMainMember: ''
   },
   onLoad: function (options) {
-    utils.BaseDataRequest({
-      url:'GetAboutUs',
-      callback:function(res){
-        console.log(res)
-      }
+    var that = this;
+    var isImLogin = wx.getStorageSync('isImLogin');
+    //没有登录跳转到绑定页面
+    if (!isImLogin) {
+      wx.redirectTo({ url: '/page/member/login' });
+      return;
+    }
+    wx.showToast({
+      title: '加载中...',
+      icon: 'loading',
+      mask: true,
+      duration: 2000
     })
 
-
-
-    // 页面初始化 options为页面跳转所带来的参数
-    console.log(app);
-
-    var that = this;
+    
     var nickName = wx.getStorageSync('nickName');
     var avatarUrl = wx.getStorageSync('avatarUrl');
-    var isImLogin = wx.getStorageSync('isImLogin');
-
-    if (!isImLogin) {
-      wx.showModal({
-        title: '提示',
-        content: '请您先登录账号',
-        showCancel: false,
-        confirmText: '知道了',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-            wx.redirectTo({ url: 'page/member/login'})
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
-
-      })
-    }
-
     that.setData({
       nickName: nickName,
       avatarUrl: avatarUrl
     })
 
-    utils.EnterpriseRequest({
-      url: 'GetCertificationInfo',
+    //基础资料
+    utils.MemberInfoRequest({
+      url: 'Index',
       method: 'POST',
       callback: function (res) {
+        var nickName = wx.getStorageSync('nickName');
+        app.globalData.Id = res.data.Id;
+        app.globalData.EnterpriseId = res.data.EnterpriseId;
+        // res.data.IsMainMember = false;
         that.setData({
-          checkStatusText: res.data.Status
+          EnterpriseId: res.data.EnterpriseId,
+          iphone: res.data.Mobile,
+          natureFlag: !res.data.IsMainMember,
+          IsMainMember: res.data.IsMainMember
+        })
+        app.globalData.IsMainMember = res.data.IsMainMember
+        //企业认证
+        utils.EnterpriseRequest({
+          url: 'GetCertificationInfo',
+          method: 'POST',
+          callback: function (res) {
+            if(!res.data.Status){
+              res.data.Status = "主账号不接受成为子账号"
+            }
+            that.setData({
+              checkStatusText:  res.data.Status
+            })
+            var EnterpriseNatures = res.data.EnterpriseNatures;
+            var pickerIndex = 0;
+            //企业性质
+            utils.BaseDataRequest({
+              url: 'GetNatures',
+              callback: function (res) {
+                for (let i = 0; i < res.data.length; i++) {
+                  if (res.data[i].Id == EnterpriseNatures) {
+                    pickerIndex = i
+                  }
+                }
+                that.setData({
+                  pickerArray: res.data,
+                  pickerIndex:  pickerIndex
+                })
+                wx.hideToast();
+                wx.stopPullDownRefresh();
+              }
+            })
+
+          }
         })
 
-        if (res.data.Status == "待提交") {
-          // console.log("待提交")
-
-
-        } else if (res.data.Status == "待审核") {
-          // console.log("待审核")
-          returnData(res.data, "提交审核", false);
-
-        } else if (res.data.Status == "审核通过") {
-          // console.log("审核通过")
-          returnData(res.data, "审核通过", true);
-        } else {
-          //审核不同通过
-          // console.log("审核不通过")
-          returnData(res.data, "提交审核", false);
-        }
-
-        function returnData(data, buttonText, btnFlag) {
-          var address = res.data.Province + " " + res.data.City + " " + res.data.County
-          var industiyInforData = {
-            companyName: res.data.Name,            //公司名称
-            address: address,                      //地区
-            addressDetail: res.data.Address,       //详细地址   
-            photoArray: [app.globalData.rootUrl + res.data.LicenseImage],  //营业执照
-            province: res.data.Province,
-            city: res.data.City,
-            county: res.data.County,
-            longitude: res.data.Longitude,
-            latitude: res.data.Latitude,
-            status: res.data.Status,
-            buttonText: buttonText,
-            btnFlag: btnFlag
-          }
-          wx.removeStorageSync('industiyInforData');
-          wx.setStorage({
-            key: "industiyInforData",
-            data: industiyInforData
-          })
-        }
       }
     })
 
 
 
   },
+  onPullDownRefresh: function () {
+    app.getUserInfo(this.onLoad);
+  },
   onReady: function () {
     // 页面渲染完成
+    
   },
   bindPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    var that = this;
     this.setData({
       pickerIndex: e.detail.value
+    })
+    utils.EnterpriseRequest({
+      url: 'UpdateNature',
+      method: 'POST',
+      data: { natureId: that.data.pickerArray[e.detail.value].Id },
+      callback: function (res) {}
     })
   },
   toEquipment: function () {
@@ -130,48 +128,38 @@ Page({
     })
   },
   relieveBind: function () {
-    console.log(111111)
     utils.UserRequest({
       url: 'Unbundled',
       method: 'POST',
       callback: function (res) {
-        console.log(res)
-        if (res.data.Succeed) {
-          wx.redirectTo({ url: '/page/member/login' })
-        }
+        setStorage("IsWxBind", res.data.Data.IsWxBind); //手机号是否绑定
+        setStorage("IsWxLogin", res.data.Data.IsWxLogin); //code换session_key是否成功
+        setStorage("isImLogin", res.data.Data.isImLogin); //平台是否登录成功
+        wx.redirectTo({ url: '/page/member/login' })
       }
     })
 
-
+    function setStorage(key, val) {
+      wx.setStorage({
+        key: key,
+        data: val
+      });
+    }
   },
   QRcodeTap: function () {
-
-
-    wx.navigateTo({
-      url: '/page/home/qrcode/qrcode',
-      success: function (res) {
-        console.log("这是二维码")
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
-    })
+    wx.navigateTo({ url: '/page/home/qrcode/qrcode' });
   },
   toMyInfo: function () {
-    wx.navigateTo({
-      url: '/page/home/myInformation/myInformation',
-      success: function (res) {
-        console.log("这是基本资料")
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
+    wx.navigateTo({ url: '/page/home/myInformation/myInformation' });
+  },
+  ischild: function(){
+    wx.showModal({
+      title: '提示',
+      content: '子账号没有操作权限',
+      showCancel: false,
+      confirmText: '知道了'
+
+
     })
   }
 

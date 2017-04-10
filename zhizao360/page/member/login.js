@@ -1,5 +1,5 @@
 // page/member/login.js
-
+var common = require('../../utils/common.js');
 var utils = require('../../utils/util.js');
 var app = getApp();
 
@@ -43,7 +43,27 @@ Page({
           input: loginData
         },
         callback: function (res) {
-          console.log(res);
+          if (res.data.Succeed) {
+            setStorage("IsWxBind", res.data.Data.IsWxBind); //手机号是否绑定
+            setStorage("IsWxLogin", res.data.Data.IsWxLogin); //code换session_key是否成功
+            setStorage("isImLogin", res.data.Data.isImLogin); //平台是否登录成功
+            app.globalData.guideline = false;
+            //已认证
+            if (res.data.Data.enterpriseId) {
+              Certification();
+            } else {
+              //未认证
+              NoCertification();
+            }
+          } else {
+            wx.showModal({
+              title: '提示',
+              showCancel: false,
+              content: res.data.ErrorMessage,
+              success: function (res) {
+              }
+            })
+          }
         }
       })
     } else {
@@ -59,18 +79,22 @@ Page({
               mobile: that.data.Mobile
             },
             callback: function (res) {
-              console.log(res)
               if (res.data.Succeed) {
                 setStorage("IsWxBind", res.data.Data.IsWxBind); //手机号是否绑定
                 setStorage("IsWxLogin", res.data.Data.IsWxLogin); //code换session_key是否成功
                 setStorage("isImLogin", res.data.Data.isImLogin); //平台是否登录成功
-                //未认证
-                if (false) {
-                  NoCertification();
-                } else {
-                  //已认证
-                  Certification();
-                }
+                app.globalData.guideline = false;
+                wx.switchTab({
+                  url: '/page/ordinarylist/index'
+                })
+              } else {
+                wx.showModal({
+                  title: '提示',
+                  showCancel: false,
+                  content: res.data.ErrorMessage,
+                  success: function (res) {
+                  }
+                })
               }
             }
           });
@@ -86,14 +110,12 @@ Page({
   },
   //手机号输入框
   bindMobile: function (e) {
-    console.log(e)
     this.setData({
       Mobile: e.detail.value
     })
   },
   //验证码输入框
   bindCode: function (e) {
-    console.log(e)
     this.setData({
       authcode: e.detail.value
     })
@@ -123,7 +145,18 @@ Page({
           })
         } else {
           that.setData({
-            isLogin: true
+            isLogin: true,
+            register: false,
+            BindText: "绑定"
+          })
+        }
+        if (!res.data.Succeed) {
+          wx.showModal({
+            title: '提示',
+            showCancel: false,
+            content: res.data.ErrorMessage,
+            success: function (res) {
+            }
           })
         }
       }
@@ -174,11 +207,9 @@ Page({
   },
   onReady: function () {
     // 页面渲染完成
-    console.log(app)
     wx.getStorage({
       key: 'code',
       success: function (res) {
-        console.log(res.data)
       }
     })
   },
@@ -250,7 +281,7 @@ function Certification() {
   //已成功认证
   wx.showModal({
     title: '绑定成功',
-    content: '贵公司已成功认证，可像公司主账号申请权限',
+    content: '贵公司已成功认证，可向公司主账号申请权限',
     showCancel: true,
     cancelText: "继续浏览",
     cancelColor: "#cccccc",
@@ -259,11 +290,11 @@ function Certification() {
     success: function (res) {
       if (res.confirm) {
         wx.redirectTo({
-          url: '/page/home/mybussine/mybussine'
+          url: '/page/home/myInformation/myInformation'
         })
       } else {
         wx.switchTab({
-          url: '/page/ordinarylist/index/index'
+          url: '/page/ordinarylist/index'
         })
       }
     },
@@ -286,11 +317,11 @@ function NoCertification() {
     success: function (res) {
       if (res.confirm) {
         wx.switchTab({
-          url: 'page/home/body/body'
+          url: '/page/home/body/body'
         })
       } else {
         wx.switchTab({
-          url: '/page/ordinarylist/index/index'
+          url: '/page/ordinarylist/index'
         })
       }
     },

@@ -5,13 +5,14 @@ var utils = require('../../../utils/util.js');
 var deviceList = [  //添加设备列表
   {
     deviceName: "",
-    deviceNum: 0,
+    deviceNum: 1,
     deviceId: '',
     Amount: 0,
     Id: ''
   }
 ];
 var deviceArray = null  //闲置设备名称
+var interval = null;
 
 Page({
   data: {
@@ -19,11 +20,13 @@ Page({
     device_list: deviceList,
     deleteDevice: true,
     addDevice: false,
+    btn_disabled: false,
+    EnabledTime: ''
   },
   //减少
   num_Reduce: function (e) {
     var i = e.target.dataset.index;
-    if (deviceList[i].deviceNum <= 0) {
+    if (deviceList[i].deviceNum <= 1) {
       return false;
     } else {
       deviceList[i].deviceNum--;
@@ -39,10 +42,8 @@ Page({
       return false;
     } else {
       deviceList[i].deviceNum++;
-      // deviceArray[deviceList[i].Id].Amount--;
       this.setData({
         device_list: deviceList,
-        deviceArray: deviceArray
       })
     }
   },
@@ -53,7 +54,7 @@ Page({
     } else {
       deviceList.push({
         deviceName: "",
-        deviceNum: 0,
+        deviceNum: 1,
         deviceId: '',
         Amount: 0,
         Id: ''
@@ -74,11 +75,10 @@ Page({
     check(this);
   },
   bindPickerChange: function (e) {
-    console.log(e)
     var value = e.detail.value;
     var i = e.target.dataset.index;
     var bool = false;     //是否已经添加
-    deviceList[i].deviceNum = 0;
+    deviceList[i].deviceNum = 1;
 
     for (var j = 0; j < deviceList.length; j++) {
       if (deviceList[j].Id == value) {
@@ -96,7 +96,6 @@ Page({
     }
     //是否已经添加
     if (!bool) {
-      console.log(bool)
       deviceList[i].deviceName = deviceArray[value].Name;
       deviceList[i].deviceId = deviceArray[value].Id;
       deviceList[i].Amount = deviceArray[value].Amount;
@@ -110,6 +109,7 @@ Page({
 
   },
   Eventbinding: function () {
+    var that = this;
     var input = [];
     for (var i = 0; i < deviceList.length; i++) {
       if (deviceList[i].deviceId == 0 || deviceList[i].deviceNum == "") {
@@ -122,6 +122,13 @@ Page({
       input.push(obj);
     }
     if (input.length == 0) {
+      wx.showModal({
+        title: '提示',
+        content: '设备名称或闲置数量不能为空！',
+        showCancel: false,
+        success: function (res) {
+        }
+      })
       return;
     } else {
       // 发布
@@ -134,13 +141,12 @@ Page({
           deviceList = [
             {
               deviceName: "",
-              deviceNum: 0,
+              deviceNum: 1,
               deviceId: '',
               Amount: 0,
               Id: ''
             }
           ]
-          console.log(res)
           if (res.data.Succeed) {
             wx.showToast({
               title: '发布成功',
@@ -148,9 +154,8 @@ Page({
               duration: 1000
             })
             setTimeout(function () {
-              wx.hideToast();
               wx.switchTab({
-                url: '/page/ordinarylist/index/index'
+                url: '/page/ordinarylist/index'
               })
             }, 2000)
           }
@@ -167,10 +172,25 @@ Page({
       url: "GetDevices",
       method: "post",
       callback: function (res) {
-        deviceArray = res.data;
+        if (res.data == 0) {
+          wx.showModal({
+            title: '提示',
+            showCancel: false,
+            content: '暂无设备，请前往添加设备',
+            success: function (res) {
+              wx.redirectTo({
+                url: '/page/home/equipment/equipment',
+              })
+            },
+            fail: function () {
+
+            }
+          })
+        } else {
+          deviceArray = res.data;
+        }
         that.setData({
           deviceArray: deviceArray,
-          device_list: deviceList,
         })
       }
     })
@@ -180,6 +200,34 @@ Page({
   },
   onShow: function () {
     // 页面显示
+    var EnabledTime = "";
+    var that = this;
+    utils.DeviceRequest({
+      url: "GetLastPublishTime",
+      method: "post",
+      callback: function (res) {
+        if (res.data.Succeed) {
+          var nowTime = new Date();
+          var Seconds = nowTime.getTime();
+          var time = res.data.Data.replace("/Date(", "").replace(")/", "");   //1491462452937
+          interval = setInterval(function () {
+            time = time - 1000;
+            if (time <= 0) {
+              clearInterval(interval)
+              that.setData({
+                btn_disabled: false,
+              })
+            }
+            EnabledTime = Time(time, Seconds);
+            that.setData({
+              device_list: deviceList,
+              btn_disabled: true,
+              EnabledTime: EnabledTime
+            })
+          }, 1000)
+        }
+      }
+    })
   },
   onHide: function () {
     // 页面隐藏
@@ -210,4 +258,22 @@ function check(t) {
       deleteDevice: true
     })
   }
+}
+
+function Time(time, Seconds) {
+  var EndTime = 24 * 60 * 60 * 1000;
+  var leftSec = (EndTime - (Seconds - time)) / 1000;
+  var H = Math.floor(leftSec / 3600);
+  var M = Math.floor((leftSec - (H * 3600)) / 60);
+  var S = Math.floor(leftSec - (H * 3600) - (M * 60));
+  if (H < 10) {
+    H = "0" + H;
+  }
+  if (M < 10) {
+    M = "0" + M;
+  }
+  if (S < 10) {
+    S = "0" + S;
+  }
+  return (H + ":" + M + ":" + S)
 }

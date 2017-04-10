@@ -18,7 +18,7 @@ var app = function () {
                 content: obj.content,
                 success: function (res) {
                     if (res.confirm) {
-                        obj.callback
+                      obj.callback && obj.callback();
                     }
                 }
             })

@@ -1,5 +1,6 @@
 // page/home/myInformation/myInformation.js
 var utils = require('../../../utils/util.js');
+var app = getApp();
 
 Page({
   data: {
@@ -13,9 +14,23 @@ Page({
     Wechat: ''
   },
   formSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
     var that = this;
     var data = e.detail.value;
+    var message = '';
+    var reg = '^[a-zA-Z\u4e00-\u9fa5]+$';
+    if (!data.Name || data.Name.match(reg) == null) {
+      message += '请输入正确的姓名'
+    }
+    if (message) {
+      wx.showModal({
+        title: '提示',
+        content: message,
+        showCancel: false,
+        confirmText: '知道了'
+      })
+      return;
+    }
+
 
     utils.MemberInfoRequest({
       url: 'SaveMember',
@@ -34,7 +49,7 @@ Page({
       callback: function (res) {
         if (res.data.Succeed) {
 
-          if (that.data.isChildAccount) {   
+          if (that.data.isChildAccount) {
             wx.showToast({
               title: "保存成功",
               icon: 'success',
@@ -66,27 +81,34 @@ Page({
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
+    var pageData = app.globalData.myInformationData;
+
+
+   wx.showLoading({
+     title:'加载中...',
+     mask: true
+   })
+    //基础资料
     utils.MemberInfoRequest({
       url: 'Index',
-      method:'POST',
+      method: 'POST',
       callback: function (res) {
         var isChildAccount = '';
         var nickName = wx.getStorageSync('nickName');
         if (res.data.EnterpriseId && true) {
           isChildAccount = true;
         }
-
         that.setData({
-          isChildAccount: isChildAccount,
+          isChildAccount: isChildAccount || false,
           Id: res.data.Id,
           IsShow: res.data.IsShow,
           Mobile: res.data.Mobile,
-          Name: res.data.Name || nickName,
+          Name: res.data.Name || '--',
           QQ: res.data.QQ,
           Wechat: res.data.Wechat,
           EnterpriseId: res.data.EnterpriseId
         })
-        console.log(res)
+        wx.hideLoading();
       }
     })
 

@@ -13,17 +13,17 @@ var search = function () {
             return header;
         },
         //选择位子
-        choseposition: function (header) {
+        choseposition: function (header, t) {
             wx.chooseLocation({
                 success: function (res) {
-                    console.log(res)
                     //res:{address:"布吉新区南湾街道商业广场"，errMsg:"chooseLocation:ok",latitude:"22.610508",longitude:"114.14684",name:"求水山公园"}name可能有可能没有
-                    header.Address = res;
+                    header.Address = res.address;
                     var county = appInstance.GetAddress(res.address);
                     header.Data.Address.province = county.province;
                     header.Data.Address.city = county.city;
                     // 获取区域
                     appInstance.reqGet("BaseData/GetArea", function (res) {
+                        header.Data.District = [];
                         for (var i = 0; i < res.length; i++) {
                             header.Data.District.push({
                                 Id: res[i].id,
@@ -31,6 +31,9 @@ var search = function () {
                             })
                         }
                         header.array = header.Data.District;
+                        t.setData({
+                            item_head: header,
+                        })
                     }, { provice: county.province, city: county.city })
                 }
             })
@@ -105,11 +108,12 @@ var search = function () {
             header.showIndex = index;
             var Id = e.target.dataset.id;
             var Name = e.target.dataset.name;
-            console.log(e)
             if (Name != "区域") {
                 header.AddressColor = true;
+                header.Data.Address.county = Name;
             } else {
                 header.AddressColor = false;
+                header.Data.Address.county = ''
             }
             header.AddressName = Name;
             header.searchId = 0;
@@ -121,14 +125,15 @@ var search = function () {
             var value = e.currentTarget.dataset.value;
             var Id = e.currentTarget.dataset.typeid;
             if (value == "不限") {
-                for (var i = 0; i < header.typeList.length + 1; i++) {
+                for (var i = 0; i < header.typeList.length; i++) {
                     header.choseArr[i] = "false"
                 }
+                header.molimit = "false";
                 header.choseTemp = 0;
                 header.Data.DeviceName = [];
                 return header;
             } else {
-                header.choseArr[header.choseArr.length - 1] = "true";
+                header.molimit = "true";
             }
             if (header.choseArr[index] == "true") {
                 header.choseArr[index] = "false";
@@ -140,7 +145,7 @@ var search = function () {
                 }
                 header.choseTemp--;
                 if (header.choseTemp == 0) {
-                    header.choseArr[header.choseArr.length - 1] = "false";
+                    header.molimit = "false";
                 }
             } else {
                 if (header.choseTemp < 3) {
@@ -222,7 +227,6 @@ var search = function () {
         //更多确定按钮判断
         checkMore: function (header) {
             var obj = header.Data.MoreName;
-            console.log(obj)
             var i = 0;
             if (obj.Industry.Name != "") {
                 i++
@@ -259,7 +263,11 @@ var search = function () {
         //取消
         EventConsole: function (header) {
             header.inputValue = '';
-            header.left = "225rpx";
+            if (header.pageId == 1) {
+                header.left = "175rpx";
+            } else {
+                header.left = "130rpx";
+            }
             header.width = "100%";
             header.textLeft = "center";
             header.paddingLeft = "0";
@@ -268,22 +276,22 @@ var search = function () {
             return header;
         },
         setHeight: function (header) {
-            var H, W;
-            wx.getSystemInfo({
-                success: function (res) {
-                    H = res.windowHeight;
-                    W = res.windowWidth
-                }
-            })
-            var areaH = parseInt(H - (W / 750 * 455));
-            var TypeH = parseInt(H - (W / 750 * 600));
+            var H = appInstance.globalData.addLog.Windowheight,
+                W = appInstance.globalData.addLog.Windowwidth;
+            if (appInstance.globalData.addLog.System.indexOf('Android') == -1) {
+                var areaH = parseInt(H - (W / 750 * (455 + 88)));
+                var TypeH = parseInt(H - (W / 750 * (600 + 88)));
+            } else {
+                var areaH = parseInt(H - (W / 750 * 455));
+                var TypeH = parseInt(H - (W / 750 * 600));
+            }
             header.areaHeight = areaH;
             header.deviceTypeHeight = TypeH;
             return header;
         },
         //进入该公司详情页
         ToSupplier: function (e) {
-            var Id = e.currentTarget.dataset.id;
+            var EnterpriseId = e.currentTarget.dataset.enterpriseid;
             if (!wx.getStorageSync('isImLogin')) {
                 //未登陆时
                 wx.navigateTo({
@@ -300,7 +308,7 @@ var search = function () {
                 })
             } else {
                 wx.navigateTo({
-                    url: '/page/home/mybussine/mybussine?Id=' + Id,
+                    url: '/page/home/mybussine/mybussine?enterpriseId=' + EnterpriseId,
                     success: function (res) {
 
                     },
@@ -341,6 +349,9 @@ var search = function () {
             })
             // 获取主营行业
             appInstance.reqGet("BaseData/GetIndustry", function (res) {
+                if (res.length == 0) {
+                    return
+                }
                 header.MainIndustryArray = res; //一级行业
                 header.MainIndustryArray_T = res[0].SubIndustries;//二级行业
             })
@@ -348,16 +359,6 @@ var search = function () {
             appInstance.reqGet("BaseData/GetDistanceDic", function (res) {
                 header.Data.Nearby = res;
             })
-            // // 获取区域
-            // appInstance.reqGet("BaseData/GetArea", function (res) {
-            //     for (var i = 0; i < res.length; i++) {
-            //         header.Data.District.push({
-            //             Id: res[i].id,
-            //             Name: res[i].text
-            //         })
-            //     }
-            //     header.array = header.Data.District;
-            // }, { provice: "广东省", city: "深圳市" })
             return header;
         },
     }

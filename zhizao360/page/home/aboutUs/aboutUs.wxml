@@ -1,4 +1,4 @@
 <!--page/home/aboutUs/aboutUs.wxml-->
 <view>
-    <image src="{{content}}"></image>
+    <image src="{{content}}" mode="widthFix"></image>
 </view>

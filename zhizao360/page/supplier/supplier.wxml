@@ -2,35 +2,36 @@
 <!--page/supplier/supplier.wxml-->
 <import src="../../module/item-ordinarylist.wxml" />
 <template is="itme-ordinarylist-head" data="{{...item_head}}" />
-<scroll-view style="height:{{con_Height}}px;" scroll-y="true" bindscrolltolower="EventLoad" lower-threshold="10">
+<scroll-view style="height:{{con_Height}}px;" scroll-y="true" bindscrolltolower="EventLoad" lower-threshold="0" scroll-top="{{scrollTop}}" hidden="{{dataList}}">
   <view wx:for="{{supplier_list}}" wx:for-item="item" wx:for-index="index">
-    <view class="supplier-lists" bindtap="ToSupplier" data-id="{{item.EnterpriseId}}">
+    <view class="supplier-lists" bindtap="ToSupplier" data-enterpriseId="{{item.EnterpriseId}}">
       <view class="supplier-img">
-        <image style="width: 208rpx; height: 154rpx; background-color: #eeeeee;" mode="scaleToFill" src="{{src}}"></image>
+        <image style="width: 208rpx; height: 154rpx; background-color: #eeeeee;" mode="scaleToFill" src="{{item.FactoryCover==''?'../../icon/supplier-img.png':'https://www.im360b2b.com/'+item.FactoryCover}}"></image>
       </view>
       <view class="supplier-right">
         <view class="supplier-title txt-hid">
           <text>{{item.EnterpriseName}}</text>
         </view>
         <view class="supplier-industry">
-          <text>{{item.MainIndesutry}}</text>
+          <text>{{item.MainIndesutry==null?'':item.MainIndesutry}}</text>
         </view>
         <view class="supplier-label">
-          <text class="supplier-label-c1">{{item.ProcessType}}</text>
-          <text class="supplier-label-c2">{{item.WorkerQty}}台</text>
-          <text class="supplier-label-c3">{{item.DeviceQty}}人</text>
+          <text class="supplier-label-c1" hidden="{{item.ProcessType==''?true:false}}">{{item.ProcessType}}</text>
+          <text class="supplier-label-c2" hidden="{{item.DeviceQty==0?true:false}}">{{item.DeviceQty}}台</text>
+          <text class="supplier-label-c3" hidden="{{item.WorkerQty==0?true:false}}">{{item.WorkerQty}}人</text>
         </view>
         <view class="supplier-address">
-          <text class="supplier-address-col">{{item.Area}}</text>
-          <text class="supplier-distance">{{item.Distance}}KM</text>
-          <image src="src" class="supplier-address-icon"></image>
+          <text class="supplier-address-col txt-hid">{{item.Area}}</text>
+          <text class="supplier-distance">{{item.Distance}}km</text>
+          <image src="../../icon/icon_address.png" class="supplier-address-icon"></image>
         </view>
       </view>
     </view>
   </view>
 </scroll-view>
+<view class="noneData" hidden="{{!dataList}}">暂无供方企业</view>
 <view class="ordinarylist-load" hidden="{{loadShow}}">
-  <image src="src"></image>
+  <image src="../../icon/loading.gif"></image>
   <text>{{loading}}</text>
 </view>
 <view class="release-btn">

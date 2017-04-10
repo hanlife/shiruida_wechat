@@ -54,8 +54,10 @@ page {
 }
 
 .supplier-address-col {
+  display: inline-block;
   font-size: 24rpx;
   color: #999;
+  width: 285rpx;
 }
 
 .supplier-address-icon {

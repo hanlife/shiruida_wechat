@@ -56,7 +56,11 @@ form {
 }
 
 button[type=primary].btn-bind {
-  background-color: #387be8;
+  background-color: #1986ff;
+}
+
+button[disabled][type=primary].btn-bind{
+  background-color: #cccccc;
 }
 
 .input-ph {
@@ -74,25 +78,27 @@ button[type=primary].btn-bind {
 .hide {
   display: none;
 }
+
 /*底部加载*/
+
 .ordinarylist-load {
   position: fixed;
   bottom: 0;
   text-align: center;
-  background-color: #fff;
-  height: 100rpx;
+  margin-bottom: 20rpx;
   width: 100%;
 }
 
 .ordinarylist-load image {
   width: 52rpx;
   height: 52rpx;
-  margin-top: 21rpx;
+  vertical-align: middle;
+  margin-right: 10rpx;
 }
 
 .ordinarylist-load text {
   display: inline-block;
-  margin-top: 21rpx;
-  color: #999999;
-  font-size:26rpx;
+  vertical-align: middle;
+  color: #999;
+  font-size: 26rpx;
 }

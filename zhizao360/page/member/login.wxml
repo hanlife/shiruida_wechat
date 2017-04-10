@@ -1,12 +1,12 @@
 <view class="section-body">
   <view class="section">
     <text class="section-txt">手机</text>
-    <input type="number" class="section-input" value="{{Mobile}}" bindconfirm="bindMobile" bindblur="bindMobile" id="mobile" placeholder="11位手机号码" maxlength="11" auto-focus/>
+    <input type="number" class="section-input" value="{{Mobile}}" bindconfirm="bindMobile" bindinput="bindMobile" bindblur="bindMobile" id="mobile" placeholder="11位手机号码" maxlength="11" auto-focus/>
     <button class="btn_code" bindtap="EventCode" disabled="{{disabled_code}}">{{codeTxt}}</button>
   </view>
   <view class="section">
     <text class="section-txt">验证码</text>
-    <input type="number" class="section-input" id="code" bindconfirm="bindCode" bindblur="bindCode"  placeholder="手机验证码" maxlength="4" value="{{authcode}}" />
+    <input type="number" class="section-input" id="code" bindconfirm="bindCode" bindblur="bindCode" placeholder="手机验证码" maxlength="4" value="{{authcode}}" />
   </view>
   <view wx:if="{{register}}" class="section">
     <text class="section-txt">企业全称</text>
@@ -14,14 +14,17 @@
   </view>
 </view>
 <view wx:if="{{register}}" class="section section-type">
-    <picker bindchange="accountType" value="{{index}}"   disabled="{{disabled_picker}}" range="{{array}}" range-key="Name">
-      <view class="picker">
-        <text class="section-txt">企业性质</text>
-        <text class="section-input">{{array[index].Name}}</text>
-        <text class="icon-arrows">></text>
-      </view>
-    </picker>
-  </view>
+  <picker bindchange="accountType" value="{{index}}" disabled="{{disabled_picker}}" range="{{array}}" range-key="Name">
+    <view class="picker">
+      <text class="section-txt">企业性质</text>
+      <text class="section-input">{{array[index].Name}}</text>
+      <text class="icon-arrows">></text>
+    </view>
+  </picker>
+</view>
 <view bindtap="Eventbinding" class="btn-area">
-  <button type="primary"  class="btn-bind">{{BindText}}</button>
+  <button type="primary" class="btn-bind">{{BindText}}</button>
+</view>
+<view class="blackNav">
+  <navigator open-type="switchTab" url="/page/ordinarylist/index" class="tc">返回闲置产能</navigator>
 </view>

@@ -12,7 +12,7 @@
 .button{
     height: 88rpx;
     margin: 60rpx 30rpx 0 30rpx;
-    background-color: #26499d;
+    background-color: #1986ff;
     color:#fff;
     font-size: 36rpx;
 }
@@ -20,9 +20,9 @@
     height: 86rpx;
     line-height: 86rpx;
     margin: 0 30rpx;
-    border: 1px solid #26499d;
+    border: 1px solid #1986ff;
     background-color: #fff;
-    color:#26499d;
+    color:#1986ff;
     font-size: 36rpx;
 }
 

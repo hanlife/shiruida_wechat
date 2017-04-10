@@ -41,33 +41,39 @@ Page({
 
   },
   toEquipmentDetail: function (e) {
-    wx.redirectTo({
-      url: '/page/home/equipment/detail/detail?pageFlag=' + e.currentTarget.dataset.pageflag + "&id=" + e.currentTarget.dataset.id,
+    wx.navigateTo({
+     url: '/page/home/equipment/detail/detail?pageFlag=' + e.currentTarget.dataset.pageflag + "&id=" + e.currentTarget.dataset.id,
     })
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
 
     var that = this;
+    var isImLogin = wx.getStorageSync('isImLogin');
+    if (!isImLogin) {
+      app.getUserInfo(equipmentInfo);
+    }else{
+      equipmentInfo();
+    }
 
+    function equipmentInfo() {
+      wx.showLoading({
+        title: 'Loading',
+        mask: true
+      })
+      //获取用户设备信息
+      utils.DeviceRequest({
+        url: "GetDevices",
+        method: 'POST',
+        callback: function (res) {
+          that.setData({
+            equipmentArray: res.data
+          })
+          wx.hideLoading();
+        }
+      })
+    }
 
-    wx.showLoading({
-      title: 'Loading',
-      mask: true
-    })
-
-    //获取用户设备信息
-    utils.DeviceRequest({
-      url: "GetDevices",
-      method: 'POST',
-      callback: function (res) {
-        that.setData({
-          equipmentArray: res.data
-        })
-        wx.hideLoading();
-      }
-    })
   }
-
 
 })
