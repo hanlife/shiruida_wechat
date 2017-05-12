@@ -13,6 +13,7 @@ var deviceList = [  //添加设备列表
 ];
 var deviceArray = null  //闲置设备名称
 var interval = null;
+var Hours = 4;  //限制发布时间
 
 Page({
   data: {
@@ -27,6 +28,7 @@ Page({
   num_Reduce: function (e) {
     var i = e.target.dataset.index;
     if (deviceList[i].deviceNum <= 1) {
+      utils.TipModel('闲置数量最小为1')
       return false;
     } else {
       deviceList[i].deviceNum--;
@@ -38,8 +40,13 @@ Page({
   //增加
   num_Add: function (e) {
     var i = e.target.dataset.index;
+    if (deviceList[i].Amount == 0) {
+      utils.TipModel('请选择设备名称！')
+      return;
+    }
     if (deviceList[i].deviceNum >= deviceList[i].Amount) {
-      return false;
+      utils.TipModel('闲置数量不能超过设备数量！')
+      return;
     } else {
       deviceList[i].deviceNum++;
       this.setData({
@@ -167,11 +174,77 @@ Page({
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
+    utils.BaseDataRequest({
+      url: "GetLimitHour",
+      method: "post",
+      callback: function (res) {
+        Hours = res.data.Data.Name;
+      }
+    })
+  },
+  onReady: function () {
+    // 页面渲染完成
+  },
+  onShow: function () {
+    wx.showToast({
+      title: '加载中...',
+      icon: 'loading'
+    })
+    // 页面显示
+    var EnabledTime = "";
+    var that = this;
+    deviceList = [  //添加设备列表
+      {
+        deviceName: "",
+        deviceNum: 1,
+        deviceId: '',
+        Amount: 0,
+        Id: ''
+      }
+    ];
+    utils.DeviceRequest({
+      url: "GetLastPublishTime",
+      method: "post",
+      callback: function (res) {
+        if (res.data.Data == null) {
+          return;
+        }
+        if (res.data.Succeed) {
+          var nowTime = new Date();
+          var Seconds = nowTime.getTime();
+          var time = res.data.Data.replace("/Date(", "").replace(")/", "");   //1491462452937
+          interval = setInterval(function () {
+            time = time - 1000;
+            if (time <= 0) {
+              clearInterval(interval);
+              that.setData({
+                btn_disabled: false,
+              })
+            }
+            EnabledTime = Time(time, Seconds);
+            if (!EnabledTime) {
+              clearInterval(interval)
+              that.setData({
+                btn_disabled: false,
+                EnabledTime: ''
+              })
+            } else {
+              that.setData({
+                device_list: deviceList,
+                btn_disabled: true,
+                EnabledTime: EnabledTime
+              })
+            }
+          }, 1000)
+        }
+      }
+    })
     //获取用户设备信息
     utils.DeviceRequest({
       url: "GetDevices",
       method: "post",
       callback: function (res) {
+        wx.hideToast();
         if (res.data == 0) {
           wx.showModal({
             title: '提示',
@@ -192,40 +265,6 @@ Page({
         that.setData({
           deviceArray: deviceArray,
         })
-      }
-    })
-  },
-  onReady: function () {
-    // 页面渲染完成
-  },
-  onShow: function () {
-    // 页面显示
-    var EnabledTime = "";
-    var that = this;
-    utils.DeviceRequest({
-      url: "GetLastPublishTime",
-      method: "post",
-      callback: function (res) {
-        if (res.data.Succeed) {
-          var nowTime = new Date();
-          var Seconds = nowTime.getTime();
-          var time = res.data.Data.replace("/Date(", "").replace(")/", "");   //1491462452937
-          interval = setInterval(function () {
-            time = time - 1000;
-            if (time <= 0) {
-              clearInterval(interval)
-              that.setData({
-                btn_disabled: false,
-              })
-            }
-            EnabledTime = Time(time, Seconds);
-            that.setData({
-              device_list: deviceList,
-              btn_disabled: true,
-              EnabledTime: EnabledTime
-            })
-          }, 1000)
-        }
       }
     })
   },
@@ -261,8 +300,12 @@ function check(t) {
 }
 
 function Time(time, Seconds) {
-  var EndTime = 24 * 60 * 60 * 1000;
-  var leftSec = (EndTime - (Seconds - time)) / 1000;
+  var EndTime = parseFloat(Hours) * 60 * 60 * 1000;
+  var ShortTime = EndTime - (Seconds - time)
+  if (ShortTime <= 0) {
+    return false;
+  }
+  var leftSec = ShortTime / 1000;
   var H = Math.floor(leftSec / 3600);
   var M = Math.floor((leftSec - (H * 3600)) / 60);
   var S = Math.floor(leftSec - (H * 3600) - (M * 60));

@@ -14,7 +14,8 @@
     "page/home/qrcode/detail/detail",
     "page/home/photoMannage/photoMannage",
     "page/home/aboutUs/aboutUs",
-    "page/home/mybussine/mybussine"
+    "page/home/mybussine/mybussine",
+    "page/error/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -45,7 +46,7 @@
     ],
     "color": "#666666",
     "selectedColor": "#1986ff",
-    "backgroundColor": "white",
+    "backgroundColor": "#ffffff",
     "borderStyle": "black"
   },
   "networkTimeout": {

@@ -1,5 +1,6 @@
 /* page/home/mybussine/mybussine.wxss */
 @import "../common/homeCommon.wxss";
+/*swiper{ height: 424rpx; }*/
 .swiper-item{
     display: block;
     height: 424rpx;
@@ -63,6 +64,7 @@
 }
 .companyLocation-item{
     height: 78rpx;
+    line-height: 78rpx;
     padding:0 30rpx;
 }
 .icon-heart{
@@ -71,7 +73,6 @@
 }
 .bannerImage{
     width: 100%;
-    height: 100%;
 }
 .Distance{
     width: 585rpx;
@@ -79,3 +80,17 @@
     text-overflow:ellipsis;
     white-space: nowrap;
 }
+.w690{ width: 690rpx; }
+.loginBtn-box{ margin-top: 100rpx;}
+.loginNav{ 
+    width:100%;
+    margin: 0 30rpx;
+}
+.loginBtn{
+    height: 86rpx;
+    line-height: 86rpx;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin: 0;
+}
+.default-img{ height: 150px; width: 100%;}

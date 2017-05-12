@@ -7,12 +7,17 @@
       <text class="grey">{{Sum1}}/1</text>
     </view>
     <view class="images-list">
-      <block wx:key="*this" wx:for-items="{{ImageList1}}">
-        <view class="por mg-r50">
-          <image src="{{item.Compressed}}" class="images-image" data-src="{{item.Original}}}" data-index="1"  bindtap="previewImage"></image>
+      <block wx:key="*this" wx:for-items="{{oImageList1}}">
+        <view class="por">
+          <view class="image-close"  bindtap="removeImage" data-id="{{index}}" data-index="1"  data-imgId="{{item.Id}}" >
+            <image class="icon-delete" src="{{iconDeleteUrl}}"></image>
+          </view>
+          <image mode="aspectFill" src="{{item.Original}}" class="images-image" data-src="{{item.Original}}}" data-index="1"  bindtap="previewImage"></image>
         </view>
       </block>
-      <template is="add-imageBox" data="{{bindtap:eventObj.ChooseImage1}}"></template>
+      <block wx:if="{{!Sum1}}">
+        <view class="photoMannage_one"><template is="add-imageBox" data="{{bindtap:eventObj.ChooseImage1,index:1}}"></template></view>
+      </block>
     </view>
   </view>
 
@@ -22,84 +27,85 @@
       <text class="grey">{{Sum2}}/1</text>
     </view>
     <view class="images-list">
-      <block wx:key="*this" wx:for-items="{{ImageList2}}" >
-        <view class="por mg-r50">
-          <image src="{{item.Compressed}}" class="images-image" data-src="{{item.Original}}}" data-index="2" bindtap="previewImage"></image>
+      <block wx:key="*this" wx:for-items="{{oImageList2}}" >
+        <view class="por">
+          <view class="image-close"  bindtap="removeImage" data-id="{{index}}" data-index="2"  data-imgId="{{item.Id}}" >
+            <image mode="aspectFill" class="icon-delete" src="{{iconDeleteUrl}}"></image>
+          </view>
+          <image src="{{item.Original}}" class="images-image" data-src="{{item.Original}}}" data-index="2" bindtap="previewImage"></image>
         </view>
       </block>
-      <template is="add-imageBox" data="{{bindtap:eventObj.ChooseImage2}}"></template>
+      <block wx:if="{{!Sum2}}">
+           <view class="photoMannage_two"><template is="add-imageBox" data="{{bindtap:eventObj.ChooseImage2,index:2}}"></template></view>
+      </block>
     </view>
   </view>
 
   <view class="images-wrapper">
     <view class="jc lh1 mg-b28">
       <text class="images-text">加工设备</text>
-      <view class="image-del" hidden="{{ImageList3.length > 0? false:true}}" bindtap="delImages" data-index="3">-</view>
     </view>
     <view class="images-list">
-      <block wx:key="*this" wx:for-items="{{ImageList3}}" >
-        <view class="por mg-r50">
-          <view class="image-close" hidden="{{closeflag3}}" bindtap="removeImage" data-id="{{index}}" data-index="3"  data-imgId="{{item.Id}}" >
+      <block wx:key="*this" wx:for-items="{{oImageList3}}" >
+        <view class="por">
+          <view class="image-close"  bindtap="removeImage" data-id="{{index}}" data-index="3"  data-imgId="{{item.Id}}" >
             <image class="icon-delete" src="{{iconDeleteUrl}}"></image>
           </view>
-          <image src="{{item.Compressed}}" class="images-image" data-src="{{item.Original}}}" data-index="3" data-imgIndex="{{index}}" bindtap="previewImage"></image>
+          <image mode="aspectFill" src="{{item.Original}}" class="images-image" data-src="{{item.Original}}}" data-index="3" data-imgIndex="{{index}}" bindtap="previewImage"></image>
         </view>
       </block>
-      <template is="add-imageBox" data="{{bindtap:eventObj.ChooseImage,index:'3'}}"></template>
+      <view class="photoMannage_three" ></view><template is="add-imageBox" data="{{bindtap:eventObj.ChooseImage,index:'3'}}"></template>
     </view>
   </view>
 
   <view class="images-wrapper">
     <view class="jc lh1 mg-b28">
       <text class="images-text">检测设备</text>
-      <view class="image-del" hidden="{{ImageList4.length > 0? false:true}}" bindtap="delImages" data-index="4">-</view>
     </view>
     <view class="images-list">
-      <block wx:key="*this" wx:for-items="{{ImageList4}}" >
-        <view class="por mg-r50">
-          <view class="image-close" hidden="{{closeflag4}}" bindtap="removeImage" data-id="{{index}}" data-index="4"  data-imgId="{{item.Id}}" >
+      <block wx:key="*this" wx:for-items="{{oImageList4}}" >
+        <view class="por">
+          <view class="image-close"  bindtap="removeImage" data-id="{{index}}" data-index="4"  data-imgId="{{item.Id}}" >
             <image class="icon-delete" src="{{iconDeleteUrl}}"></image>
           </view>
-          <image src="{{item.Compressed}}" class="images-image" data-src="{{item.Original}}}" data-index="4" data-imgIndex="{{index}}" bindtap="previewImage"></image>
+          <image mode="aspectFill" src="{{item.Original}}" class="images-image" data-src="{{item.Original}}}" data-index="4" data-imgIndex="{{index}}" bindtap="previewImage"></image>
         </view>
       </block>
-      <template is="add-imageBox" data="{{bindtap:eventObj.ChooseImage,index:'4'}}"></template>
+      <view class="photoMannage_four"><template is="add-imageBox" data="{{bindtap:eventObj.ChooseImage,index:'4'}}"></template></view>
     </view>
   </view>
 
   <view class="images-wrapper">
     <view class="jc lh1 mg-b28">
       <text class="images-text">办公区域</text>
-      <view class="image-del" hidden="{{ImageList5.length > 0? false:true}}" bindtap="delImages" data-index="5">-</view>
     </view>
     <view class="images-list">
-      <block wx:key="*this" wx:for-items="{{ImageList5}}" >
-        <view class="por mg-r50">
-          <view class="image-close" hidden="{{closeflag5}}" bindtap="removeImage" data-id="{{index}}" data-index="5" data-imgId="{{item.Id}}" >
+      <block wx:key="*this" wx:for-items="{{oImageList5}}" >
+        <view class="por">
+          <view class="image-close"  bindtap="removeImage" data-id="{{index}}" data-index="5" data-imgId="{{item.Id}}" >
             <image class="icon-delete" src="{{iconDeleteUrl}}"></image>
           </view>
-          <image src="{{item.Compressed}}" class="images-image" data-src="{{item.Original}}}" data-index="5" data-imgIndex="{{index}}"  bindtap="previewImage"></image>
+          <image mode="aspectFill" src="{{item.Original}}" class="images-image" data-src="{{item.Original}}}" data-index="5" data-imgIndex="{{index}}"  bindtap="previewImage"></image>
         </view>
       </block>
-      <template is="add-imageBox" data="{{bindtap:eventObj.ChooseImage,index:'5'}}"></template>
+      <view class="photoMannage_five"><template is="add-imageBox" data="{{bindtap:eventObj.ChooseImage,index:'5'}}"></template></view>
     </view>
   </view>
 
   <view class="images-wrapper">
     <view class="jc lh1 mg-b28">
       <text class="images-text">产品图片</text>
-      <view class="image-del" hidden="{{ImageList6.length > 0? false:true}}" bindtap="delImages" data-index="6">-</view>
     </view>
     <view class="images-list">
-      <block wx:key="*this" wx:for-items="{{ImageList6}}" >
-        <view class="por mg-r50">
-          <view class="image-close" hidden="{{closeflag6}}" bindtap="removeImage" data-id="{{index}}" data-index="6" data-imgId="{{item.Id}}" >
+      <block wx:key="*this" wx:for-items="{{oImageList6}}" >
+        <view class="por">
+          <view class="image-close" bindtap="removeImage" data-id="{{index}}" data-index="6" data-imgId="{{item.Id}}" >
             <image class="icon-delete" src="{{iconDeleteUrl}}"></image>
           </view>
-          <image src="{{item.Compressed}}" class="images-image" data-src="{{item.Original}}}" data-index="6" data-imgIndex="{{index}}" bindtap="previewImage"></image>
+          <image mode="aspectFill" src="{{item.Original}}" class="images-image" data-src="{{item.Original}}}" data-index="6" data-imgIndex="{{index}}" bindtap="previewImage"></image>
         </view>
       </block>
-      <template is="add-imageBox" data="{{bindtap:eventObj.ChooseImage,index:'6'}}"></template>
+      <view class="photoMannage_six"><template is="add-imageBox" data="{{bindtap:eventObj.ChooseImage,index:'6'}}"></template></view>
     </view>
   </view>
 </view>

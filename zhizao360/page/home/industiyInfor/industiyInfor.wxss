@@ -5,6 +5,7 @@
     min-height: 122rpx;
     width:525rpx;
     padding-right: 5rpx;
+    font-weight: normal;
 }
 .addressSelect{
     height: 88rpx;

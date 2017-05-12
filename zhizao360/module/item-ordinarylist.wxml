@@ -3,10 +3,12 @@
 <template name="itme-ordinarylist-head">
   <view class="ordinarylist-head">
     <view class="search-input" wx:if="{{isShow}}">
-      <image class="icon-search" src="../../icon/icon-search.png" style="left:{{left}};"></image>
-      <input type="text" style="width:{{width}};text-align: {{textLeft}};padding-left:{{paddingLeft}}" bindconfirm="EventBlur" bindinput="EventSearch" bindfocus="EventFocus" bindblur="EventBlur" placeholder="{{inputWord}}" value="{{inputValue}}" placeholder-class="input-ph"
-      />
-      <text style="display:{{inputFocus}}" class="search-console" bindtap="EventConsole">取消</text>
+      <view class="input-box">
+        <image class="icon-search" src="../../icon/icon-search.png" style="left:{{left}};"></image>
+        <input type="text" style="width:{{width}};text-align: {{textLeft}};padding-left:{{paddingLeft}}" bindconfirm="EventSearch" bindinput="EventInput" bindfocus="EventFocus"  bindblur="EventBlur" placeholder="{{inputWord}}" value="{{inputValue}}" confirm-type='search'  placeholder-class="input-ph" />
+        <icon type="clear" size="14" bindtap="ClearTxt" class="icon-clear" hidden="{{ClearShow}}" />
+      </view>
+      <text style="display:{{inputFocus}}" class="search-console" bindtap="EventConsole">{{SearchTxt}}</text>
     </view>
     <view class="search-list">
       <view class="search-address txt-hid" bindtap="choseArea" data-Id="1">
@@ -28,9 +30,9 @@
   <view class="ordinarylist-box" hidden="{{searchId==1?false:true}}">
     <view class="area-head">
       <view class="area-address">
-        <text class="area-city">城市：</text>
+        <text class="area-city">地址：</text>
         <text class="area-detail" bindtap="choseposition">{{Address}}</text>
-        <text class="area-icon">></text>
+        <text class="area-icon"></text>
         <view class="area-posation" bindtap="reposition">
           <image src="../../icon/icon-posation.png" class="icon-posation"></image>
           <text>重新定位</text>

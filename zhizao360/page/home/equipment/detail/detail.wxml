@@ -1,51 +1,57 @@
 <!--page/home/equipment/detail/detail.wxml-->
-
+<import src="/page/home/common/homeCommon.wxml"></import>
 <view class="view-body pd-t30">
     <form bindsubmit="addORamend">
         <view class="border-tb1px pd-l30 bg-fff">
             <view class="border-b1px h88">
                 <picker bindchange="ChangeType" value="{{TypeIndex}}" range="{{Type}}" range-key="Name">
                     <view class="jc ai-center">
-                      <view>
-                        <text class="w200 fl" >设备类型</text>
-                        <input  type="text" class="h88 fl" placeholder="请选择设备类型" value="{{TypeName}}" hidden />
-                        <text class="h88 fl c999">{{TypeName ? TypeName : "请选择设备类型"  }}</text>
-                      </view>
+                        <view>
+                            <text class="w200 fl">设备类型</text>
+                            <input type="text" class="h88 fl black" placeholder="请选择设备类型" value="{{TypeName}}" hidden />
+                            <text class="h88 fl  {{TypeName  ?  'black' : 'c777' }}">{{TypeName ? TypeName : '请选择添加设备' }}</text>
+                        </view>
                         <image class="arrow fr" src="{{imageUrl.iconArrow}}"></image>
                     </view>
                 </picker>
             </view>
             <view class="ai border-b1px h88 ">
-                <text class="w200">设备名称</text> <input   type="text" name="name" value="{{name}}" class="w500" maxlength="15" />
+                <text class="w200">设备名称</text> <input type="text" name="name" value="{{name}}" class="w500 black" maxlength="15" />
             </view>
             <view class="ai border-b1px h88 ">
-                <text class="w200">设备品牌</text> <input  type="text" name="brand" value="{{brand}}" class="w500" maxlength="15"/>
+                <text class="w200">设备品牌</text> <input type="text" name="brand" value="{{brand}}" class="w500 black" maxlength="15" />
             </view>
             <view class="jc border-b1px h88 ai-center ">
                 <text class="w200">设备数量</text>
-                <view class="flex ai-center cut-addBox mg-r30" >
-                    <view class="cut-add " bindtap="cutNumber" >-</view>
-                    <input type="number" name="amount" class="number" bindblur="numberInput"  value="{{number}}"/>
-                    <view class="cut-add " bindtap="addNumber" >+</view>
-                </view> 
+               
+                <view class="device-operate">
+                    <view class="num-reduce" bindtap="cutNumber">
+                        <image src="{{ number <= 1 ?  '/icon/icon-reduce.png' : '/icon/icon-reduce-a.png' }}"></image>
+                    </view>
+                    <input type="number" name="amount" class="device-quantity black" bindblur="numberInput" value="{{number}}" />
+                    <view class="num-add" bindtap="addNumber">
+                        <image src="{{ number >= 9999 ? '/icon/icon-add.png' : '/icon/icon-add-a.png' }}" ></image>
+                    </view>
+                </view>
             </view>
             <view class="border-b1px h88">
                 <picker bindchange="ChangeDensity" value="{{DensityIndex}}" range="{{Density}}" range-key="Name">
                     <view class="jc ai-center">
                         <view>
-                           <text class="w200 fl" >设备精度</text> 
-                           <input type="text" name="preciseLevel" class="h88 fl" placeholder="请选择设备精密度" value="{{DensityName}}"  hidden/>
-                           <text class="h88 fl c999" >{{DensityName ?  DensityName : '请选择设备精密度'}}</text>
+                            <text class="w200 fl">设备精度</text>
+                            <input type="text" name="preciseLevel" class="h88 fl black" placeholder="请选择设备精密度" value="{{DensityName}}" hidden/>
+                            <text class="h88 fl  {{DensityName  ?  'black' : 'c777' }}">{{ DensityName ? DensityName : '请选择设备精密度'}}</text>
                         </view>
-                        <image class="arrow fr" src="{{imageUrl.iconArrow}} "></image>
+                        <image class="arrow fr" src="{{imageUrl.iconArrow}}"></image>
                     </view>
                 </picker>
             </view>
             <view class="ai h88">
-                <text class="w200">加工行程</text> <input  type="text" name="produceRange" class="w500" value="{{produceRange}}" maxlength="15" placeholder="机器加工半径及范围(15字以内)" />
+                <text class="w200">加工行程</text> <input type="text" name="produceRange" class="w500 black" value="{{produceRange}}" maxlength="15"
+                    placeholder="机器加工半径及范围(15字以内)" />
             </view>
         </view>
-        <button class="button" formType="submit" >{{buttonText}}</button>
-</form>
-        
+        <button class="button" formType="submit">{{buttonText}}</button>
+    </form>
+    <template is="Advertisement"></template>
 </view>

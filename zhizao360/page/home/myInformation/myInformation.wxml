@@ -1,28 +1,29 @@
 <!--page/home/myInformation/myInformation.wxml-->
-
+<import src="../common/homeCommon.wxml"></import>
 <view class="view-body fs34">
      <form class="" bindsubmit="formSubmit" bindreset="formReset">
                 <view class="border-tb1px pd-l30 mg-t30 bg-fff">
                         <view class="view-box border-b1px ">
-                                <text >姓名</text><input type="text" name="Name" value="{{Name}}" placeholder="填写姓名" placeholder-style=" color:#b2b2b2"/>
+                                <text >姓名</text><input class="info_name" type="text" name="Name" value="{{Name}}" maxlength="15" placeholder="填写姓名" placeholder-style=" color:#b2b2b2"/>
                         </view>
                         <view class="view-box border-b1px ">
-                                <text>手机</text> <input type="number" name="Mobile" value="{{Mobile}}" placeholder="11位手机号" placeholder-style="color:#b2b2b2" disabled />
+                                <text>手机</text> <input class="info_mobile" type="number" name="Mobile" value="{{Mobile}}" maxlength="15" placeholder="11位手机号" placeholder-style="color:#b2b2b2" disabled />
                         </view>
                         <view class="view-box border-b1px ">
-                                <text>QQ</text>  <input type="number" name="QQ" value="{{QQ}}" placeholder="填写QQ号" placeholder-style="color:#b2b2b2"/>
+                                <text>QQ</text>  <input class="info_qq" type="number" name="QQ" value="{{QQ}}" maxlength="15" placeholder="填写QQ号" placeholder-style="color:#b2b2b2"/>
                         </view>
                         <view class="view-box border-b1px ">
-                                <text>微信</text>  <input type="text" name="Wechat" value="{{Wechat}}" placeholder="填写微信号" placeholder-style="color:#b2b2b2"/>
+                                <text>微信</text>  <input class="info_wechat" type="text" name="Wechat" value="{{Wechat}}" maxlength="15" placeholder="填写微信号" placeholder-style="color:#b2b2b2"/>
                         </view>
                         <view class="view-boxLast  jc-between ai-center"> 
                          <view>
                             <text>公开</text> <view class="light fl">手机公开在公司主页</view> 
                          </view>   
-                          <switch class="fr mg-r30" name="IsShow" checked="{{IsShow}}" bindchange="switchChange"/>
+                          <switch class="fr mg-r30 info_isshow" name="IsShow" checked="{{IsShow}}" bindchange="switchChange"/>
                         </view>
                 </view>
-        <button class="button" form-type="submit">{{ isChildAccount ? '保存':'提交申请' }}</button>
+        <button class="button save_info" form-type="submit">{{ isChildAccount ? '保存':'提交申请' }}</button>
         </form>
+        <template is="Advertisement"></template>
 </view>
 

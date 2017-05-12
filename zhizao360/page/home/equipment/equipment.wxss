@@ -1,2 +1,3 @@
 /* page/home/equipment/equipment.wxss */
 @import "../common/homeCommon.wxss";
+.company-name{ width: 545rpx; }

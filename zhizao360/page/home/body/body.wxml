@@ -1,11 +1,12 @@
 <!--page/home/body/body.wxml-->
+<import src="../common/homeCommon.wxml"></import>
 <view class="view-body pd-t30 fs34">
     <view class="panel bg-fff mg-b30 border-tb1px" bindtap="toMyInfo">
         <view class="ai">
             <image class="headImage fl" src="{{avatarUrl}}"></image>
             <view class="fl mg-l20 fs40">
-                <view class="nickName ell">{{nickName}}</view>
-                <view>{{iphone}}</view>
+                <text  class="nickName ell" selectable="true">{{nickName}}</text>
+                <view><text selectable="true">{{iphone}}</text></view>
             </view>
         </view>
         <view class="ai">
@@ -24,7 +25,7 @@
                     <image class="arrow fr" src="{{imageUrl.iconArrow}}"></image>
                 </view>
             </navigator>
-            <picker class="h88" bindchange="bindPickerChange" value="{{pickerIndex}}" range="{{pickerArray}}" range-key="Name" disabled="{{natureFlag}}">
+            <picker  class="h88 body_enterprise_property" bindchange="bindPickerChange" value="{{pickerIndex}}" range="{{pickerArray}}" range-key="Name" disabled="{{natureFlag}}">
                 <view class="h88 jc-between ai-center">
                     <view>
                         <text>企业性质</text>
@@ -106,7 +107,8 @@
 
     <button class="buttonT mg-t60" bindtap="relieveBind">解绑退出</button>
 
-
+    <template is="Advertisement"></template>
+    
     <view class="jc ai-center btnContactBox">
         <view class="jc-between ai-center btnContact">
             <contact-button type="default-light" class="rrr" size="27" session-from="weapp"></contact-button>

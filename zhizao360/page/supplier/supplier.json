@@ -1,5 +1,6 @@
 {
     "navigationBarTitleText": "供方企业",
-    "enablePullDownRefresh": "true",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#eeeeee",
     "backgroundTextStyle": "dark"
 }

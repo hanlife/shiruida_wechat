@@ -12,7 +12,9 @@ var header = {
     District: [],
     Nearby: [],
     DeviceName: [],
-    Address: {},
+    Address: {
+      county: ''
+    },
     MoreName: {
       Industry: {
         Name: '',
@@ -33,13 +35,15 @@ var header = {
   MoreColor: false,
   //顶部搜索框
   isShow: true, //搜索框
-  inputWord: '搜索设备名称、类型、公司名称',
+  ClearShow: true,
+  inputWord: '搜索设备、产品、公司名称',
   inputValue: '',
-  left: "130rpx", //搜索图标左边距
-  width: "100%",  //搜索框宽度
+  left: "135rpx", //搜索图标左边距
+  width: "673rpx",  //搜索框宽度
   textLeft: "center", //搜索框字体对齐
   paddingLeft: "0", //搜索框左边距
   inputFocus: "none", //取消按钮
+  SearchTxt: "取消",
   SearchList: [],//搜索关联内容
   Searching: true,
   AddressName: "区域",
@@ -84,14 +88,13 @@ var request = {
   IndustryId: [],
   PQty: "",
   ProcessTypeId: [],
-  Longitude: '',
-  Latitude: '',
+  Longitude: 0,
+  Latitude: 0,
   MaxResultCount: "10",
   CurrentPageNumber: "1",
 };
 Page({
   data: {
-    con_Height: 0,
     loadShow: true,
     item_head: header,
     supplier_list: [],
@@ -132,11 +135,12 @@ Page({
   },
   //选择地区
   choseposition: function () {
-    header = search.choseposition(header, this);
+    header = search.choseposition(header, this, request);
   },
   //重新定位
   reposition: function () {
     header = search.reposition(header);
+    header = search.bmap_fn(bmap, header, this);
     this.setData({
       item_head: header,
     })
@@ -213,10 +217,15 @@ Page({
   },
   //清空按钮
   EventEmpty: function () {
+    header.searchId = 0;
     header = search.EventEmpty(header);
+    request.DeviceTypeId = [];
+    request.IndustryId = [];
+    request.PQty = '';
     this.setData({
       item_head: header
     })
+    QuerySupplier(this);
   },
   //确定按钮
   EventResult: function () {
@@ -242,40 +251,25 @@ Page({
     search.ToSupplier(e);
   },
   //上拉加载
-  EventLoad: function () {
-    var that = this;
-    this.setData({
-      loadShow: false,
-    })
-    wx.showNavigationBarLoading();
+  onReachBottom: function () {
     request.CurrentPageNumber++;
     getQuery(this);
   },
   //下拉刷新
   onPullDownRefresh: function () {
     var that = this;
-    wx.showNavigationBarLoading();
-    request = {
-      KeyWord: "",
-      Provin: "",
-      City: "",
-      County: "",
-      DeviceTypeId: [],
-      Distance: "",
-      IndustryId: [],
-      PQty: "",
-      ProcessTypeId: [],
-      Longitude: appInstance.globalData.addLog.Latitude,
-      Latitude: appInstance.globalData.addLog.Latitude,
-      MaxResultCount: "10",
-      CurrentPageNumber: "1",
-    };
+    // wx.showNavigationBarLoading();
+    wx.showToast({
+      title: '加载中...',
+      icon: 'loading'
+    })
+    request.CurrentPageNumber = 1;
     appInstance.reqPost("Enterprise/QuerySupplier", function (res) {
+      request.CurrentPageNumber = 1;
       if (res.Succeed) {
         if (res.Data.Items.length > 0) {
           var List = util.distanc(res.Data.Items, header);
           that.setData({
-            loadShow: true,
             supplier_list: List,
             scrollTop: 0
           })
@@ -284,9 +278,13 @@ Page({
             dataList: true,
           })
         }
-        wx.stopPullDownRefresh()
-        wx.hideNavigationBarLoading();
       }
+      wx.stopPullDownRefresh({
+        complete: function (res) {
+          wx.hideToast();
+          // wx.hideNavigationBarLoading();
+        }
+      })
     }, { request: request })
   },
   //隐藏区域选择
@@ -296,11 +294,32 @@ Page({
       item_head: header
     })
   },
+  EventInput: function (e) {
+    header.inputValue = e.detail.value;
+    if (e.detail.value != '') {
+      header.SearchTxt = "搜索"
+      header.ClearShow = false;
+    } else {
+      header.SearchTxt = "取消"
+      header.ClearShow = true;
+    }
+    this.setData({
+      item_head: header
+    })
+  },
+  //清空按钮
+  ClearTxt: function () {
+    header.inputValue = '';
+    header.ClearShow = true;
+    header.SearchTxt = "取消"
+    this.setData({
+      item_head: header
+    })
+  },
   //输入框聚焦
   EventFocus: function (e) {
     header = search.EventFocus(e, header);
     header.Searching = false;
-
     this.setData({
       item_head: header
     })
@@ -309,22 +328,53 @@ Page({
   SearchResult: function (e) {
     header.inputValue = e.detail.value;
   },
+  // //输入确定
+  // EventBlur: function (e) {
+  //   request.KeyWord = e.detail.value;
+  //   header.Searching = true;
+  //   header.inputValue = e.detail.value;
+  //   if (e.detail.value == '') {
+  //     header = search.EventConsole(header);
+  //   }
+  //   this.setData({
+  //     item_head: header
+  //   })
+  //   QuerySupplier(this);
+  // },
+  //取消或搜索
+  EventConsole: function () {
+    if (header.inputValue == '') {
+      header.inputValue = request.KeyWord;
+      if (request.KeyWord != '') {
+        header = search.EventSearch(header);
+      } else {
+        header = search.EventConsole(header);
+      }
+    } else {
+      header = search.EventSearch(header);
+      request.KeyWord = header.inputValue;
+      QuerySupplier(this);
+    }
+    this.setData({
+      item_head: header
+    })
+  },
   //输入确定
-  EventBlur: function (e) {
+  EventSearch: function (e) {
     request.KeyWord = e.detail.value;
-    header = search.EventConsole(header);
+    header.Searching = true;
+    header.inputValue = e.detail.value;
+    if (e.detail.value == '') {
+      header = search.EventConsole(header);
+    } else {
+      header = search.EventSearch(header);
+    }
     this.setData({
       item_head: header
     })
     QuerySupplier(this);
-    request.KeyWord = '';
   },
-  //取消
-  EventConsole: function () {
-    header = search.EventConsole(header);
-    this.setData({
-      item_head: header
-    })
+  imgError: function (e) {
   },
   //自定义分享标题
   onShareAppMessage: function () {
@@ -334,32 +384,52 @@ Page({
     }
   },
   onLoad: function (options) {
+    var that = this;
     // 页面初始化 options为页面跳转所带来的参数
     var H = appInstance.globalData.addLog.Windowheight;
     var W = appInstance.globalData.addLog.Windowwidth;
-    if (appInstance.globalData.addLog.System.indexOf('Android') == -1) {
-      var con_H = parseInt(H - (W / 750 * (160 + 88)));
-    } else {
-      var con_H = parseInt(H - (W / 750 * 160));
-    }
     header = search.setHeight(header);
     this.setData({
-      con_Height: con_H,
       item_head: header
     })
-    wx.showNavigationBarLoading();
+
+    //赋值经纬度
+    wx.getLocation({
+      type: 'wgs84',
+      success: function (res) {
+        request.Latitude = res.latitude;
+        request.Longitude = res.longitude;
+        // 获取闲置产能
+        QuerySupplier(that);
+      }
+    })
   },
   onShow: function () {
     // 页面显示
-    request.Longitude = appInstance.globalData.addLog.Longitude;
-    request.Latitude = appInstance.globalData.addLog.Latitude;
-    QuerySupplier(this);
-
+    // var that = this;
+    // if (request.Latitude) {
+    //   QuerySupplier(this);
+    // } else {
+    //   wx.getLocation({
+    //     type: 'wgs84',
+    //     success: function (res) {
+    //       request.Latitude = res.latitude;
+    //       request.Longitude = res.longitude;
+    //       // 获取闲置产能
+    //       QuerySupplier(that);
+    //     }
+    //   })
+    // }
+    wx.showToast({
+      title: '加载中...',
+      icon: 'loading',
+      duration: 500
+    })
   },
   onReady: function () {
     // 页面渲染完成
     header = search.sevice(header);
-    header = search.bmap_fn(bmap, header);
+    header = search.bmap_fn(bmap, header, this);
   },
   onHide: function () {
     // 页面隐藏
@@ -371,22 +441,39 @@ Page({
 
 // 获取闲置产能
 function QuerySupplier(that) {
+  wx.showToast({
+    title: '加载中...',
+    icon: 'loading'
+  })
   request.CurrentPageNumber = 1;
   appInstance.reqPost("Enterprise/QuerySupplier", function (res) {
+    var text = '加载中...'
+    var loadShow = false;
     if (res.Succeed) {
       if (res.Data.Items.length > 0) {
         header.Data.Totle = res.Data.TotalCount;
         var data = util.distanc(res.Data.Items, header);
+        if (request.CurrentPageNumber * 10 > header.Data.Totle) {
+          text = "已加载全部";
+        }
+        if (res.Data.Items.length < 5) {
+          loadShow = true;
+        }
         that.setData({
+          loadShow: loadShow,
           supplier_list: data,
           dataList: false,
+          loading: text,
+          scrollTop: 0
         })
       } else {
         that.setData({
+          loadShow: true,
           dataList: true,
         })
       }
     }
+    wx.hideToast();
     wx.hideNavigationBarLoading();
   }, { request: request })
 }
@@ -396,23 +483,19 @@ function getQuery(that) {
     that.setData({
       loading: "已加载全部",
     })
-    setTimeout(function () {
-      that.setData({
-        loadShow: true,
-        loading: "加载中...",
-      })
-      wx.hideNavigationBarLoading();
-    }, 2000)
   } else {
+    wx.showToast({
+      title: '加载中...',
+      icon: 'loading'
+    })
     appInstance.reqPost("Enterprise/QuerySupplier", function (res) {
-      wx.hideNavigationBarLoading();
+      wx.hideToast();
       if (res.Succeed) {
         if (res.Data.Items.length > 0) {
           header.Data.Totle = res.Data.TotalCount;
           var data = util.distanc(res.Data.Items, header);
           var List = that.data.supplier_list.concat(data);
           that.setData({
-            loadShow: true,
             dataList: false,
             supplier_list: List,
           })

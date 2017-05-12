@@ -11,17 +11,12 @@ App({
     EnterpriseId: '',
     myInformationData: '',
     Id: '',
-    guideline: false,
     shareTitle: {},
     IsMainMember: '',
-    EnterpriseNatures:''
+    EnterpriseNatures: ''
   },
   onLaunch: function () {
     var _t = this;
-    //操作指引
-    if (wx.getStorageSync('rd_session') == "") {
-      _t.globalData.guideline = true;
-    }
     // wx.checkSession({
     //   success: function () {
     //     //session 未过期，并且在本生命周期一直有效
@@ -31,6 +26,22 @@ App({
 
     //   }
     // })
+    //网络连接
+    wx.getNetworkType({
+      success: function (res) {
+        // 返回网络类型, 有效值：
+        // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
+        var networkType = res.networkType;
+        if (networkType == "none") {
+          wx.showModal({
+            title: '提示',
+            content: '无网络连接，请检查网络！',
+            success: function (res) {
+            }
+          })
+        }
+      }
+    })
     _t.getUserInfo(); //重新登录
     //获取系统信息
     wx.getSystemInfo({
@@ -69,13 +80,13 @@ App({
         var userInfo = res.userInfo
         var nickName = userInfo.nickName
         var avatarUrl = userInfo.avatarUrl
-        wx.setStorage({
-          key: "nickName",
-          data: nickName
-        })
-        wx.setStorage({
-          key: "avatarUrl",
-          data: avatarUrl
+
+        setStorage('nickName', nickName);
+        setStorage('avatarUrl', avatarUrl);
+      },
+      fail: function () {
+        wx.redirectTo({
+          url: '/page/error/index',
         })
       }
     })
@@ -85,15 +96,25 @@ App({
       success: function (res) {
         _t.globalData.addLog.Latitude = res.latitude
         _t.globalData.addLog.Longitude = res.longitude
+      },
+      fail: function (res) {
+        wx.redirectTo({
+          url: '/page/error/index',
+        })
       }
     })
     //请求分享数据
     _t.reqGet("BaseData/GetNatures", function (res) {
-          _t.globalData.EnterpriseNatures = res;
+      _t.globalData.EnterpriseNatures = res;
     })
   },
   //当小程序启动，或从后台进入前台显示
   onShow: function () {
+    wx.showToast({
+      title: '加载中...',
+      icon: 'loading',
+      duration: 2000
+    })
   },
   getUserInfo: function (cb) {
     var that = this;
@@ -128,9 +149,7 @@ App({
         }
       })
 
-      function setStorage(key, val) {
-        wx.setStorageSync(key, val);
-      }
+
     }
   },
   //Get数据请求
@@ -168,8 +187,8 @@ App({
   GetAddress: function (address) {
     var provincesIndex = address.indexOf("省");
     var obj = {
-      province: null,
-      city: null
+      province: '',
+      city: ''
     };
     if (provincesIndex > 0) {
       obj.province = address.substring(0, provincesIndex + 1);
@@ -182,3 +201,7 @@ App({
     return obj
   }
 });
+
+function setStorage(key, val) {
+  wx.setStorageSync(key, val);
+}

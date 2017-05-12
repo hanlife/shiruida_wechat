@@ -27,7 +27,8 @@ Page({
     NET_SessionId: '',
     authcode: '',
     cookie: "",
-    BindText: '绑定'
+    BindText: '绑定',
+    focus: false
   },
   Eventbinding: function (e) {
     var that = this;
@@ -48,11 +49,11 @@ Page({
             setStorage("IsWxLogin", res.data.Data.IsWxLogin); //code换session_key是否成功
             setStorage("isImLogin", res.data.Data.isImLogin); //平台是否登录成功
             app.globalData.guideline = false;
-            //已认证
-            if (res.data.Data.enterpriseId) {
+            if (!res.data.Data.enterprieId) {
+              //已认证   立即申请
               Certification();
             } else {
-              //未认证
+              //未认证  完善资料
               NoCertification();
             }
           } else {
@@ -141,13 +142,15 @@ Page({
           that.setData({
             isLogin: false,
             register: true,
-            BindText: "注册"
+            BindText: "注册",
+            focus: true
           })
         } else {
           that.setData({
             isLogin: true,
             register: false,
-            BindText: "绑定"
+            BindText: "绑定",
+            focus: true
           })
         }
         if (!res.data.Succeed) {
@@ -177,6 +180,11 @@ Page({
   //企业名称
   bindName: function (e) {
     loginData.EnterpriseName = e.detail.value;
+  },
+  ToOrdinarylist: function () {
+    wx.switchTab({
+      url: '/page/ordinarylist/index'
+    })
   },
   accountType: function (e) {
     //企业性质
@@ -271,10 +279,7 @@ function countDown(that) {
 
 //缓存
 function setStorage(key, val) {
-  wx.setStorage({
-    key: key,
-    data: val
-  });
+  wx.setStorageSync(key, val)
 }
 
 function Certification() {

@@ -37,11 +37,13 @@
   width: 100%;
   z-index: 999;
   height: 160rpx;
+  position: fixed;
+  top: 0;
+  background-color: #efeff4;
 }
 
 .search-input {
   margin: 16rpx;
-  position: relative;
   height: 56rpx;
 }
 
@@ -53,7 +55,16 @@
   text-align: center;
   font-size: 30rpx;
   background-color: #fff;
+  /*border: 1rpx solid #eaeaef;*/
+  vertical-align: middle;
+}
+
+.input-box {
+  position: relative;
+  display: inline-block;
   border: 1rpx solid #eaeaef;
+  background-color: #fff;
+  padding-right: 45rpx;
 }
 
 .search-console {
@@ -61,9 +72,9 @@
   margin-left: 20rpx;
   color: #26499d;
   font-size: 32rpx;
-  vertical-align: top;
+  vertical-align: middle;
   height: 56rpx;
-  line-height: 56rpx;
+  /*line-height: 56rpx;*/
 }
 
 .icon-search {
@@ -72,8 +83,17 @@
   height: 25rpx;
   position: absolute;
   left: 225rpx;
-  top: 19rpx;
+  top: 17rpx;
   z-index: 99;
+}
+
+.icon-clear {
+  position: absolute;
+  width: 28rpx;
+  height: 28rpx;
+  padding: 15rpx;
+  right: 2rpx;
+  z-index: 9999;
 }
 
 .search-list {
@@ -137,8 +157,10 @@
 
 .area-detail {
   display: inline-block;
-  color: #26499d;
+  color: #1986ff;
   width: 360rpx;
+  height: 44rpx;
+  line-height: 44rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -147,10 +169,21 @@
 .area-posation {
   float: right;
   width: 180rpx;
+  color: #1986ff;
 }
 
 .area-icon {
-  font-weight: bold;
+}
+
+.area-icon::after {
+  content: " ";
+  display: inline-block;
+  height: 18rpx;
+  width: 18rpx;
+  border-width: 4rpx 4rpx 0 0;
+  border-color: #c7c7cc;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
 }
 
 .icon-posation {
@@ -293,22 +326,29 @@
 
 .more-btn button {
   flex: 1;
-  border-radius: 0;
-  border: 1rpx solid #d6d5d6;
   margin: 0;
+  border-radius: 0;
+}
+
+.more-empty::after {
+  border-radius: 0;
+  border-top: 1rpx solid #e5e5e5;
 }
 
 button.more-empty {
   background-color: #fff;
   color: #000;
-  border-right: 0;
-  border-radius: 0;
+  border-top: 1rpx solid #e5e5e5;
 }
 
 button.more-result {
-  border-radius: 0;
   background-color: #387be8;
   color: #fff;
+  border: 0rpx;
+}
+
+.more-result::after {
+  border-radius: 0;
 }
 
 .IndustryLevel-o {
@@ -352,7 +392,7 @@ button.more-result {
   bottom: 0;
   left: 0;
   right: 0;
-  border-top: 1rpx solid #e5e5e5;
+  /*border-top: 1rpx solid #e5e5e5;*/
 }
 
 .search-con {

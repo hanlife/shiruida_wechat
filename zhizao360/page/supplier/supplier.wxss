@@ -2,22 +2,28 @@
 @import "../../module/headSearch.wxss";
 
 page {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+
 }
 
 .supplier-lists {
   overflow: hidden;
-  margin: 0 50rpx 0 30rpx;
-  padding: 30rpx 0;
+  padding: 30rpx 50rpx 30rpx 30rpx;
+  /*padding: 30rpx 0;*/
   border-bottom: 1rpx solid #eee;
+  background-color: #fff;
+}
+
+.supplier-pad{
+  width: 100%;
+  padding-top: 160rpx;
 }
 
 .supplier-img {
   float: left;
   width: 210rpx;
   margin-right: 20rpx;
+  height: 156rpx;
+  overflow: hidden;
 }
 
 .supplier-right {
@@ -76,12 +82,13 @@ page {
 .supplier-label-c1 {
   background-color: #88abda;
   padding: 0 10rpx;
+  margin-right: 10rpx;
 }
 
 .supplier-label-c2 {
   background-color: #7ecef4;
   padding: 0 10rpx;
-  margin: 0 10rpx;
+  margin-right: 10rpx;
 }
 
 .supplier-label-c3 {

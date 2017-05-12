@@ -1,23 +1,21 @@
 <!--page/home/equipment/equipment.wxml-->
 <import src="/page/home/common/homeCommon.wxml"></import>
-<view class="view-body pd-t30">
+<view class="view-body pd-t30 black">
     <view class="pd-l30 border-tb1px  bg-fff">
+        <view class="h88">
+            <navigator class="equipment_add flex ai-center h88" url="/page/home/equipment/detail/detail?pageFlag=1">
+                <image class="icon_addBlue" src="/icon/icon_addBlue.png"></image>
+                <view class="lh1 mg-l20 grey">添加设备</view>
+            </navigator>
+        </view>
         <block wx:key="*this" wx:for="{{equipmentArray}}">
-            <view class="jc h88 border-b1px" bindtap="toEquipmentDetail"  data-pageflag="0" data-id="{{item.Id}}" >
-                <view>{{item.Name}}</view>
+            <view class="jc h88 border-t1px" bindtap="toEquipmentDetail"  data-pageflag="0" data-id="{{item.Id}}" >
+                <view class="company-name ell">{{item.Name}}({{item.Brand}})</view>
                 <view class="ai">
-                    <text class="mg-r10">{{item.Amount}}</text>
-                    <template is="icon-minus" data="{{catchtap:'removeEquipment',index:index,id:item.Id}}"></template>
+                    <text class="mg-r10">X{{item.Amount}}</text>
+                    <view class="equipment_delete"><template is="icon-minus" data="{{catchtap:'removeEquipment',index:index,id:item.Id}}"></template></view>
                 </view>
             </view>
         </block>
-        <view class="h88">
-            <navigator class="flex ai-center h88" url="/page/home/equipment/detail/detail?pageFlag=1">
-                <image class="icon_addBlue" src="/icon/icon_addBlue.png"></image>
-                <view class="lh1 mg-l20">添加设备</view>
-            </navigator>
-        </view>
-
     </view>
-
 </view>

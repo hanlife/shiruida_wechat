@@ -9,12 +9,55 @@
     text-align: center;
 }
 .cut-add{
-    width: 42rpx;
-    height: 42rpx;
-    line-height: 42rpx;
+    width: 60rpx;
+    height: 60rpx;
+    line-height: 60rpx;
     text-align: center;
 }
 .cut-addBox{
     border: 1px solid #D6D6DB;
 }
 .w500{ width:500rpx; }
+.device-operate {
+  float: right;
+  width: 240rpx;
+  height: 60rpx;
+  border: 1rpx solid #c8c8cd;
+  line-height: 60rpx;
+  margin-right: 30rpx;
+}
+.device-quantity {
+  display: inline-block;
+  text-align: center;
+  width: 115rpx;
+  height: 60rpx;
+  border-right: 1rpx solid #c8c8cd;
+  border-left: 1rpx solid #c8c8cd;
+  color: #000;
+  vertical-align: top;
+  font-size: 46rpx;
+}
+.num-reduce {
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
+  text-align: center;
+}
+
+.num-reduce image {
+  width: 34rpx;
+  height: 8rpx;
+  vertical-align: middle;
+}
+.num-add {
+  display: inline-block;
+  text-align: center;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.num-add image {
+  width: 38rpx;
+  height: 38rpx;
+  vertical-align: middle;
+}

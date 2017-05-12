@@ -2,11 +2,11 @@
 <!--page/supplier/supplier.wxml-->
 <import src="../../module/item-ordinarylist.wxml" />
 <template is="itme-ordinarylist-head" data="{{...item_head}}" />
-<scroll-view style="height:{{con_Height}}px;" scroll-y="true" bindscrolltolower="EventLoad" lower-threshold="0" scroll-top="{{scrollTop}}" hidden="{{dataList}}">
-  <view wx:for="{{supplier_list}}" wx:for-item="item" wx:for-index="index">
+<view class="supplier-pad"></view>
+ <view  wx:for="{{supplier_list}}" wx:for-item="item" wx:for-index="index" hidden="{{dataList}}">
     <view class="supplier-lists" bindtap="ToSupplier" data-enterpriseId="{{item.EnterpriseId}}">
       <view class="supplier-img">
-        <image style="width: 208rpx; height: 154rpx; background-color: #eeeeee;" mode="scaleToFill" src="{{item.FactoryCover==''?'../../icon/supplier-img.png':'https://www.im360b2b.com/'+item.FactoryCover}}"></image>
+        <image style="width: 208rpx;height: 154rpx; background-color: #eeeeee;" mode="aspectFill" src="{{item.FactoryCover}}" binderror="imgError"></image>
       </view>
       <view class="supplier-right">
         <view class="supplier-title txt-hid">
@@ -28,12 +28,11 @@
       </view>
     </view>
   </view>
-</scroll-view>
+  <view class="ordinarylist-load" hidden="{{loadShow}}">
+    <image src="../../icon/loading.gif" hidden="{{loading=='已加载全部'?true:false}}"></image>
+    <text>{{loading}}</text>
+  </view>
 <view class="noneData" hidden="{{!dataList}}">暂无供方企业</view>
-<view class="ordinarylist-load" hidden="{{loadShow}}">
-  <image src="../../icon/loading.gif"></image>
-  <text>{{loading}}</text>
-</view>
 <view class="release-btn">
   <navigator url="/page/ordinarylist/release/release" open-type="navigate" hover-class="other-navigator-hover"></navigator>
 </view>

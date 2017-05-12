@@ -1,25 +1,29 @@
 
 <!--page/ordinarylist/release/release.wxml-->
 <view class="device-tip">
-  <text>最多可以添加三种设备</text>
+  <text>最多可以添加3种设备</text>
 </view>
 <block wx:for="{{device_list}}" wx:for-index="idx" wx:for-item="itemName">
   <view class="device-list">
     <view class="device-list-name">
       <text class="device-name">设备名称</text>
       <picker bindchange="bindPickerChange" value="0" range="{{deviceArray}}" range-key="Name" data-index="{{idx}}" class="device-picker">
-        <text class="device-chose device-chose-ph" wx:if="{{itemName.deviceName.length==0}}">请选择设备名称</text>
-        <text class="device-chose" wx:else>{{itemName.deviceName}}</text>
-        <text class="device-icon">></text>
+        <text class="device-chose device-chose-ph" wx:if="{{itemName.deviceName.length==0}}">请选择闲置设备名称</text>
+        <text class="device-chose txt-hid" wx:else>{{itemName.deviceName}}</text>
+        <text class="device-icon"></text>
       </picker>
     </view>
     <view class="device-num">
       <text class="device-name">闲置数量</text>
       <image src="image/icon-delete.png" class="device-reduce" hidden="{{deleteDevice}}" bindtap="device_delete" data-index="{{idx}}"></image>
       <view class="device-operate">
-        <text class="num-reduce" bindtap="num_Reduce" data-index="{{idx}}">-</text>
+        <view class="num-reduce" bindtap="num_Reduce" data-index="{{idx}}">
+          <image src="{{itemName.deviceNum>1?'../../../icon/icon-reduce-a.png':'../../../icon/icon-reduce.png'}}" data-index="{{idx}}"></image>
+        </view>
         <text class="device-quantity">{{itemName.deviceNum}}</text>
-        <text class="num-add" bindtap="num_Add" data-index="{{idx}}">+</text>
+        <view class="num-add" bindtap="num_Add" data-index="{{idx}}">
+          <image src="{{itemName.deviceNum>=itemName.Amount?'../../../icon/icon-add.png':'../../../icon/icon-add-a.png'}}" data-index="{{idx}}"></image>
+        </view>
       </view>
     </view>
   </view>

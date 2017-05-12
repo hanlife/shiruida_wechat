@@ -13,7 +13,9 @@ var header = {
     District: [],
     Nearby: [],
     DeviceName: [],
-    Address: {},
+    Address: {
+      county: ''
+    },
     MoreName: {
       Industry: {
         Name: '',
@@ -37,11 +39,13 @@ var header = {
   isShow: true, //搜索框
   inputWord: '搜索设备名称、设备类型',
   inputValue: '',
-  left: "175rpx", //搜索图标左边距
-  width: "100%",  //搜索框宽度
+  ClearShow: true,
+  left: "155rpx", //搜索图标左边距
+  width: "673rpx",  //搜索框宽度
   textLeft: "center", //搜索框字体对齐
   paddingLeft: "0", //搜索框左边距
   inputFocus: "none", //取消按钮
+  SearchTxt: "取消",
   SearchList: [],//搜索关联内容
   Searching: true,
   AddressName: "区域",
@@ -85,14 +89,14 @@ var request = {
   IndustryId: [],
   PQty: "",
   ProcessTypeId: [],
-  Longitude: '',
-  Latitude: '',
+  Longitude: 0,
+  Latitude: 0,
   MaxResultCount: "10",
   CurrentPageNumber: "1",
 };
+
 Page({
   data: {
-    con_Height: 0,
     loadShow: true,
     item_head: header,
     company_list: [],
@@ -154,11 +158,12 @@ Page({
   },
   //选择地区
   choseposition: function () {
-    header = search.choseposition(header, this);
+    header = search.choseposition(header, this, request);
   },
   //重新定位
   reposition: function () {
     header = search.reposition(header);
+    header = search.bmap_fn(bmap, header, this);
     this.setData({
       item_head: header,
     })
@@ -235,10 +240,15 @@ Page({
   },
   //清空按钮
   EventEmpty: function () {
+    header.searchId = 0;
     header = search.EventEmpty(header);
+    request.ProcessTypeId = [];
+    request.IndustryId = [];
+    request.PQty = '';
     this.setData({
       item_head: header
     })
+    GetCapacityList(this);
   },
   //确定按钮
   EventResult: function () {
@@ -263,38 +273,24 @@ Page({
   //上拉加载
   EventLoad: function () {
     var that = this;
-    this.setData({
-      loadShow: false,
-    })
-    wx.showNavigationBarLoading();
     request.CurrentPageNumber++;
     getQuery(this);
   },
   //下拉刷新
   onPullDownRefresh: function () {
     var that = this;
-    wx.showNavigationBarLoading();
-    request = {
-      KeyWord: "",
-      Provin: "",
-      City: "",
-      County: "",
-      DeviceTypeId: [],
-      Distance: "",
-      IndustryId: [],
-      PQty: "",
-      ProcessTypeId: [],
-      Longitude: appInstance.globalData.addLog.Longitude,
-      Latitude: appInstance.globalData.addLog.Latitude,
-      MaxResultCount: "10",
-      CurrentPageNumber: "1",
-    };
+    wx.showToast({
+      title: '加载中...',
+      icon: 'loading'
+    })
+    request.CurrentPageNumber = 1;
+    //wx.showNavigationBarLoading();
     appInstance.reqPost("Device/GetCapacityList", function (res) {
       if (res.Succeed) {
         if (res.Data.Items.length > 0) {
           var List = util.distanc(res.Data.Items, header);
           that.setData({
-            loadShow: true,
+            loading: "加载中",
             company_list: List,
             scrollTop: 0
           })
@@ -303,8 +299,12 @@ Page({
             dataList: true,
           })
         }
-        wx.stopPullDownRefresh()
-        wx.hideNavigationBarLoading();
+        wx.stopPullDownRefresh({
+          complete: function (res) {
+            wx.hideToast();
+            // wx.hideNavigationBarLoading();
+          }
+        })
       }
     }, { request: request })
   },
@@ -325,24 +325,75 @@ Page({
   //搜索结果
   SearchResult: function (e) {
 
-
   },
-  //取消
+  EventInput: function (e) {
+    header.inputValue = e.detail.value;
+    if (e.detail.value != '') {
+      header.SearchTxt = "搜索"
+      header.ClearShow = false;
+    } else {
+      header.SearchTxt = "取消"
+      header.ClearShow = true;
+    }
+    this.setData({
+      item_head: header
+    })
+  },
+  // EventBlur: function (e) {
+  //   if (e.detail.value == '') {
+  //     header = search.EventConsole(header);
+  //     header.ClearShow = true;
+  //   } else {
+  //     request.KeyWord = e.detail.value;
+  //     header.Searching = true;
+  //     header.inputValue = e.detail.value;
+  //     GetCapacityList(this);
+  //   }
+  //   this.setData({
+  //     item_head: header
+  //   })
+  // },
+  //清空按钮
+  ClearTxt: function () {
+    header.inputValue = '';
+    header.ClearShow = true;
+    header.SearchTxt = "取消"
+    this.setData({
+      item_head: header
+    })
+  },
+  //取消或搜索
   EventConsole: function () {
-    header = search.EventConsole(header);
+    if (header.inputValue == '') {
+      header.inputValue = request.KeyWord;
+      if (request.KeyWord != '') {
+        header = search.EventSearch(header);
+      } else {
+        header = search.EventConsole(header);
+      }
+    } else {
+      header = search.EventSearch(header);
+      request.KeyWord = header.inputValue;
+      GetCapacityList(this);
+    }
     this.setData({
       item_head: header
     })
   },
   //输入确定
-  EventBlur: function (e) {
+  EventSearch: function (e) {
     request.KeyWord = e.detail.value;
-    header = search.EventConsole(header);
+    header.Searching = true;
+    header.inputValue = e.detail.value;
+    if (e.detail.value == '') {
+      header = search.EventConsole(header);
+    } else {
+      header = search.EventSearch(header);
+    }
     this.setData({
       item_head: header
     })
     GetCapacityList(this);
-    request.KeyWord = '';
   },
   //发布产能
   toRelease: function () {
@@ -385,32 +436,37 @@ Page({
     }
   },
   onLoad: function (options) {
+    var that = this;
     // 页面初始化 options为页面跳转所带来的参数
     var H = appInstance.globalData.addLog.Windowheight;
     var W = appInstance.globalData.addLog.Windowwidth;
-    var guideline = appInstance.globalData.guideline;//是否显示操作指引
-    if (appInstance.globalData.addLog.System.indexOf('Android') == -1) {
-      var con_H = parseInt(H - (W / 750 * (160 + 88)));
-    } else {
-      var con_H = parseInt(H - (W / 750 * 160));
+    //操作指引
+    if (wx.getStorageSync('rd_session') == "") {
+      var guideline = true;
     }
     header = search.setHeight(header);
-
     this.setData({
-      con_Height: con_H,
-      item_head: header,
-      guideshow: guideline
+      item_head: header
     })
     if (!this.data.guideshow) {
       wx.showNavigationBarLoading();
     }
+    //赋值经纬度
+    var that = this;
+    wx.getLocation({
+      type: 'wgs84',
+      success: function (res) {
+        request.Latitude = res.latitude;
+        request.Longitude = res.longitude;
+        // 获取闲置产能
+        GetCapacityList(that);
+      }
+    })
   },
   onShow: function () {
     var that = this;
     // 获取闲置产能
-    request.Longitude = appInstance.globalData.addLog.Longitude;
-    request.Latitude = appInstance.globalData.addLog.Latitude;
-    GetCapacityList(this);
+    GetCapacityList(that);
     //是否显示发布闲置产能按钮
     util.EnterpriseRequest({
       url: 'GetCertificationInfo',
@@ -438,9 +494,8 @@ Page({
   onReady: function () {
     // 页面渲染完成
     var that = this;
-    header = search.sevice(header);//获取头部搜索条件内容
-    header = search.bmap_fn(bmap, header);
-
+    header = search.sevice(header, this);//获取头部搜索条件内容
+    header = search.bmap_fn(bmap, header, this);
     util.BaseDataRequest({
       url: 'GetShareConfig',
       method: 'post',
@@ -469,21 +524,43 @@ Page({
 
 // 获取闲置产能
 function GetCapacityList(t) {
+  wx.showToast({
+    title: '加载中...',
+    icon: 'loading'
+  })
   request.CurrentPageNumber = 1;
   appInstance.reqPost("Device/GetCapacityList", function (res) {
+    if (!res) {
+      wx.showToast({
+        title: '数据请求失败，请检查网络',
+        icon: 'loading'
+      })
+    }
+    var text = '加载中...';
+    var loadShow = false;
     if (res.Succeed) {
       if (res.Data.Items.length > 0) {
         header.Data.Totle = res.Data.TotalCount;
+        if (request.CurrentPageNumber * 10 > header.Data.Totle) {
+          text = "已加载全部";
+        }
+        if (res.Data.Items.length < 4) {
+          loadShow = true;
+        }
         var data = util.distanc(res.Data.Items, header);
         t.setData({
+          loadShow: loadShow,
           dataList: false,
           company_list: data,
+          scrollTop: 0,
+          loading: text,
         })
       } else {
         t.setData({
           dataList: true,
         })
       }
+      wx.hideToast();
       wx.hideNavigationBarLoading();
     }
   }, { request: request })
@@ -494,22 +571,21 @@ function getQuery(that) {
     that.setData({
       loading: "已加载全部",
     })
-    setTimeout(function () {
-      that.setData({
-        loadShow: true,
-        loading: "加载中...",
-      })
-      wx.hideNavigationBarLoading();
-    }, 2000)
   } else {
+    wx.showNavigationBarLoading();
     appInstance.reqPost("Device/GetCapacityList", function (res) {
+      if (!res) {
+        wx.showToast({
+          title: '数据请求失败，请检查网络',
+          icon: 'loading'
+        })
+      }
       if (res.Succeed) {
         if (res.Data.Items.length > 0) {
           header.Data.Totle = res.Data.TotalCount;
-          var data = util.distanc(res.Data.Items, header)
+          var data = util.distanc(res.Data.Items, header);
           var List = that.data.company_list.concat(data);
           that.setData({
-            loadShow: true,
             company_list: List,
             dataList: false,
           })

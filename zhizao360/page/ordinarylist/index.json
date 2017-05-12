@@ -1,5 +1,6 @@
 {
-    "navigationBarTitleText": "闲置产能",
-    "enablePullDownRefresh": "true",
+    "navigationBarTitleText": "智造360",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#eeeeee",
     "backgroundTextStyle": "dark"
 }

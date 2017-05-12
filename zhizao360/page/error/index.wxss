@@ -1,0 +1,23 @@
+/* page/error/index.wxss */
+page{
+    background-color: #ffffff;
+}
+.error-box{
+    text-align: center;
+}
+.error-box image{
+    width: 380rpx;
+}
+.error-tip{
+    text-align: center;
+    font-size:40rpx; 
+}
+
+.btn-open{
+    margin: 40rpx 30rpx;
+}
+
+.btn-open button{
+    border:1rpx solid #1986ff;
+    color:#1986ff;
+}

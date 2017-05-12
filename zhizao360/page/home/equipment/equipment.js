@@ -1,5 +1,6 @@
 // page/home/equipment/equipment.js
-var utils = require('../../../utils/util.js');
+// var utils = require('../../../utils/util.js');
+var promisefy = require('../../../utils/promise.js');
 var app = getApp();
 Page({
   code: '',
@@ -21,20 +22,33 @@ Page({
           that.setData({
             equipmentArray: that.data.equipmentArray
           })
-          utils.DeviceRequest({
+          promisefy.DevicePromise({
             url: 'DelDevice',
             method: 'POST',
             data: { id: e.currentTarget.dataset.id },
-            callback: function (res) {
-              if (res.data.Succeed) {
+          }).then( res => {
+            if (res.data.Succeed) {
                 wx.showToast({
                   title: '删除成功',
                   icon: 'success',
                   duration: 1000
                 })
-              }
             }
-          })
+          }).done();
+          // utils.DeviceRequest({
+          //   url: 'DelDevice',
+          //   method: 'POST',
+          //   data: { id: e.currentTarget.dataset.id },
+          //   callback: function (res) {
+          //     if (res.data.Succeed) {
+          //       wx.showToast({
+          //         title: '删除成功',
+          //         icon: 'success',
+          //         duration: 1000
+          //       })
+          //     }
+          //   }
+          // })
         }
       }
     })
@@ -42,38 +56,49 @@ Page({
   },
   toEquipmentDetail: function (e) {
     wx.navigateTo({
-     url: '/page/home/equipment/detail/detail?pageFlag=' + e.currentTarget.dataset.pageflag + "&id=" + e.currentTarget.dataset.id,
+      url: '/page/home/equipment/detail/detail?pageFlag=' + e.currentTarget.dataset.pageflag + "&id=" + e.currentTarget.dataset.id,
     })
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
 
+  },
+  onShow: function () {
     var that = this;
     var isImLogin = wx.getStorageSync('isImLogin');
     if (!isImLogin) {
       app.getUserInfo(equipmentInfo);
-    }else{
+    } else {
       equipmentInfo();
     }
 
     function equipmentInfo() {
       wx.showLoading({
-        title: 'Loading',
+        title: 'Loading...',
         mask: true
       })
       //获取用户设备信息
-      utils.DeviceRequest({
+      promisefy.DevicePromise({
         url: "GetDevices",
         method: 'POST',
-        callback: function (res) {
-          that.setData({
+      }).then(res => {
+        that.setData({
             equipmentArray: res.data
           })
           wx.hideLoading();
-        }
-      })
-    }
+      }).done();
 
+      // utils.DeviceRequest({
+      //   url: "GetDevices",
+      //   method: 'POST',
+      //   callback: function (res) {
+      //     that.setData({
+      //       equipmentArray: res.data
+      //     })
+      //     wx.hideLoading();
+      //   }
+      // })
+    }
   }
 
 })

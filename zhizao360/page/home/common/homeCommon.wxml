@@ -1,30 +1,34 @@
 <!-- 公司介绍 模板 -->
 <template name="companyIntroduce">
     <view class="pd30 999">
-        <view class="jc  companyIntroduce-item mg-b40">
-            <view class="ai ">
+        <view class="companyIntroduce-item mg-b40">
+            <view>
                 <text class="companyIntroduceText">所属地区：</text>
-                <text class="black">{{County ? County : '--' }}</text>
+                <text class="black ell detailText">{{County ? County : '--' }}</text>
             </view>
-            <view class="ai w300 ">
+        </view>
+        <view class="companyIntroduce-item mg-b40">
+            <view>
                 <text class="companyIntroduceText">厂房面积：</text>
-                <text class="black">{{Acreage ? Acreage :'--'  }}</text>
+                <text class="black ell detailText">{{Acreage ? Acreage + "m²" :'--' }}</text>
             </view>
         </view>
-        <view class="jc  companyIntroduce-item mg-b40">
-            <view class="ai">
+        <view class="companyIntroduce-item mg-b40">
+            <view>
                 <text class="companyIntroduceText">年营业额：</text>
-                <text class="black">{{Sale ? Sale : '--' }}</text>
-            </view>
-            <view class="ai w300">
-                <text class="companyIntroduceText">员工人数：</text>
-                <text class="black">{{Staff ? Staff : '--' }}</text>
+                <text class="black ell detailText">{{Sale ? Sale + "万元" : '--' }}</text>
             </view>
         </view>
-        <view class="jc  companyIntroduce-item mg-b36">
-            <view class="ai">
+        <view class="companyIntroduce-item mg-b40">
+            <view>
+                <text class="companyIntroduceText">员工人数：</text>
+                <text class="black ell detailText">{{Staff ? Staff + "人" : '--' }}</text>
+            </view>
+        </view>
+        <view class="companyIntroduce-item mg-b36">
+            <view>
                 <text class="companyIntroduceText">加工类型：</text>
-                <text class="black">{{ProcessType ?  ProcessType : '--' }}</text>
+                <text class="black ell detailText">{{ProcessType ? ProcessType : '--' }}</text>
             </view>
             <view></view>
         </view>
@@ -40,16 +44,29 @@
 <!-- 公司清单 模板 -->
 <template name="equipmentList">
     <view class="pd-l30">
-        <block wx:key="*this"  wx:for="{{Array}}">
+        <block wx:key="*this" wx:for="{{Array}}">
             <view class="equipmentList-item   {{index == Array.length-1 ? '': 'border-b1px' }} 999">
-                <view>
-                        <text class="mg-r30">{{item.Brand ? item.Brand : ''}}</text>
-                        <text>{{item.PreciseLevel ? item.PreciseLevel : '' }}</text>
-                    <view class="sumText bg-yellow fff"><text class="fs26 mg-r10 eee">闲置数</text> <text class="fs34">{{item.CapacityQty ? item.CapacityQty  : 0 }}</text></view>
+                <view class="jc-between">
+                    <text class="brand-name mg-r10 ell">{{item.Brand ? item.Brand : ''}}</text>
+                    <text>{{item.PreciseLevel ? item.PreciseLevel : '' }}</text>
+                    <block wx:if="{{item.CapacityQty}}">
+                        <view class="sum-width">
+                            <view class="sumText bg-yellow fff jc-center ai-center ">
+                                <text class="fs26 mg-r10 eee va-m">闲置数</text>
+                                <text class="fs34 lh1 va-m">{{item.CapacityQty}}</text>
+                            </view>
+                        </view>
+                    </block>
+                    <block wx:else>
+                        <view class="sum-width"></view>
+                    </block>
                 </view>
                 <view class="pd-tb20">
-                    <view class="black">{{item.Name ? item.Name  : '' }}</view>
-                    <view class="sumText"><text class="fs28 mg-r10">总台数</text> <text class="fs36 black">{{item.Amount ? item.Amount : 0 }}</text></view>
+                    <view class="equipment-name  black fs36  ell">{{item.Name ? item.Name : '' }}</view>
+                    <view class="sumText">
+                        <text class="fs28 mg-r10">总台数</text>
+                        <text class="fs36 black">{{item.Amount}}</text>
+                    </view>
                 </view>
                 <view>{{item.ProduceRange ? item.ProduceRange : ''}}</view>
             </view>
@@ -63,11 +80,16 @@
         <view class="qrcode-item tc">
             <image class="logo-image" src="{{logo}}"></image>
         </view>
-        <view class="qrcode-item tc fs36 c333">{{title}}</view>
+        <view class="qrcode-item tc fs38 c333 ell">{{title}}</view>
         <view class="qrcode-item tc">
-            <image class="qrcode-image" src="{{qrcode}}"></image>
+            <view class="border-1px mg-t30" style="display: inline-block;">
+                <view class="qrcode-image-box">
+                    <image class="qrcode-image" src="{{qrcode}}"></image>
+                </view>
+            </view>
+
         </view>
-        <view class="qrcode-item tc fs20">{{des}}</view>
+        <view class="qrcode-item tc fs20 c333 qrcode-item-des">{{des}}</view>
     </view>
 </template>
 
@@ -78,17 +100,28 @@
 
 <!-- 添加图片 -->
 <template name="add-imageBox">
-    <view class="add-imageBox jc-center ai-center" bindtap="{{bindtap}}" data-index="{{index}}">
+    <view class="upload_image add-imageBox jc-center ai-center" bindtap="{{bindtap}}" data-index="{{index}}">
         <image src="/icon/icon_add.png" class="add-images"></image>
     </view>
 </template>
 
 <!-- 减号删除图标 -->
 <template name="icon-minus">
-     <image class="icon-minus" src="/icon/icon_minus.png" catchtap="{{catchtap}}" data-index="{{index}}" data-id="{{id}}"></image>
+    <image class="icon-minus" src="/icon/icon_minus.png" catchtap="{{catchtap}}" data-index="{{index}}" data-id="{{id}}"></image>
 </template>
 
 <!-- 电话图标 -->
 <template name="icon-phone">
-     <image class="icon-phone mg-r30" src="/icon/icon_phone.png"  data-phone="{{index}}" ></image>
+    <image class="icon-phone mg-r30" src="/icon/icon_phone.png" data-phone="{{index}}"></image>
+</template>
+
+<!-- 水印 -->
+<template name="Advertisement">
+
+    <view class="jc-center Advertisement-box">
+        <navigator open-type="switchTab" url="/page/ordinarylist/index" hover-class="navigator-hover">
+            <image class="Advertisement" src="/icon/Advertisement.png"></image>
+        </navigator>
+    </view>
+
 </template>

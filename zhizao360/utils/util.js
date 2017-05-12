@@ -98,24 +98,70 @@ function MemberInfoRequest(obj) {
   obj.url = rootUrl + 'MemberInfo/' + obj.url;
   request(obj);
 }
-
+//循环保留距离一位小数。循环取主营行业。循环判断是否有工厂图片
 function distanc(data, header) {
   for (var i = 0; i < data.length; i++) {
     if (data[i].Distance != 0) {
       data[i].Distance = parseFloat(data[i].Distance).toFixed(1);
     }
-    if (header.pageId == 2 && data[i].MainIndesutry != null) {
-      //根据二级行业ID找一级二级行业名称
-      for (var j = 0; j < header.MainIndustryArray.length; j++) {
-        for (var k = 0; k < header.MainIndustryArray[j].SubIndustries.length; k++) {
-          if (data[i].MainIndesutry == header.MainIndustryArray[j].SubIndustries[k].Id) {
-            data[i].MainIndesutry = header.MainIndustryArray[j].Name + ">" + header.MainIndustryArray[j].SubIndustries[k].Name;
+    //闲置数量
+    if (header.pageId == 1) {
+      for (var j = 0; j < data[i].Devices.length; j++) {
+        if (data[i].Devices[j].Amount > 999) {
+          data[i].Devices[j].Amount = "999+"
+        }
+        if (data[i].Devices[j].NotBusyQty > 999) {
+          data[i].Devices[j].NotBusyQty = "999+"
+        }
+        if (DataTime(data[i].Devices[j].NotBusyQtyUpdateTime)) {
+          data[i].Devices.splice(j, 1);     //删除发布超过三天
+        }
+      }
+      if (data[i].Devices.length == 0) {
+        data.splice(i, 1);  //删除没有限制产能
+      }
+    }
+    if (header.pageId == 2) {
+      //主营行业
+      if (data[i].MainIndesutry != null) {
+        //根据二级行业ID找一级二级行业名称
+        for (var j = 0; j < header.MainIndustryArray.length; j++) {
+          for (var k = 0; k < header.MainIndustryArray[j].SubIndustries.length; k++) {
+            if (data[i].MainIndesutry == header.MainIndustryArray[j].SubIndustries[k].Id) {
+              data[i].MainIndesutry = header.MainIndustryArray[j].Name + ">" + header.MainIndustryArray[j].SubIndustries[k].Name;
+            }
           }
         }
+      }
+      //企业工厂图片
+      if (data[i].FactoryCover == '') {
+        data[i].FactoryCover = '../../icon/supplier-img.png';
+      } else {
+        data[i].FactoryCover = appInstance.globalData.rootUrl + data[i].FactoryCover;
       }
     }
   }
   return data;
+}
+
+function DataTime(UpdateTime) {
+  var EndTime = 3 * 24 * 60 * 60 * 1000;//3天
+  var nowTime = new Date();
+  var Seconds = nowTime.getTime();
+  var time = UpdateTime.replace("/Date(", "").replace(")/", "");
+  if ((Seconds - time) > EndTime) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function TipModel(content) {
+  wx.showModal({
+    title: '提示',
+    content: content,
+    showCancel: false,
+  })
 }
 
 module.exports = {
@@ -129,5 +175,6 @@ module.exports = {
   EnterpriseRequest: EnterpriseRequest,
   MemberInfoRequest: MemberInfoRequest,
   EnterpriseImageRequest: EnterpriseImageRequest,
-  distanc: distanc
+  distanc: distanc,
+  TipModel: TipModel
 }

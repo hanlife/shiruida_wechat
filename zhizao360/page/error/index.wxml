@@ -1,0 +1,11 @@
+
+<!--page/error/index.wxml-->
+<view class="error-box">
+  <image src="../../icon/icon-getEvl.png" mode="aspectFit"></image>
+</view>
+<view class="error-tip">
+  <text>请打开定位权限和获取头像</text>
+</view>
+<view class="btn-open">
+  <button type="default" bindtap="openAddress">立即打开</button>
+</view>

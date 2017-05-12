@@ -1,26 +1,3 @@
 /* page/home/photoMannage/photoMannage.wxss */
 @import "../common/homeCommon.wxss";
-.images-wrapper{
-    min-height: 170rpx;
-    border-top: 1rpx solid #D6D6DB;
-    border-bottom: 1rpx solid #D6D6DB;
-    background-color: #fff; 
-    padding:30rpx;
-    color:#000;
-    margin-bottom: 30rpx;
-}
-.image-close{
-    position: absolute;
-    right: 0;
-    top:0;
-    width:114rpx;
-    height:114rpx;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.3);
-}
-.icon-delete{
-     width: 22rpx;
-     height: 22rpx;
-}
+

@@ -2,9 +2,7 @@
 @import "../../module/headSearch.wxss";
 
 page {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+ 
 }
 
 .img-banner {
@@ -24,17 +22,19 @@ page {
 }
 
 .ordinarylist-lists {
-  margin-top: 30rpx;
   background-color: #fff;
-  padding: 0 30rpx;
+  padding: 0rpx 30rpx 0;
 }
-
+.ordinarylist-pad{
+  width: 100%;
+  padding-top: 160rpx;
+}
 .ordinarylist-lists:first-child {
   margin-top: 0rpx;
 }
 
 .ordinarylist-lists:last-child {
- /*margin-bottom: 45rpx;*/
+  /*margin-bottom: 45rpx;*/
 }
 
 .list-title {
@@ -42,7 +42,7 @@ page {
   text-align: left;
   height: 88rpx;
   line-height: 88rpx;
-  border-bottom: 1rpx solid #f0f0f0;
+  /*border-bottom: 1rpx solid #f0f0f0;*/
 }
 
 .list-title-name {
@@ -65,7 +65,7 @@ page {
 }
 
 .list-type {
-  border-bottom: 1rpx solid #eee;
+  border-top: 1rpx solid #f0f0f0;
   text-align: left;
   height: 88rpx;
   line-height: 88rpx;
@@ -75,17 +75,16 @@ page {
 }
 
 .list-type:last-child {
-  border-bottom: 0;
 }
 
 .list-devicename {
   font-size: 34rpx;
   color: #000;
-  flex: 7;
+  flex: 1;
 }
 
 .list-number {
-  flex: 4;
+  flex: 1;
   font-size: 24rpx;
   color: #999;
   display: flex;
@@ -99,6 +98,11 @@ page {
 
 .list-devicetotle:last-child {
   text-align: right;
+  flex: 1;
+}
+
+.list-devicetotle .list-amount {
+  padding-left: 55rpx;
 }
 
 .list-devicetotle-num {
@@ -107,6 +111,8 @@ page {
   font-size: 40rpx;
   font-weight: bold;
   margin: 0 5rpx;
+  vertical-align: text-bottom;
+  line-height: 35rpx;
 }
 
 .release-btn {
