@@ -27,7 +27,7 @@
 </view>
 <view class="blackNav">
   <image src="../../icon/Advertisement.png" bindtap="ToOrdinarylist"></image>
-  <navigator open-type="switchTab" hover-class="none" url="/page/ordinarylist/index" class="tc">返回闲置产能</navigator>
+  <navigator open-type="switchTab" hover-class="none" url="/page/supplier/supplier" class="tc">返回供方企业</navigator>
 </view>
 <view class="about-us">
 <navigator open-type="navigate"  url="/page/home/aboutUs/aboutUs" open-type="navigate">关于我们</navigator>

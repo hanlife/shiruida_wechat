@@ -1,0 +1,86 @@
+<!--page/bussines/bussinesDetail/index.wxml-->
+<view class="top-margin"></view>
+<view class="detail-item">
+  <view class="item-left detail-item-top">标题</view>
+  <view class="item-right">
+    <text class="item-title">{{EnterpriseTitle}}</text>
+    <text class="item-ordername">{{EnquiryNumber}}</text>
+  </view>
+</view>
+<view class="detail-item">
+  <view class="item-left">状态</view>
+  <view class="item-right color-red">{{EnquiryState}}</view>
+</view>
+<view class="detail-item">
+  <view class="item-left">采购量</view>
+  <view class="item-right">{{ProductQtyDes}}</view>
+</view>
+<view class="detail-item">
+  <view class="item-left">报价次数</view>
+  <view class="item-right">{{QuoteNumber}}次</view>
+</view>
+<view class="detail-item">
+  <view class="item-left">距离</view>
+  <view class="item-right">{{Area}}</view>
+</view>
+<view class="detail-item">
+  <view class="item-left">接单类型</view>
+  <view class="item-right">{{ProduceTypeName}}</view>
+</view>
+<view class="detail-item">
+  <view class="item-left">截止日期</view>
+  <view class="item-right">{{ClosingTime}}</view>
+</view>
+<view class="detail-item">
+  <view class="item-left">交货日期</view>
+  <view class="item-right">{{DeliveryDate}}</view>
+</view>
+<view class="detail-item">
+  <view class="item-left">补充说明</view>
+  <view class="item-right explain-txt">{{Remarks==""?"--":Remarks}}</view>
+</view>
+<view class="item-margin"></view>
+<view class="detail-item">
+  <view class="item-left">公司名称</view>
+  <view class="item-right {{Nature=='供应商'?'icon-detail-company':''}}" bindtap="ToSupplier" data-id="{{EnterpriseId}}">
+    <text class="detail-company">{{EnterpriseName}}</text>
+  </view>
+</view>
+<view class="detail-item">
+  <view class="item-left">收货地址</view>
+  <view class="item-right explain-txt">{{ReceiptShortAddress}}</view>
+</view>
+<view class="detail-item">
+  <view class="item-left">联系人</view>
+  <view class="item-right">{{ContactDes}}</view>
+</view>
+
+<view class="item-margin"></view>
+<view class="detail-item">
+  <view class="item-left">结算方式</view>
+  <view class="item-right">{{SettlementName}}</view>
+</view>
+<view class="detail-item">
+  <view class="item-left">支付方式</view>
+  <view class="item-right">{{PaymentTypeName}}</view>
+</view>
+<view class="detail-item">
+  <view class="item-left">发票要求</view>
+  <view class="item-right">{{InvoiceRequireDes}}{{TaxRate}}</view>
+</view>
+
+
+
+
+<view class="classname" hidden="{{IsOwnEnquiry}}">
+  <view class="item-bottom"></view>
+  <view class="footer" wx:if="{{login}}">
+    <view class="collect-btn">
+      <button type="default" id="btn_collect" disabled="{{collect=='无法收藏'?true:false}}" bindtap="Eventcollect">{{collect}}</button>
+    </view>
+    <view class="footer-tip">{{QuoteState}}</view>
+  </view>
+  <view class="footer" wx:else bindtap="ToLogin">
+    <button class="login-btn" id="btn_login" type="default">登录/注册</button>
+  </view>
+</view>

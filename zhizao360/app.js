@@ -6,14 +6,22 @@ App({
     //用户信息
     code: code,
     addLog: {},
-    rootUrl: 'https://www.im360b2b.com',
+    rootUrl: 'http://www.im360b2b.com',
     RegisterLocation: '',
     EnterpriseId: '',
     myInformationData: '',
     Id: '',
     shareTitle: {},
     IsMainMember: '',
-    EnterpriseNatures: ''
+    EnterpriseNatures: '',
+    errorPage:false,
+    
+    OrdinaryKeyword:'',
+    OrdinaryBool:false,
+    SupplierKeyword:'',
+    SupplierBool:false,
+    EnquiryKeyword: '',
+    EnquiryBool: false
   },
   onLaunch: function () {
     var _t = this;
@@ -67,8 +75,8 @@ App({
     //获取微信名称，微信头像
     wx.getUserInfo({
       success: function (res) {
-        // _t.globalData.addLog.Iv = res.iv;
-        // _t.globalData.addLog.EncryptedData = res.encryptedData;
+        _t.globalData.addLog.Iv = res.iv;
+        _t.globalData.addLog.EncryptedData = res.encryptedData;
         _t.globalData.addLog.Nickname = res.userInfo.nickName;
         _t.globalData.addLog.City = res.userInfo.city;
         _t.globalData.addLog.Country = res.userInfo.country;
@@ -76,13 +84,12 @@ App({
         _t.globalData.addLog.Language = res.userInfo.language;
         _t.globalData.addLog.Province = res.userInfo.province;
         _t.globalData.addLog.Avatarurl = res.userInfo.avatarUrl;
-
         var userInfo = res.userInfo
         var nickName = userInfo.nickName
         var avatarUrl = userInfo.avatarUrl
-
         setStorage('nickName', nickName);
         setStorage('avatarUrl', avatarUrl);
+        setStorage("guide", 'true');
       },
       fail: function () {
         wx.redirectTo({
@@ -94,8 +101,9 @@ App({
     wx.getLocation({
       type: 'wgs84',
       success: function (res) {
-        _t.globalData.addLog.Latitude = res.latitude
-        _t.globalData.addLog.Longitude = res.longitude
+        _t.globalData.addLog.Latitude = res.latitude;
+        _t.globalData.addLog.Longitude = res.longitude;
+        setStorage("guide", 'true');
       },
       fail: function (res) {
         wx.redirectTo({
@@ -126,34 +134,52 @@ App({
         success: function (loginres) {
           code = loginres.code;
           setStorage("code", loginres.code);
-          wx.request({
-            url: that.globalData.rootUrl + '/wxapi/user/login',
-            header: {
-              'X-WX-Code': loginres.code,
-              'X-WX-Encrypted-Data': that.globalData.addLog.EncryptedData,
-              'X-WX-IV': that.globalData.addLog.Iv
-            },
+          var iv, encryptedData;
+          wx.getUserInfo({
             success: function (res) {
-              if (res.data.Succeed) {
-                var cookie = res.data.Data.ASPXAUTH.Name + "=" + res.data.Data.ASPXAUTH.Value + ";" + res.data.Data.NET_SessionId.Name + "=" + res.data.Data.NET_SessionId.Value;
-                setStorage("cookie", cookie);
-                setStorage("rd_session", res.data.Data.rd_session);
-                setStorage("IsWxBind", res.data.Data.IsWxBind); //手机号是否绑定
-                setStorage("IsWxLogin", res.data.Data.IsWxLogin); //code换session_key是否成功
-                setStorage("isImLogin", res.data.Data.isImLogin); //平台是否登录成功
-                cb && cb(res.data);
-              }
+              iv = res.iv;
+              encryptedData = res.encryptedData;
+              var userInfo = res.userInfo
+              var nickName = userInfo.nickName
+              var avatarUrl = userInfo.avatarUrl
+              setStorage('nickName', nickName);
+              setStorage('avatarUrl', avatarUrl);
+              wx.request({
+                url: that.globalData.rootUrl + '/wxapi/user/login',
+                header: {
+                  'X-WX-Code': loginres.code,
+                  'X-WX-Encrypted-Data': encryptedData,
+                  'X-WX-IV': iv
+                },
+                success: function (res) {
+                  if (res.data.Succeed) {
+                    var cookie = res.data.Data.ASPXAUTH.Name + "=" + res.data.Data.ASPXAUTH.Value + ";" + res.data.Data.NET_SessionId.Name + "=" + res.data.Data.NET_SessionId.Value;
+                    setStorage("cookie", cookie);
+                    setStorage("rd_session", res.data.Data.rd_session);
+                    setStorage("IsWxBind", res.data.Data.IsWxBind); //手机号是否绑定
+                    setStorage("IsWxLogin", res.data.Data.IsWxLogin); //code换session_key是否成功
+                    setStorage("isImLogin", res.data.Data.isImLogin); //平台是否登录成功
+                    cb && cb(res.data);
+                  }
+                },
+                fail: function () { },
+                complete: function(){
+                  wx.hideToast();
+                  wx.stopPullDownRefresh();
+                }
+              })
             },
-            fail: function () { }
+            fail: function () {
+             
+            }
           })
         }
       })
-
-
     }
   },
   //Get数据请求
   reqGet: function (url, cb, data, header) {
+    var _t = this;
     var rootDocment = this.globalData.rootUrl + '/wxapi/';//你的域名
     wx.request({
       url: rootDocment + url,
@@ -161,7 +187,14 @@ App({
       method: "get",
       header: header || { 'content-type': 'application/json', 'X-WX-Code': code },
       success: function (res) {
-        return typeof cb == "function" && cb(res.data)
+        if (res.data.isImLogin != undefined && !res.data.isImLogin) {
+          wx.redirectTo({
+            url: '/page/member/login',
+          })
+        }
+        else {
+          return typeof cb == "function" && cb(res.data);
+        }
       },
       fail: function (res) {
         return typeof cb == "function" && cb(false)
@@ -170,6 +203,7 @@ App({
   },
   //Post数据请求
   reqPost: function (url, cb, data, header) {
+    var _t = this;
     var rootDocment = this.globalData.rootUrl + '/wxapi/';//你的域名
     wx.request({
       url: rootDocment + url,
@@ -177,7 +211,14 @@ App({
       method: "post",
       header: header || { 'content-type': 'application/json', 'X-WX-Code': code },
       success: function (res) {
-        return typeof cb == "function" && cb(res.data)
+        if (res.data.isImLogin != undefined && !res.data.isImLogin) {
+          wx.redirectTo({
+            url: '/page/member/login',
+          })
+        }
+        else {
+          return typeof cb == "function" && cb(res.data);
+        }
       },
       fail: function (res) {
         return typeof cb == "function" && cb(false)

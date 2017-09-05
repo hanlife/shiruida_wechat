@@ -1,0 +1,9 @@
+<!--page/supplier/guide/guide.wxml-->
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" duration="{{duration}}" class="guideImg" bindchange="guideChange" indicator-color="rgba(255,255, 255, 1)">
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" width="100%" height="100%" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <image src="../../../icon/icon-console.png" class="guideIcon" bindtap="guideClose"></image>

@@ -1,27 +1,5 @@
 /*module*/
 
-.guideImg {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 750rpx;
-  height: 100%;
-  z-index: 999;
-}
-
-.guideImg image {
-  width: 750rpx;
-  height: 100%;
-}
-
-.guideIcon {
-  width: 56rpx;
-  height: 56rpx;
-  position: absolute;
-  right: 30rpx;
-  top: 30rpx;
-  z-index: 9999;
-}
 
 .noneData {
   position: fixed;
@@ -36,72 +14,56 @@
 .ordinarylist-head {
   width: 100%;
   z-index: 999;
-  height: 160rpx;
+  height: 152rpx;
   position: fixed;
   top: 0;
   background-color: #efeff4;
 }
 
-.search-input {
-  margin: 16rpx;
-  height: 56rpx;
-}
-
-.search-input input {
-  display: inline-block;
-  border-radius: 8rpx;
+.search {
+  margin: 14rpx;
+  border: 1rpx solid #eaeaef;
+  border-radius: 5rpx;
+  background-color: #fff;
   height: 56rpx;
   line-height: 56rpx;
-  text-align: center;
-  font-size: 30rpx;
-  background-color: #fff;
-  /*border: 1rpx solid #eaeaef;*/
-  vertical-align: middle;
-}
-
-.input-box {
-  position: relative;
-  display: inline-block;
-  border: 1rpx solid #eaeaef;
-  background-color: #fff;
-  padding-right: 45rpx;
-}
-
-.search-console {
-  display: inline-block;
-  margin-left: 20rpx;
-  color: #26499d;
-  font-size: 32rpx;
-  vertical-align: middle;
-  height: 56rpx;
-  /*line-height: 56rpx;*/
 }
 
 .icon-search {
   display: inline-block;
   width: 25rpx;
   height: 25rpx;
-  position: absolute;
-  left: 225rpx;
-  top: 17rpx;
-  z-index: 99;
 }
 
-.icon-clear {
-  position: absolute;
-  width: 28rpx;
-  height: 28rpx;
-  padding: 15rpx;
-  right: 2rpx;
-  z-index: 9999;
+.search image {
+  margin: 0 12rpx;
+  vertical-align: middle;
+}
+
+.search text {
+  vertical-align: middle;
+  font-size: 26rpx;
+  color: #b2b2b2;
+}
+
+.search .txt{
+  display: inline-block;
+  width: 645rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search .keyword-color {
+  color: #333;
 }
 
 .search-list {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-top: 1rpx solid #ccc;
+  border-bottom: 1rpx solid #eeeeee;
   text-align: center;
   background-color: #fff;
   height: 48rpx;
@@ -118,8 +80,8 @@
 .search-type {
   box-sizing: border-box;
   flex: 1;
-  border-right: 1px solid #ccc;
-  border-left: 1px solid #ccc;
+  border-right: 1rpx solid #ccc;
+  border-left: 1rpx solid #ccc;
 }
 
 .search-more {
@@ -128,8 +90,8 @@
 
 .ordinarylist-box {
   position: fixed;
-  top: 161rpx;
-  bottom: 200rpx;
+  top: 152rpx;
+  bottom: 210rpx;
   left: 0;
   right: 0;
   background-color: #fff;
@@ -204,7 +166,7 @@
   background-color: #000;
   position: fixed;
   bottom: 0;
-  height: 200rpx;
+  height: 210rpx;
   width: 100%;
   z-index: 999;
 }

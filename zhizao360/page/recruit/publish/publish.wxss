@@ -1,0 +1,87 @@
+/* page/recruit/publish/publish.wxss */
+@import '/module/homeCommon.wxss';
+page{ background: #fcf9fe; padding-top: 33rpx;}
+.content01,.content02,.content03,.content04{ background-color: #fff; }
+.content02{
+    /*height: 270rpx;*/
+    border-top: 1rpx solid #d6d6db; 
+    border-bottom: 1rpx solid #d6d6db; 
+    overflow: hidden;
+}
+.w180{ width: 180rpx; }
+.w480{ width: 480rpx; }
+textarea { width: 690rpx; height: auto;  min-height: 120rpx; max-height: 230rpx;  padding: 20rpx 30rpx; }
+.textareaNum{ 
+  position: absolute;
+  bottom: 22rpx;
+  right: 35rpx;
+}
+picker{ width: 100%; }
+.btnPublish,.btnSave{
+    width: 245rpx; height: 88rpx; line-height: 88rpx;
+    border-radius: 5px ;
+    text-align: center;
+}
+.btnSave{ 
+    border:1px solid #0189ff;
+    color:#0189ff;
+}
+.device-operate {
+  float: right;
+  width: 240rpx;
+  height: 60rpx;
+  border: 1rpx solid #c8c8cd;
+  line-height: 60rpx;
+  margin-right: 30rpx;
+}
+.device-quantity {
+  display: inline-block;
+  text-align: center;
+  width: 115rpx;
+  height: 60rpx;
+  border-right: 1rpx solid #c8c8cd;
+  border-left: 1rpx solid #c8c8cd;
+  color: #000;
+  vertical-align: top;
+  font-size: 46rpx;
+}
+.num-reduce {
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
+  text-align: center;
+}
+
+.num-reduce image {
+  width: 34rpx;
+  height: 8rpx;
+  vertical-align: middle;
+}
+.num-add {
+  display: inline-block;
+  text-align: center;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.num-add image {
+  width: 38rpx;
+  height: 38rpx;
+  vertical-align: middle;
+}
+.addressDetail{ 
+    min-height: 88rpx;
+    width:525rpx;
+    padding:4px 0 0 0;
+    font-weight: normal;
+}
+.list-info view.txt-hid{
+width: 650rpx;
+display: inline-block;
+height: 88rpx;
+line-height: 88rpx;
+vertical-align: middle;
+}
+.pad-b60{
+  padding-bottom: 60rpx;
+}

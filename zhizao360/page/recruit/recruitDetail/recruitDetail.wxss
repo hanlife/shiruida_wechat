@@ -1,0 +1,153 @@
+/* page/recruit/recruitDetail/recruitDetail.wxss */
+@import '/module/homeCommon.wxss';
+
+page {
+  background-color: #fcf9fe;
+}
+
+.addRecuitInfo {
+  height: 92rpx;
+  padding-left: 97rpx;
+}
+
+.addRecuitInfo .icon_addBlue {
+  position: absolute;
+  top: 23rpx;
+  left: 33rpx;
+}
+
+.switchTab {
+  height: 85rpx;
+  border-top: 1rpx solid #d6d5d6;
+  border-bottom: 1rpx solid #d6d5d6;
+}
+
+.switchTab>view {
+  box-sizing: border-box;
+  line-height: 85rpx;
+  width: 50%;
+  display: inline-block;
+}
+
+.switchTab>view:first-child {
+  border-right: 2rpx solid #d6d5d6;
+}
+
+.active {
+  color: #09bb07;
+  background-color: #fff;
+}
+
+.list-info {
+  width: 585rpx;
+  position: relative;
+  padding-left: 65rpx;
+}
+
+.list-info .icon-box {
+  position: absolute;
+  top: 0;
+  left: -30rpx;
+  width: 97rpx;
+  height: 86rpx;
+}
+
+icon {
+  width: 46rpx;
+  height: 46rpx;
+  vertical-align: top;
+}
+
+/*.list-info icon[type='circle']{ position: absolute; top:21rpx; left: -30rpx;  }*/
+
+.list-info icon[type='success'] {
+  position: absolute;
+  top: 21rpx;
+  left: 28rpx;
+}
+
+/*.circle{ 
+    box-sizing: border-box;
+    display: inline-block;
+ 
+    border-radius: 23rpx;
+    border:1rpx solid #e5e5e5;
+}*/
+
+.fixed-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 122rpx;
+  z-index: 999;
+}
+
+.fixed-bottom .allBtn {
+  height: 100%;
+  line-height: 122rpx;
+  padding-left: 67rpx;
+}
+
+.fixed-bottom icon {
+  position: absolute;
+  top: 38rpx;
+  left: 0;
+  line-height: 1;
+}
+
+.fixed-bottom .update {
+  width: 180rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  background-color: #eee;
+  text-align: center;
+  margin-left: 110rpx;
+  border-radius: 8rpx;
+}
+
+.fixed-bottom .stopRecruit {
+  width: 176rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  background-color: #f7f7fa;
+  border: 2rpx solid #eee;
+  text-align: center;
+  margin-left: 56rpx;
+  border-radius: 8rpx;
+}
+
+.fixed-bottom .update_active {
+  color: #fff;
+  background-color: #0189ff;
+}
+
+.fixed-bottom .stopRecruit_active {
+  color: #0189ff;
+  border-color: #0189ff;
+  background-color: #fff;
+}
+
+.publish-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.margin-box {
+  width: 750rpx;
+  height: 177rpx;
+}
+
+.bottom-box {
+  height: 122rpx;
+  width: 750rpx;
+}
+
+.list-jobname {
+  width: 428rpx;
+  display: inline-block;
+  line-height: 50rpx;
+}

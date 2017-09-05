@@ -2,7 +2,6 @@
 @import "../../module/headSearch.wxss";
 
 page {
-
 }
 
 .supplier-lists {
@@ -13,9 +12,9 @@ page {
   background-color: #fff;
 }
 
-.supplier-pad{
+.supplier-pad {
   width: 100%;
-  padding-top: 160rpx;
+  padding-top: 152rpx;
 }
 
 .supplier-img {
@@ -94,4 +93,13 @@ page {
 .supplier-label-c3 {
   background-color: #facd89;
   padding: 0 10rpx;
+}
+
+.pos-fix {
+  width: 750rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 999;
 }

@@ -21,6 +21,11 @@ button {
   margin-bottom: 20rpx;
 }
 
+button[disabled] {
+  background-color: #eee;
+  color: #999;
+}
+
 form {
   width: 100%;
 }
@@ -65,8 +70,8 @@ button[disabled][type=primary].btn-bind {
 }
 
 .input-ph {
-  font-size: 28rpx;
-  color: #888;
+  font-size: 26rpx;
+  color: #b2b2b2;
 }
 
 .other-navigator-hover {
@@ -81,16 +86,43 @@ button[disabled][type=primary].btn-bind {
   display: none;
 }
 
+.top-margin {
+  height: 30rpx;
+  width: 750rpx;
+  border-bottom: 1rpx solid #d6d6db;
+  background-color: #fcf9fe;
+}
+
+.icon-arrowRight {
+  position: relative;
+}
+
+.icon-arrowRight::after {
+  content: " ";
+  position: absolute;
+  right: 5rpx;
+  top: 34rpx;
+  display: inline-block;
+  height: 18rpx;
+  width: 18rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-color: #c7c7cc;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+}
+
 /*底部加载*/
 
 .ordinarylist-load {
   /*position: fixed;
   bottom: 0;*/
-  margin-top: 20rpx;
+  /*margin-top: 20rpx;*/
   text-align: center;
   /*margin-bottom: 20rpx;*/
   background-color: #fff;
   width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
 }
 
 .ordinarylist-load image {
@@ -103,6 +135,27 @@ button[disabled][type=primary].btn-bind {
 .ordinarylist-load text {
   display: inline-block;
   vertical-align: middle;
-  color: #999;
-  font-size: 26rpx;
+  color: #333;
+  font-size: 32rpx;
+}
+
+/*加载动画*/
+.load-box{
+  position: absolute;
+  width:750rpx;
+  top: 0;
+  bottom:0;
+  right: 0;
+  left: 0;
+  background-color:#ffffff;
+  text-align: center; 
+}
+
+.load-box image{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 170rpx;
+  height: 120rpx;
+  transform: translate(-50%,-50%);
 }

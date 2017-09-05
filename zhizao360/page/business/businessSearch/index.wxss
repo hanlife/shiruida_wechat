@@ -1,0 +1,86 @@
+/* page/bussines/bussinesSearch/index.wxss */
+
+page {
+  position: relative;
+}
+
+.header-mar {
+  padding: 14rpx;
+}
+
+.input-box {
+  background-color: #fff;
+  border: 1rpx solid #ccc;
+  border-radius: 5rpx;
+  /*width: 633rpx;*/
+  display: inline-block;
+  vertical-align: middle;
+  height: 56rpx;
+}
+
+.search-console {
+  display: inline-block;
+  width: 80rpx;
+  text-align: right;
+  height: 56rpx;
+  line-height: 56rpx;
+  vertical-align: middle;
+  font-size: 32rpx;
+  color: #0189ff;
+}
+
+.input-box image {
+  margin-left: 17rpx;
+  vertical-align: middle;
+  width: 25rpx;
+  height: 25rpx;
+}
+
+.ph-style {
+  font-size: 26rpx;
+  color: #b2b2b2;
+  line-height: 56rpx;
+  height: 56rpx;
+}
+
+.input-box input[type=text] {
+  text-align: left;
+  padding-left: 12rpx;
+  text-indent: 3rpx;
+  width: 525rpx;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 56rpx;
+  height: 56rpx;
+  font-size: 26rpx;
+}
+
+.input-box icon {
+  vertical-align: top;
+  padding: 11rpx;
+  margin-top: 2rpx;
+}
+
+.tip-box {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  background-color: #fff;
+  bottom: 0;
+  border-top: 1rpx solid #d6d6db;
+  top: 84rpx;
+}
+
+.tip-box view {
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 40rpx;
+}
+
+.tip-box view:first-child {
+  margin-top: 100rpx;
+}
+
+.tip-box view:last-child {
+  font-size: 30rpx;
+}

@@ -1,0 +1,28 @@
+<!--page/recruit/search/search.wxml-->
+<view class="search-content">
+
+    <view class="fixed-search bg-grey">
+        <view class="input-search-box">
+            <view class="input-box flex ai-center">
+                <image src="/icon/icon-search.png"></image>
+                <input type="text" focus="true" confirm-type="search" bindconfirm="ConfirmFuc" bindinput="importFuc" bindblur="blurFuc" class="input-search fs26 c333" value="{{searchVal}}" placeholder="{{placeholder}}"  />
+                <view class="icon-clear-box jc-center ai-center">
+                   <icon type="clear" size="14" catchtap="ClearTxt" class="flex" hidden="{{!ClearShow}}" />
+                </view>
+            </view>
+            <block wx:if="{{searchShow || searchVal}}">
+                  <view class="fs32 c0189ff jc-center ai-center" bindtap="ConfirmFuc"><text>搜索</text></view>
+            </block>
+            <block wx:else>
+                  <view class="fs32 c0189ff jc-center ai-center" bindtap="NavToRecruit"><text>取消</text></view>
+            </block>
+            
+            
+        </view>
+    </view>
+
+    <view class="text-center lh1">
+        <view class="fs28 c999 mg-b40">支持搜索</view>
+        <view class="fs30 c999">公司名称、工种</view>
+    </view>
+</view>

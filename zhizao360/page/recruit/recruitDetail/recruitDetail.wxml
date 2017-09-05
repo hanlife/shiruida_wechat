@@ -1,0 +1,74 @@
+<!--page/recruit/publish/publish.wxml-->
+<import src="/module/homeCommon.wxml"></import>
+<view class="publish-content">
+  <view class="publish-header">
+    <view class="addRecuitInfo fs34 c888 bg-grey relative flex ai-center" bindtap="addRecuitInfoFuc">
+      <template is="icon_addBlue"></template>
+      <text>添加招聘信息</text>
+    </view>
+    <view class="switchTab fs32 c999 bg-eee text-center">
+      <view class="{{activeFlag ? 'active':''}}" data-tab='0' bindtap="switchFuc">正在招聘</view>
+      <view class="{{!activeFlag ? 'active':''}}" data-tab='1' bindtap="switchFuc">停止招聘</view>
+    </view>
+  </view>
+  <view class="margin-box"></view>
+  <view class="bd-b1px-d6d5d6 bg-fff">
+    <block wx:if="{{activeFlag}}">
+      <block wx:key="*this" wx:for="{{startArray}}" wx:for-index="index" wx:for-item="item">
+        <view class="pd-l30">
+          <view class="{{index == startArray.length-1 ? '': 'border-b1px'}} h88 jc-between ai-center" catchtap="ischild">
+            <view class="list-info jc-between" data-id="{{item.Id}}" catchtap="NavToDetail">
+              <view class="fs34 black flex ai-center">
+                <view class="icon-box jc-center ai-center" data-index="{{index}}" data-id="{{item.Id}}"  data-time="{{item.freshTime}}" catchtap="chooseStartInfo">
+                  <icon type='{{!chooseStartList[index].checked ? "circle":"success" }}' size='24'></icon>
+                </view>
+                <text  class="list-jobname txt-hid">{{item.JobName}}</text>
+              </view>
+              <view class="fs26 c999">{{item.LastUpdateTimeDes}}</view>
+            </view>
+            <view>
+              <template is="arrow-right"></template>
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+    <block wx:else>
+      <block wx:key="*this" wx:for="{{endArray}}" wx:for-index="index" wx:for-item="item">
+        <view class="pd-l30">
+          <view class="{{index == endArray.length-1 ? '': 'border-b1px'}} h88 jc-between ai-center" catchtap="ischild">
+            <view class="list-info jc-between" data-id="{{item.Id}}" catchtap="NavToDetail">
+              <view class="fs34 black flex ai-center">
+                <view class="icon-box jc-center ai-center" data-index="{{index}}" data-id="{{item.Id}}" data-time="{{item.freshTime}}" catchtap="chooseEndInfo">
+                  <icon type='{{!chooseEndList[index].checked ? "circle":"success" }}' size='24'></icon>
+                </view>
+                <text class="list-jobname txt-hid">{{item.JobName}}</text>
+              </view>
+              <view class="fs26 c999">{{item.LastUpdateTimeDes}}</view>
+            </view>
+            <view>
+              <template is="arrow-right"></template>
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+   <view class="bottom-box"></view>
+  <view class="fixed-bottom bg-f7f7fa flex ai-center pd-l30" wx:if="{{activeFlag}}">
+    <view class="black fs34 relative  allBtn" bindtap="allBtnFuc">
+      <icon type='{{allStarFlag?"success":"circle"}}' size='24'></icon>
+      <text>全部</text>
+    </view>
+    <view class="update fc9 fs30 {{StarBtnReferch?'update_active':''}} " bindtap="EventRefresh">{{StarRefershTxt}}</view>
+    <view class="stopRecruit fc9 fs30  {{StarBtn?'stopRecruit_active':''}} " bindtap="EventStop">停止招聘</view>
+  </view>
+  <view class="fixed-bottom bg-f7f7fa flex ai-center pd-l30" wx:else>
+    <view class="black fs34 relative  allBtn" bindtap="allBtnFuc">
+      <icon type='{{allEndFlag?"success":"circle"}}' size='24'></icon>
+      <text>全部</text>
+    </view>
+    <view class="update fc9 fs30 {{EndBtnReferch?'update_active':''}}" bindtap="EventRefresh">{{EndRefershTxt}}</view>
+    <view class="stopRecruit fc9 fs30 {{EndBtn?'stopRecruit_active':''}}" bindtap="EventStop">删除</view>
+  </view>
+</view>

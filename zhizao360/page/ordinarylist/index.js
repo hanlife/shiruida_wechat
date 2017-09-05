@@ -6,7 +6,6 @@ var headSearch = require('../../module/headSearch.js');//头部搜索共用JS
 var search = headSearch.search;
 var formatLocation = util.formatLocation;
 var appInstance = getApp(); //获取全局对象
-var base = appInstance.globalData.rootUrl + "/Content/images/wx/";
 
 var header = {
   Data: {
@@ -36,18 +35,7 @@ var header = {
   DeviceColor: false,
   MoreColor: false,
   //顶部搜索框
-  isShow: true, //搜索框
-  inputWord: '搜索设备名称、设备类型',
-  inputValue: '',
-  ClearShow: true,
-  left: "155rpx", //搜索图标左边距
-  width: "673rpx",  //搜索框宽度
-  textLeft: "center", //搜索框字体对齐
-  paddingLeft: "0", //搜索框左边距
-  inputFocus: "none", //取消按钮
-  SearchTxt: "取消",
-  SearchList: [],//搜索关联内容
-  Searching: true,
+  keyword: '',
   AddressName: "区域",
   //区域筛选
   searchId: "0",  //筛选类型
@@ -104,22 +92,11 @@ Page({
     dataList: false,
     loading: '正在加载...',
     scrollTop: '0',
-    guideshow: false,
     releaseBtn: false,
-    guideData: {
-      indicatorDots: true,
-      autoplay: false,
-      duration: 500,
-      imgUrls: [
-        base + "操作指引-1.png",
-        base + "操作指引-2.png",
-        base + "操作指引-3.png",
-        base + "操作指引-4.png",
-        base + "操作指引-5.png",
-        base + "操作指引-6.png",
-        base + "操作指引-7.png"
-      ]
-    }
+    load_Event: true,
+    data_area: null,
+    data_process: null,
+    data_more: null
   },
   //进入该公司详情页
   ToSupplier: function (e) {
@@ -152,7 +129,9 @@ Page({
     }
     header.searchId = 0;
     this.setData({
-      item_head: header
+      item_head: header,
+      load_Event: false,
+      data_process: header.Data.DeviceName
     })
     GetCapacityList(this);
   },
@@ -179,7 +158,9 @@ Page({
   choseCondition: function (e) {
     header = search.choseCondition(e, header);
     this.setData({
-      item_head: header
+      item_head: header,
+      load_Event: false,
+      data_area: header.Data.Address.county
     })
     if (header.area_select == '0') {
       //区域
@@ -246,7 +227,9 @@ Page({
     request.IndustryId = [];
     request.PQty = '';
     this.setData({
-      item_head: header
+      item_head: header,
+      load_Event: false,
+      data_more: null,
     })
     GetCapacityList(this);
   },
@@ -254,8 +237,13 @@ Page({
   EventResult: function () {
     header.searchId = 0;
     header = search.checkMore(header);
+    let IndustryName = header.Data.MoreName.Industry.Name == "" ? "" : header.Data.MoreName.Industry.Name + "、";
+    let StaffNmuName = header.Data.MoreName.StaffNum.Name == "" ? "" : header.Data.MoreName.StaffNum.Name + "、";
+    let data_more = IndustryName + StaffNmuName + header.Data.MoreName.MoreType.Name;
     this.setData({
-      item_head: header
+      item_head: header,
+      load_Event: false,
+      data_more: data_more,
     })
     request.PQty = header.Data.MoreName.StaffNum.Name;
     if (header.Data.MoreName.MoreType.Id != "") {
@@ -271,8 +259,7 @@ Page({
     GetCapacityList(this);
   },
   //上拉加载
-  EventLoad: function () {
-    var that = this;
+  onReachBottom: function () {
     request.CurrentPageNumber++;
     getQuery(this);
   },
@@ -284,7 +271,6 @@ Page({
       icon: 'loading'
     })
     request.CurrentPageNumber = 1;
-    //wx.showNavigationBarLoading();
     appInstance.reqPost("Device/GetCapacityList", function (res) {
       if (res.Succeed) {
         if (res.Data.Items.length > 0) {
@@ -292,7 +278,8 @@ Page({
           that.setData({
             loading: "加载中",
             company_list: List,
-            scrollTop: 0
+            scrollTop: 0,
+            dataList: false
           })
         } else {
           that.setData({
@@ -315,85 +302,12 @@ Page({
       item_head: header
     })
   },
-  //输入框聚焦
-  EventFocus: function (e) {
-    header = search.EventFocus(e, header);
-    this.setData({
-      item_head: header
-    })
-  },
-  //搜索结果
-  SearchResult: function (e) {
 
-  },
-  EventInput: function (e) {
-    header.inputValue = e.detail.value;
-    if (e.detail.value != '') {
-      header.SearchTxt = "搜索"
-      header.ClearShow = false;
-    } else {
-      header.SearchTxt = "取消"
-      header.ClearShow = true;
-    }
-    this.setData({
-      item_head: header
+  //搜索结果
+  searchBtn: function (e) {
+    wx.navigateTo({
+      url: '/page/ordinarylist/ordinarySearch/index',
     })
-  },
-  // EventBlur: function (e) {
-  //   if (e.detail.value == '') {
-  //     header = search.EventConsole(header);
-  //     header.ClearShow = true;
-  //   } else {
-  //     request.KeyWord = e.detail.value;
-  //     header.Searching = true;
-  //     header.inputValue = e.detail.value;
-  //     GetCapacityList(this);
-  //   }
-  //   this.setData({
-  //     item_head: header
-  //   })
-  // },
-  //清空按钮
-  ClearTxt: function () {
-    header.inputValue = '';
-    header.ClearShow = true;
-    header.SearchTxt = "取消"
-    this.setData({
-      item_head: header
-    })
-  },
-  //取消或搜索
-  EventConsole: function () {
-    if (header.inputValue == '') {
-      header.inputValue = request.KeyWord;
-      if (request.KeyWord != '') {
-        header = search.EventSearch(header);
-      } else {
-        header = search.EventConsole(header);
-      }
-    } else {
-      header = search.EventSearch(header);
-      request.KeyWord = header.inputValue;
-      GetCapacityList(this);
-    }
-    this.setData({
-      item_head: header
-    })
-  },
-  //输入确定
-  EventSearch: function (e) {
-    request.KeyWord = e.detail.value;
-    header.Searching = true;
-    header.inputValue = e.detail.value;
-    if (e.detail.value == '') {
-      header = search.EventConsole(header);
-    } else {
-      header = search.EventSearch(header);
-    }
-    this.setData({
-      item_head: header
-    })
-    GetCapacityList(this);
   },
   //发布产能
   toRelease: function () {
@@ -413,21 +327,6 @@ Page({
       })
     }
   },
-  guideChange: function (e) {
-    var that = this;
-    if (e.detail.current == 6) {
-      setTimeout(function () {
-        that.setData({
-          guideshow: false
-        })
-      }, 1500)
-    }
-  },
-  guideClose: function () {
-    this.setData({
-      guideshow: false
-    })
-  },
   //自定义分享标题
   onShareAppMessage: function () {
     return {
@@ -440,17 +339,12 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     var H = appInstance.globalData.addLog.Windowheight;
     var W = appInstance.globalData.addLog.Windowwidth;
-    //操作指引
-    if (wx.getStorageSync('rd_session') == "") {
-      var guideline = true;
-    }
-    header = search.setHeight(header);
+
+   
     this.setData({
       item_head: header
     })
-    if (!this.data.guideshow) {
-      wx.showNavigationBarLoading();
-    }
+
     //赋值经纬度
     var that = this;
     wx.getLocation({
@@ -464,55 +358,50 @@ Page({
     })
   },
   onShow: function () {
+    header = search.setHeight(header);
     var that = this;
-    // 获取闲置产能
-    GetCapacityList(that);
-    //是否显示发布闲置产能按钮
-    util.EnterpriseRequest({
-      url: 'GetCertificationInfo',
-      method: 'POST',
-      callback: function (res) {
-        var NaturesId = null;
-        var Natures = appInstance.globalData.EnterpriseNatures;
-        for (var i = 0; i < Natures.length; i++) {
-          if (Natures[i].Name == "供应商") {
-            NaturesId = Natures[i].Id
+    request.KeyWord = appInstance.OrdinaryKeyword;
+    if (appInstance.OrdinaryBool && appInstance.OrdinaryKeyword != header.keyword) {
+      request.CurrentPageNumber = 1;
+      header.keyword = appInstance.OrdinaryKeyword;
+      this.setData({
+        item_head: header,
+        load_Event: false
+      })
+      // 获取闲置产能
+      GetCapacityList(that);
+      appInstance.OrdinaryBool = false;
+    }
+    if (wx.getStorageSync('isImLogin')) {
+      //是否显示发布闲置产能按钮
+      util.EnterpriseRequest({
+        url: 'GetCertificationInfo',
+        method: 'POST',
+        callback: function (res) {
+          var NaturesId = null;
+          var Natures = appInstance.globalData.EnterpriseNatures;
+          for (var i = 0; i < Natures.length; i++) {
+            if (Natures[i].Name == "供应商") {
+              NaturesId = Natures[i].Id
+            }
+          }
+          if (res.data.Status == "审核通过" && res.data.EnterpriseNatures == NaturesId) {
+            that.setData({
+              releaseBtn: true
+            })
+          } else {
+            that.setData({
+              releaseBtn: false
+            })
           }
         }
-        if (res.data.Status == "审核通过" && res.data.EnterpriseNatures == NaturesId) {
-          that.setData({
-            releaseBtn: true
-          })
-        } else {
-          that.setData({
-            releaseBtn: false
-          })
-        }
-      }
-    })
+      })
+    }
   },
   onReady: function () {
     // 页面渲染完成
-    var that = this;
-    header = search.sevice(header, this);//获取头部搜索条件内容
+    header = search.sevice(header);
     header = search.bmap_fn(bmap, header, this);
-    util.BaseDataRequest({
-      url: 'GetShareConfig',
-      method: 'post',
-      callback: function (res) {
-        appInstance.globalData.shareTitle = JSON.parse(res.data.Data.Value);
-      }
-    })
-    util.UserRequest({
-      url: 'AddLog',
-      method: 'post',
-      data: {
-        input: appInstance.globalData.addLog
-      },
-      callback: function (res) {
-
-      }
-    })
   },
   onHide: function () {
     // 页面隐藏
@@ -524,10 +413,6 @@ Page({
 
 // 获取闲置产能
 function GetCapacityList(t) {
-  wx.showToast({
-    title: '加载中...',
-    icon: 'loading'
-  })
   request.CurrentPageNumber = 1;
   appInstance.reqPost("Device/GetCapacityList", function (res) {
     if (!res) {
@@ -546,6 +431,7 @@ function GetCapacityList(t) {
         }
         if (res.Data.Items.length < 4) {
           loadShow = true;
+          load_Event: true
         }
         var data = util.distanc(res.Data.Items, header);
         t.setData({
@@ -554,10 +440,13 @@ function GetCapacityList(t) {
           company_list: data,
           scrollTop: 0,
           loading: text,
+          load_Event: true
         })
       } else {
         t.setData({
           dataList: true,
+          loadShow: true,
+          load_Event: true
         })
       }
       wx.hideToast();

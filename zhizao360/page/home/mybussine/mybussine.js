@@ -194,38 +194,7 @@ Page({
         })
       }
     }).done();
-
-    // utils.EnterpriseRequest({
-    //   url: 'CollectEnterprise',
-    //   method: 'POST',
-    //   data: { enterpriseId: EnterpriseId },
-    //   callback: function (res) {
-    //     var title = '';
-    //     if (res.data.Succeed) {
-    //       that.setData({
-    //         collectFlag: !that.data.collectFlag
-    //       })
-    //       if (that.data.collectFlag) {
-    //         title = "收藏成功"
-    //       } else {
-    //         title = "取消成功"
-    //       }
-
-    //       wx.showToast({
-    //         title: title,
-    //         icon: 'success',
-    //         duration: 2000
-    //       })
-    //     } else {
-    //       wx.showModal({
-    //         title: "提示",
-    //         content: res.data.ErrorMessage,
-    //         showCancel: false,
-    //         confirmText: '知道了'
-    //       })
-    //     }
-    //   }
-    // });
+  
   },
   //打开地图
   oppenMap: function (e) {
@@ -306,34 +275,7 @@ Page({
           })
         }).done();
 
-        // utils.EnterpriseRequest({
-        //   url: 'GetEnterpriseInfo',
-        //   method: 'POST',
-        //   data: {
-        //     input: {
-        //       EnterpriseId: that.data.EnterpriseId,
-        //       Longitude: longitude,
-        //       Latitude: latitude
-        //     }
-        //   },
-        //   callback: function (res) {
-        //     var Address = res.data.Provin + res.data.City + res.data.County + res.data.Addr;
-        //     var obj = {
-        //       Name: res.data.Name,
-        //       Address: Address,
-        //       AddressDetail: res.data.Addr,
-        //       Distance: parseFloat(res.data.Distance).toFixed(1),
-        //       Longitude: res.data.Longitude,
-        //       Latitude: res.data.Latitude,
-        //       Collection: res.data.Collection
-        //     }
-        //     that.setData({
-        //       companyIntroduce: res.data,
-        //       companyInfo: obj,
-        //       collectFlag: obj.Collection
-        //     })
-        //   }
-        // });
+      
       }
     })
 
@@ -391,59 +333,7 @@ Page({
         swiperNavArray: arr
       })
     }).done();
-    // utils.EnterpriseImageRequest({
-    //   url: 'GetImages',
-    //   method: 'POST',
-    //   data: { enterpriseId: that.data.EnterpriseId },
-    //   callback: function (res) {
-    //     for (let i in res.data) {
-    //       for (let j = 0; j < res.data[i].length; j++) {
-    //         res.data[i][j].Original = app.globalData.rootUrl + res.data[i][j].Original
-    //         res.data[i][j].type = i;
-    //       }
-    //     }
-    //     var arr = [];
-    //     if (res.data.PathList1) {
-    //       arr.push({ name: "封面图片", type: 1 })
-    //       that.setData({ type: 1 })
-    //     }
-    //     if (res.data.PathList2) {
-    //       arr.push({ name: "厂房大门", type: 2 })
-    //     }
-    //     if (res.data.PathList3) {
-    //       arr.push({ name: "加工设备", type: 3 })
-    //     }
-    //     if (res.data.PathList4) {
-    //       arr.push({ name: "检测设备", type: 4 })
-    //     }
-    //     if (res.data.PathList5) {
-    //       arr.push({ name: "办公区域", type: 5 })
-    //     }
-    //     if (res.data.PathList6) {
-    //       arr.push({ name: "产品图片", type: 6 })
-    //     }
-
-    //     if (!res.data.PathList1 && !res.data.PathList2 && !res.data.PathList3 && !res.data.PathList4 && !res.data.PathList5 && !res.data.PathList6) {
-    //       that.setData({
-    //         IsShowDefault: true
-    //       })
-    //     }
-
-    //     that.setData({
-    //       PathList1: res.data.PathList1 ? res.data.PathList1 : [],
-    //       PathList2: res.data.PathList2 ? res.data.PathList2 : [],
-    //       PathList3: res.data.PathList3 ? res.data.PathList3 : [],
-    //       PathList4: res.data.PathList4 ? res.data.PathList4 : [],
-    //       PathList5: res.data.PathList5 ? res.data.PathList5 : [],
-    //       PathList6: res.data.PathList6 ? res.data.PathList6 : [],
-    //       pictrue: res.data.PathList1 ? res.data.PathList1 : [],
-    //       totalNum: res.data.PathList1 ? res.data.PathList1.length : 0,
-    //       currentNum: 1,
-    //       swiperNavArray: arr
-    //     })
-    //   }
-    // });
-
+   
     var isImLogin = wx.getStorageSync("isImLogin");
     that.setData({
       isImLogin: isImLogin
@@ -466,23 +356,7 @@ Page({
         }
         that.setData({ equipmentListArray: res.data })
     }).done();
-    // utils.DeviceRequest({
-    //   url: 'GetEnterpriseDevices',
-    //   method: 'POST',
-    //   data: { enterpriseId: that.data.EnterpriseId },
-    //   callback: function (res) {
-
-    //     for (let i in res.data) {
-    //       res.data[i].CapacityQty ? res.data[i].CapacityQty : res.data[i].CapacityQty = 0;
-    //       res.data[i].CapacityQty > 9999 ? res.data[i].CapacityQty = 9999 : res.data[i].CapacityQty;
-    //       res.data[i].Amount ? res.data[i].Amount : res.data[i].Amount = 0;
-    //       res.data[i].Amount > 9999 ? res.data[i].Amount = 9999 : res.data[i].Amount;
-    //     }
-    //     that.setData({
-    //       equipmentListArray: res.data
-    //     })
-    //   }
-    // });
+    
 
     //获取联系人信息
     promisefy.MemberInfoPromise({
@@ -490,18 +364,11 @@ Page({
       method: 'POST',
       data: { enterpriseId: that.data.EnterpriseId }
     }).then(res => {
-      that.setData({ contactArray: res.data })
+      if(res.data.Succeed){
+         that.setData({ contactArray: res.data.Data })
+      }
     }).done();
-    // utils.MemberInfoRequest({
-    //   url: 'GetMemberInfoByEnterpriseId',
-    //   method: 'POST',
-    //   data: { enterpriseId: that.data.EnterpriseId },
-    //   callback: function (res) {
-    //     that.setData({
-    //       contactArray: res.data
-    //     })
-    //   }
-    // });
+   
   },
 
   onShow: function () {
@@ -514,12 +381,7 @@ Page({
        var shareTitle = JSON.parse(res.data.Data.Value).mybussine.title
        this.setData({ shareTitle: shareTitle})
     }).done();
-    // utils.BaseDataRequest({
-    //   url: 'GetShareConfig',
-    //   callback: function (res) {
-    //     var a = JSON.parse(res.data.Data.Value)
-    //   }
-    // })
+    
   },
   onHide: function () {
     // 页面隐藏

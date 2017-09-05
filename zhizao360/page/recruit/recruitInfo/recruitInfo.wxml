@@ -1,0 +1,73 @@
+<!--page/recruit/recruitInfo/recruitInfo.wxml-->
+<view class="top-margin"></view>
+<view class="bg-color">
+  <view class="recruit-box">
+    <view class="recruit-title">
+      <view class="recruit-title-name">
+        <text>{{JobName}}</text>
+        <text>{{SalaryRange}}</text>
+      </view>
+      <view class="recruit-title-detail">
+        <text class="detail-txt txt-hid">招聘{{HiringQty}}人</text>
+        <text class="detail-txt txt-hid">{{City}}-{{County}}</text>
+        <text class="f_r txt-hid">{{LastUpdateTimeDes}}</text>
+      </view>
+    </view>
+    <view class="recruit-company {{Nature?'recruit-company-icon':''}}" bindtap="ToSupplier" data-id="{{EnterpriseId}}">
+      <text class="recruit-company-name">{{EnterpriseName}}</text>
+    </view>
+    <view class="recruit-address recruit-company-icon">
+      <text>工作地点</text>
+      <text bindtap="EventOpenmap">{{WorkAddress}}</text>
+    </view>
+  </view>
+</view>
+<view class="top-margin border-top"></view>
+<view class="bg-color">
+  <view class="recruit-box">
+    <view class="requirements">岗位要求</view>
+    <view class="requirements-lists">
+      <view class="requirements-list">
+        <text>{{JobRequire}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="top-margin border-top"></view>
+<view class="bg-color">
+  <view class="contact-box">
+    <view class="contact-name">
+      <text class="contact-name-l">联系人</text>
+      <text class="contact-name-r">{{ContactName}}</text>
+    </view>
+    <view class="contact-tel">
+      <text class="contact-name-l">手机</text>
+      <text class="contact-name-r {{ontherRecruit?'contact-tel-color':''}}">{{ContactMobile}}</text>
+      <image src="../../../icon/icon_phone.png" class='contact-tel-icon' bindtap="EventTel" data-tel="{{ContactMobile}}" hidden="{{!ontherRecruit}}"></image>
+    </view>
+  </view>
+</view>
+<view class="margin-bottom" hidden="{{ontherRecruit}}"></view>
+<view class="bg-color">
+  <view class="ontherRecruit" wx:if="{{ontherRecruit}}">
+    <view hidden="{{otherList}}">
+      <view class="ontherRecruit-title">该公司其他岗位</view>
+      <view wx:for="{{otherArry}}" wx:for-index="idx" wx:for-item="item">
+        <view bindtap="EventTodetail" class="ontherRecruit-list" data-id='{{item.Id}}'>
+          <view class="ontherRecruit-lists-t">
+            <text class="ontherRecruit-lists-name txt-hid">{{item.JobName}}</text>
+            <text class="ontherRecruit-lists-num">{{item.HiringQty}}人</text>
+            <text class="ontherRecruit-lists-salary">{{item.SalaryRange}}</text>
+          </view>
+          <view class="ontherRecruit-lists-b">
+            <text>{{item.City}}-{{item.County}}</text>
+            <text>距离{{item.Distance}}Km</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="verification" wx:else bindtap="EventVerif">
+    <text>验证查看手机号</text>
+  </view>
+</view>

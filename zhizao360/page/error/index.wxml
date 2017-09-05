@@ -1,10 +1,14 @@
-
 <!--page/error/index.wxml-->
 <view class="error-box">
   <image src="../../icon/icon-getEvl.png" mode="aspectFit"></image>
 </view>
-<view class="error-tip">
+
+<view class="error-tip" wx:if="{{!show}}">
   <text>请打开定位权限和获取头像</text>
+</view>
+<view class="error-tip" wx:if="{{show}}">
+  <text>无法获取你的位置信息</text>
+  <text>请到手机系统【设置】－>【隐私】－>【定位服务】中打开定位服务，并允许微信使用定位服务。</text>
 </view>
 <view class="btn-open">
   <button type="default" bindtap="openAddress">立即打开</button>

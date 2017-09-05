@@ -27,7 +27,7 @@ page {
 }
 .ordinarylist-pad{
   width: 100%;
-  padding-top: 160rpx;
+  padding-top: 152rpx;
 }
 .ordinarylist-lists:first-child {
   margin-top: 0rpx;

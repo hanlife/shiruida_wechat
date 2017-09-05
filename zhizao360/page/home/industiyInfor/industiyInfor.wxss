@@ -1,5 +1,5 @@
 /* page/home/industiyInfor/industiyInfor.wxss */
-@import "../common/homeCommon.wxss";
+@import "/module/homeCommon.wxss";
 
 .addressDetail{ 
     min-height: 122rpx;

@@ -1,5 +1,5 @@
 /* page/home/myInformation/myInformation.wxss */
-@import "../common/homeCommon.wxss";
+@import "/module/homeCommon.wxss";
 .view-box{
     height: 88rpx;
     line-height: 88rpx;

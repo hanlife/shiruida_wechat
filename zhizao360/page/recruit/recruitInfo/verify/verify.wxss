@@ -1,0 +1,99 @@
+/* page/recruit/recruitInfo/recruitInfo/verify.wxss */
+
+page {
+  background-color: #fcf9fe;
+}
+
+.verify-box {
+  margin-left: 30rpx;
+  color: #333;
+  font-size: 36rpx;
+}
+
+.craft, .telephone, .verification {
+  border-bottom: 1rpx solid #eaeaea;
+  line-height: 88rpx;
+  position: relative;
+}
+
+.craft::after {
+  content: " ";
+  position: absolute;
+  right: 30rpx;
+  top: 31rpx;
+  display: inline-block;
+  height: 18rpx;
+  width: 18rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-color: #c7c7cc;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+}
+
+.craft .craft-name {
+  display: inline-block;
+  width: 480rpx;
+  height: 100%;
+}
+
+.title {
+  display: inline-block;
+  color: #000;
+  width: 180rpx;
+  vertical-align: middle;
+}
+
+.tel-input {
+  display: inline-block;
+  vertical-align: middle;
+  width: 300rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+}
+
+.telephone .verification-btn {
+  display: inline-block;
+  margin: 0 0 0 25rpx;
+  padding: 0;
+  width: 190rpx;
+  height: 60rpx;
+  border: 0;
+  background-color: #0189ff;
+  color: #fff;
+  border-radius: 10rpx;
+  vertical-align: middle;
+  font-size: 26rpx;
+  line-height: 60rpx;
+  text-align: center;
+}
+
+.verification input {
+  width: 200rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.margin-box {
+  border-top: 1rpx solid #d6d6db;
+  height: 60rpx;
+  margin-top: -1rpx;
+  position: relative;
+  z-index: 99;
+}
+
+.checkBtn {
+  margin: 0 30rpx;
+}
+
+.checkBtn button {
+  border-radius: 10rpx;
+  background-color: #0189ff;
+  color: #fff;
+}
+
+.input-ph {
+  font-size: 34rpx;
+  color: #999;
+}

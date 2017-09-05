@@ -1,0 +1,24 @@
+/* page/supplier/guide/guide.wxss */
+
+.guideImg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 750rpx;
+  height: 100%;
+  z-index: 999;
+}
+
+.guideImg image {
+  width: 750rpx;
+  height: 100%;
+}
+
+.guideIcon {
+  width: 56rpx;
+  height: 56rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+  z-index: 9999;
+}

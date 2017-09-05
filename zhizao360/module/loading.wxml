@@ -1,0 +1,5 @@
+<template name='loading'>
+  <view class="load-box">
+    <image src="../../icon/loading-page.gif"></image>
+  </view>
+</template>

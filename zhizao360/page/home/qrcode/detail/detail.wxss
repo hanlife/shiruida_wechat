@@ -1,5 +1,5 @@
 /* page/home/qrcode/detail/detail.wxss */
-@import "../../common/homeCommon.wxss";
+@import "../../../../module/homeCommon.wxss";
 .header{ 
     width: 524rpx;
     text-align: center;

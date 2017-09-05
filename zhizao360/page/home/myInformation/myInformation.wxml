@@ -1,5 +1,5 @@
 <!--page/home/myInformation/myInformation.wxml-->
-<import src="../common/homeCommon.wxml"></import>
+<import src="/module/homeCommon.wxml"></import>
 <view class="view-body fs34">
      <form class="" bindsubmit="formSubmit" bindreset="formReset">
                 <view class="border-tb1px pd-l30 mg-t30 bg-fff">

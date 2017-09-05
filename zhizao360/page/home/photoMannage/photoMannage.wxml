@@ -1,5 +1,5 @@
 <!--page/home/photoMannage/photoMannage.wxml-->
-<import src="../common/homeCommon.wxml" />
+<import src="/module/homeCommon.wxml" />
 <view class="view-body fs28">
   <view class="images-wrapper mg-t30">
     <view class="jc lh1 mg-b28">

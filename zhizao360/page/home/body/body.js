@@ -12,7 +12,7 @@ Page({
     iphone: "",             //手机号 
     pickerArray: [],
     pickerIndex: 1,
-    property:'',            //企业性质
+    property: '',            //企业性质
     equipmentUrlFlag: true, //判断是否有添加设备信息  有则跳转设备信息页面  没则添砖添加设备页面
     checkStatusText: "",
     EnterpriseId: '',
@@ -31,46 +31,16 @@ Page({
       title: '加载中...',
       icon: 'loading',
       mask: true,
-      duration: 2000
+      duration: 10000
     })
-  
     app.getUserInfo(this.preOnLoad);
   },
   onShow: function () {
-    promisefy.EnterprisePromise({   //企业认证
-      url: 'GetCertificationInfo',
-      method: 'POST'
-    }).
-      then(res => {
-        if (!res.data.Status) {
-          res.data.Status = "主账号不接受成为子账号"
-        }
-        this.setData({
-          checkStatusText: res.data.Status,
-          EnterpriseNatures: res.data.EnterpriseNatures
-        })
-
-        return promisefy.BaseDataPromise({   //企业性质
-          url: 'GetNatures'
-        })
-      }).
-      then(res => {
-        var pickerIndex = 0;
-        for (let i = 0; i < res.data.length; i++) {
-          if (res.data[i].Id == this.data.EnterpriseNatures) {
-            pickerIndex = i
-          }
-        }
-        this.setData({
-          pickerArray: res.data,
-          pickerIndex: pickerIndex,
-          property: res.data[pickerIndex].Name
-        })
-
-      }).finally(() => {
-        wx.hideToast();
-        wx.stopPullDownRefresh();
-      }).done();
+   
+    if (app.globalData.industiyInforFlag){
+      app.getUserInfo(this.preOnLoad);
+      app.globalData.industiyInforFlag = false;
+    }
   },
   onPullDownRefresh: function () {
     this.onLoad();
@@ -159,9 +129,41 @@ Page({
           natureFlag: !res.data.IsMainMember,
           IsMainMember: res.data.IsMainMember
         })
+        return promisefy.EnterprisePromise({   //企业认证
+          url: 'GetCertificationInfo',
+          method: 'POST'
+        })
+      }).
+      then(res => {
+        if (!res.data.Status) {
+          res.data.Status = "主账号不接受成为子账号"
+        }
+        this.setData({
+          checkStatusText: res.data.Status,
+          EnterpriseNatures: res.data.EnterpriseNatures
+        })
+
+        return promisefy.BaseDataPromise({   //企业性质
+          url: 'GetNatures'
+        })
+      }).
+      then(res => {
+        var pickerIndex = 0;
+        for (let i = 0; i < res.data.length; i++) {
+          if (res.data[i].Id == this.data.EnterpriseNatures) {
+            pickerIndex = i
+          }
+        }
+        this.setData({
+          pickerArray: res.data,
+          pickerIndex: pickerIndex,
+          property: res.data[pickerIndex].Name
+        })
+
+      }).finally(() => {
+        wx.hideToast();
+        wx.stopPullDownRefresh();
       }).done();
-
-
   }
 
 })

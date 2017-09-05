@@ -17,7 +17,7 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     // 获取企业信息
     promisefy.EnterprisePromise({
-       url: 'GetEnterpriseInfo',
+      url: 'GetEnterpriseInfo',
       method: 'POST',
       data: {
         input: {
@@ -57,59 +57,29 @@ Page({
       })
     }).done();
 
-
-    // utils.EnterpriseRequest({
-    //   url: 'GetEnterpriseInfo',
-    //   method: 'POST',
-    //   data: {
-    //     input: {
-    //       EnterpriseId: app.globalData.EnterpriseId,
-    //       Longitude: app.globalData.addLog.Longitude,
-    //       Latitude: app.globalData.addLog.Latitude
-    //     }
-    //   },
-    //   callback: function (rest) {
-    //     wx.request({
-    //       url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxa12924b3d5de635a&secret=1ef4b00561f570d0a0a74767f1e01679',
-    //       data: {},
-    //       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-    //       // header: {}, // 设置请求的 header
-    //       success: function (res) {
-    //         // success
-    //         utils.BaseDataRequest({
-    //           url: 'GetQcCode',
-    //           method: 'post',
-    //           data: {
-    //             path: "/page/home/mybussine/mybussine?enterpriseId=" + app.globalData.EnterpriseId,
-    //             width: 430,
-    //             token: res.data.access_token,
-    //             EnterpriseId: app.globalData.EnterpriseId
-    //           },
-    //           callback: function (res) {
-    //             var imgurl = app.globalData.rootUrl + res.data.Data;
-    //             that.setData({
-    //               qrcodeObj: {
-    //                 logo: '/icon/logo.png',
-    //                 title: rest.data.Name,
-    //                 qrcode: imgurl,
-    //                 des: '微信【扫一扫】即可获得联系方式及公司详细信息'
-    //               }
-    //             })
-    //           },
-    //           fail: function () {
-    //           },
-    //           complete: function () {
-    //           }
-    //         })
-    //       }
-
-    //     })
-    //   }
-    // });
-
-
-
-
-
   }
+  // savePhoto: function () {
+  //   wx.canIUse('saveImageToPhotosAlbum')
+  //   wx.canIUse('openBluetoothAdapter')
+  //   if (wx.openBluetoothAdapter) {
+  //     wx.openBluetoothAdapter()
+  //   } else {
+  //     // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样子提示
+  //     wx.showModal({
+  //       title: '提示',
+  //       content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+  //     })
+  //   }
+
+  //   let that = this
+  //   wx.saveImageToPhotosAlbum({
+  //     filePath: that.data.qrcodeObj.qrcode,
+  //     success(res) {
+  //     },
+  //     fail: function (res) {
+  //     },
+  //     complete: function (res) {
+  //     }
+  //   })
+  // }
 })

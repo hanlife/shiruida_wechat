@@ -1,0 +1,59 @@
+/* page/recruit/recruit.wxss */
+@import "../../module/homeCommon.wxss";
+.recruit-content{ padding-top: 87rpx; }
+.fixed-search{ position: fixed; top: 0; left: 0; right: 0;height: 87rpx; }
+.w560{ width: 560rpx; }
+.input-search-box{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 87rpx;
+     position: relative;
+}
+.input-search-box .input-search{
+    width: 634rpx;
+    height: 56rpx;
+    background-color: #fff;
+    border-radius: 10rpx;
+    margin-right: 20rpx;
+    /*padding-left: 309rpx;   */
+    border: 1px solid #f2f2f4; 
+    text-align: center;
+}
+.input-search-box image{
+    /*position: absolute;*/
+    /*top: 32rpx;*/
+    /*left: 292rpx;*/
+    width: 25rpx;
+    height: 25rpx;
+    z-index:1;
+    margin: 0 12rpx;
+}
+.input-search-box view{
+    height: 56rpx;
+    vertical-align: middle;
+}
+.recruit-list{
+    border-top: 1px solid #d6d6db;
+    border-bottom: 1px solid #d6d6db;
+    background-color: #fff;
+}
+
+.job-name{ max-width: 320rpx; }
+.job-num{  padding: 0 10rpx; height: 34rpx; line-height: 34rpx; vertical-align: middle; }
+.company-name{ width: 490rpx; } 
+
+.fixed-Btn{ 
+    position: fixed; 
+    right: 34rpx;
+    bottom: 27rpx;
+    width: 78rpx; 
+    height: 78rpx;
+    border-radius: 39rpx;
+    text-align: center;
+    box-shadow:0rpx 0rpx 15rpx 7rpx #78d9f6;
+
+}
+.fixed-Btn image { width: 35rpx; height: 35rpx; margin-top: 9rpx; } 
+.h90{ height: 90rpx; }
+.icon_loading{ width: 43rpx; height: 43rpx; margin-right: 8rpx; }

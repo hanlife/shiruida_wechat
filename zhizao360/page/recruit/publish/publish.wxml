@@ -1,0 +1,110 @@
+<!--page/recruit/publish/publish.wxml-->
+<import src="/module/homeCommon.wxml"></import>
+<view class="publish-content fs34">
+    <view class="content01 mg-b30 bd-tb1px-d6d5d6">
+        <view class="pd-l30">
+            <view class="h88 jc-between ai-center bd-b1px-d6d5d6" catchtap="">
+                <picker class="h88" bindchange="bindPickerChange" value="{{pickerIndex}}" range="{{pickerArray}}" range-key="Name" disabled="{{natureFlag}}">
+                    <view class="h88 jc-between ai-center">
+                        <view class="list-info flex">
+                            <view class="black  w180">工种</view>
+                            <view class="{{JobName ? 'c333': 'c999' }} ell w480">{{JobName ? JobName : '请选择工种'}}</view>
+                        </view>
+                        <view>
+                            <template is="arrow-right"></template>
+                        </view>
+                    </view>
+
+                </picker>
+
+            </view>
+        </view>
+        <view class="pd-l30">
+            <view class="h88 jc-between ai-center bd-b1px-d6d5d6" catchtap="">
+                <view class="list-info flex" data-id="" catchtap="NavToDetail">
+                    <view class="black  w180">招聘人数</view>
+                </view>
+                <view>
+                    <view class="device-operate">
+                        <view class="num-reduce" bindtap="cutNumber">
+                            <image src="{{ number <= 1 ?  '/icon/icon-reduce.png' : '/icon/icon-reduce-a.png' }}"></image>
+                        </view>
+                        <input type="number" name="amount" class="device-quantity black" bindblur="numberInput" value="{{number}}" />
+                        <view class="num-add" bindtap="addNumber">
+                            <image src="{{ number >= 9999 ? '/icon/icon-add.png' : '/icon/icon-add-a.png' }}"></image>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="pd-l30">
+            <view class="h88 jc-between ai-center bd-b1px-d6d5d6" catchtap="NavToPayRange">
+                <view class="list-info flex" data-id="">
+                    <view class="black  w180">薪资</view>
+                    <view class="{{ SalaryObj.name ? 'c333':'c999' }}">{{SalaryObj.name ? SalaryObj.name :'请选择薪资范围' }}</view>
+                </view>
+                <view>
+                    <template is="arrow-right"></template>
+                </view>
+            </view>
+        </view>
+        <view class="pd-l30">
+            <view class="h88 jc-between ai-center bd-b1px-d6d5d6" bindtap="chooseLocation">
+                <view class="flex">
+                    <text class="black fl w180">选择地区</text>
+                    <view class="fl  {{address == '地区选择' ? 'c777' : 'black' }}">{{address}}</view>
+                </view>
+                <view class="jc-end h88 mg-r30 flex ai-center">
+                    <template is="icon-address"></template>
+                </view>
+            </view>
+        </view>
+        <view class="pd-l30">
+            <view class="flex  pd-b30">
+                <text class="black w180 lh1 pd-t30">详细地址</text>
+                <textarea class="c333 addressDetail"    bindinput="addressDetailInputFuc" value="{{addressDetail}}" auto-height placeholder="街道门牌信息" />
+            </view>
+        </view>
+    </view>
+
+    <view class="content02 mg-b30 relative fs28">
+        <textarea  class="c333" value="{{textareaVal}}" maxlength='{{textarealimitNum}}' auto-height="true" bindinput="textareaFuc" bindblur="textareaBlurFuc" placeholder="请填写您的岗位要求"></textarea>
+        <text class="textareaNum c666">{{surplusVal - cacheTextareaVal.length}}</text>
+    </view>
+
+    <view class="content03 ">
+        <view class="h88 jc-between ai-center bd-tb1px-d6d5d6 pd-l30" catchtap="NavToMybussine">
+            <view class="list-info">
+                <view class="txt-hid">{{EnterpriseName}}</view>
+            </view>
+            <view>
+                <template is="arrow-right"></template>
+            </view>
+        </view>
+    </view>
+    <view class="content04 pd-l30 bd-b1px-d6d5d6 mg-b60">
+        <view class="h88 jc-between ai-center bd-b1px-d6d5d6" catchtap="">
+            <view class="list-info flex" data-id="" catchtap="NavToDetail">
+                <view class="black  w180">联系人</view>
+                <view class="c333">{{ContactName}}</view>
+            </view>
+        </view>
+        <view class="h88 jc-between ai-center " catchtap="">
+            <view class="list-info flex" data-id="" catchtap="NavToDetail">
+                <view class="black  w180">手机</view>
+                <view class="c333">{{ContactMobile}}</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="jc-center mg-b60">
+        <view class="btnPublish bg-0189ff cfff" bindtap="btnPublishFuc">发布</view>
+        <view class="btnSave mg-l100" bindtap="saveFuc">保存</view>
+    </view>
+
+    <view class="fs26 c999 text-center lh1 pad-b60">每次发布期的展示期为15天，每24小时可更新一次</view>
+
+
+
+
+</view>

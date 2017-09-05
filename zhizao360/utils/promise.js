@@ -1,5 +1,5 @@
 var app = getApp(); //获取全局对象
-var rootUrl = app.globalData.rootUrl + '/wxapi/';
+var rootUrl = app.globalData.rootUrl;
 Promise.prototype.finally = function (callback) {
   let P = this.constructor;
   return this.then(
@@ -20,6 +20,11 @@ function wxPromisify(fn) {
     return new Promise((resolve, reject) => {
       obj.success = function (res) {
         //成功
+        if (res.data.isImLogin != undefined && !res.data.isImLogin) {
+         wx.redirectTo({
+           url: '/page/member/login',
+         })
+        }
         resolve(res)
       }
       obj.fail = function (res) {
@@ -54,33 +59,65 @@ function requestPromise(obj = {}) {
 }
 
 function MemberInfoPromise(obj) {
-  obj.url = rootUrl + 'MemberInfo/' + obj.url;
+  obj.url = rootUrl + '/wxapi/MemberInfo/' + obj.url;
   return requestPromise(obj);
 }
 
 function EnterprisePromise(obj) {
-  obj.url = rootUrl + 'Enterprise/' + obj.url;
+  obj.url = rootUrl + '/wxapi/Enterprise/' + obj.url;
   return requestPromise(obj);
 }
 
 function BaseDataPromise(obj) {
-  obj.url = rootUrl + 'BaseData/' + obj.url;
+  obj.url = rootUrl + '/wxapi/BaseData/' + obj.url;
   return requestPromise(obj);
 }
 
 function UserPromise(obj) {
-  obj.url = rootUrl + 'User/' + obj.url;
+  obj.url = rootUrl + '/wxapi/User/' + obj.url;
   return requestPromise(obj);
 }
 
 function DevicePromise(obj) {
-  obj.url = rootUrl + 'Device/' + obj.url;
+  obj.url = rootUrl + '/wxapi/Device/' + obj.url;
   return requestPromise(obj);
 }
+
 function EnterpriseImagePromise(obj) {
-  obj.url = rootUrl + 'EnterpriseImage/' + obj.url;
+  obj.url = rootUrl + '/wxapi/EnterpriseImage/' + obj.url;
   return requestPromise(obj);
 }
+
+function EnterpriseJobPromise(obj) {
+  obj.url = rootUrl + '/wxapi/EnterpriseJob/' + obj.url;
+  return requestPromise(obj);
+}
+
+var urlAPI = {
+  //{  获取工种信息  }
+  GetJobName: { url: 'WXApi/BaseData/GetJobName', method: 'GET' },
+  //{  获取薪资要求列表  }
+  GetMoeny: { url: 'WXApi/BaseData/GetMoeny', method: 'GET' },
+  //{  发布职位  }
+  AddJob: { url: 'WXApi/EnterpriseJob/AddJob', method: 'POST' },
+  //{  刷新职位停止招聘  }
+  RefreshJob: { url: 'WXApi/EnterpriseJob/RefreshJob', method: 'GET' },
+  //{  删除职位  }
+  DelJob: { url: 'WXApi/EnterpriseJob/RefreshJob', method: 'GET' },
+  //{  修改职位  }
+  UpdateJob: { url: 'WXApi/EnterpriseJob/RefreshJob', method: 'GET' },
+  //{  招聘页面列表  }
+  GetJobList: { url: 'WXApi/EnterpriseJob/GetjobList', method: 'GET' },
+  //{  对应公司的发布的招聘信息  }
+  GetEnterpriseJob: { url: 'WXApi/EnterpriseJob/GetEnterpriseJob', method: 'GET' },
+  //{  招聘详情  }
+  GetJobDetail: { url: 'WXApi/EnterpriseJob/GetJobDetail', method: 'GET' },
+  //{  校验是否绑定手机工种信息  }
+  CheckJobMobile: { url: 'WXApi/EnterpriseJob/CheckJobMobile', method: 'GET' },
+  //{  绑定手机工种信息  }
+  CheckJobMobile: { url: 'WXApi/EnterpriseJob/CheckJobMobile', method: 'GET' },
+}
+
 
 module.exports = {
   wxRequest: wxRequest,
@@ -91,4 +128,5 @@ module.exports = {
   UserPromise: UserPromise,
   DevicePromise: DevicePromise,
   EnterpriseImagePromise: EnterpriseImagePromise,
+  EnterpriseJobPromise: EnterpriseJobPromise
 }

@@ -1,5 +1,5 @@
 <!--page/home/equipment/equipment.wxml-->
-<import src="/page/home/common/homeCommon.wxml"></import>
+<import src="/module/homeCommon.wxml"></import>
 <view class="view-body pd-t30 black">
     <view class="pd-l30 border-tb1px  bg-fff">
         <view class="h88">
@@ -9,11 +9,11 @@
             </navigator>
         </view>
         <block wx:key="*this" wx:for="{{equipmentArray}}">
-            <view class="jc h88 border-t1px" bindtap="toEquipmentDetail"  data-pageflag="0" data-id="{{item.Id}}" >
-                <view class="company-name ell">{{item.Name}}({{item.Brand}})</view>
+            <view class="jc h88 border-t1px ai-center" bindtap="toEquipmentDetail"  data-pageflag="0" data-id="{{item.Id}}" >
+                <view class="company-name ell">{{item.Name}}{{item.Brand? '('+ item.Brand + ')' : ''}} </view>
                 <view class="ai">
                     <text class="mg-r10">X{{item.Amount}}</text>
-                    <view class="equipment_delete"><template is="icon-minus" data="{{catchtap:'removeEquipment',index:index,id:item.Id}}"></template></view>
+                    <view class="equipment_delete flex ai-center"><template is="icon-minus" data="{{catchtap:'removeEquipment',index:index,id:item.Id}}"></template></view>
                 </view>
             </view>
         </block>

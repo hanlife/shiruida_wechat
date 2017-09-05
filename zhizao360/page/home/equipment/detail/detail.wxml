@@ -1,5 +1,5 @@
 <!--page/home/equipment/detail/detail.wxml-->
-<import src="/page/home/common/homeCommon.wxml"></import>
+<import src="/module/homeCommon.wxml"></import>
 <view class="view-body pd-t30">
     <form bindsubmit="addORamend">
         <view class="border-tb1px pd-l30 bg-fff">

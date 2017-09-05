@@ -2,14 +2,18 @@
 <!--头部搜索-->
 <template name="itme-ordinarylist-head">
   <view class="ordinarylist-head">
-    <view class="search-input" wx:if="{{isShow}}">
-      <view class="input-box">
-        <image class="icon-search" src="../../icon/icon-search.png" style="left:{{left}};"></image>
-        <input type="text" style="width:{{width}};text-align: {{textLeft}};padding-left:{{paddingLeft}}" bindconfirm="EventSearch" bindinput="EventInput" bindfocus="EventFocus"  bindblur="EventBlur" placeholder="{{inputWord}}" value="{{inputValue}}" confirm-type='search'  placeholder-class="input-ph" />
-        <icon type="clear" size="14" bindtap="ClearTxt" class="icon-clear" hidden="{{ClearShow}}" />
+  
+    <view class="search" bindtap="searchBtn" style='text-align:{{keyword==""?"center":"left"}};font-size:{{keyword==""?"26rpx":"30rpx"}}'>
+      <view wx:if="{{keyword==''?true:false}}">
+        <image class="icon-search" src="../../icon/icon-search.png"></image>
+        <text>输入关键词搜索</text>
       </view>
-      <text style="display:{{inputFocus}}" class="search-console" bindtap="EventConsole">{{SearchTxt}}</text>
+      <view wx:else>
+        <image class="icon-search" src="../../icon/icon-search.png"></image>
+        <text class="keyword-color txt">{{keyword}}</text>
+      </view>
     </view>
+
     <view class="search-list">
       <view class="search-address txt-hid" bindtap="choseArea" data-Id="1">
         <text style="color:{{searchId==1||AddressColor?'#387be8':'#000000'}}">{{AddressName}}</text>
@@ -168,22 +172,4 @@
   <!--底框-->
   <view class="ordinarylist-bottom" catchtap="areaHide" hidden="{{searchId==0?true:false}}"></view>
 
-  <!--搜索区-->
-  <view class="search-box" hidden="{{Searching?true:false}}">
-    <view wx:for="{{SearchList}}" wx:for-index="idx" wx:for-item="itemType" wx:key="*this" class="search-con" bindtap="SearchResult">
-      <text></text>
-    </view>
-  </view>
-</template>
-
-<!--操作指引-->
-<template name="item-guide">
-  <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" duration="{{duration}}" class="guideImg" bindchange="guideChange" indicator-color="rgba(255,255, 255, 1)">
-    <block wx:for="{{imgUrls}}">
-      <swiper-item>
-        <image src="{{item}}" class="slide-image" width="100%" height="100%" />
-      </swiper-item>
-    </block>
-  </swiper>
-  <image src="../../icon/icon-console.png" class="guideIcon" bindtap="guideClose"></image>
 </template>

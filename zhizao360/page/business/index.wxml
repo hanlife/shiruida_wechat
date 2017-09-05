@@ -1,0 +1,60 @@
+<!--page/bussines/index.wxml-->
+<import src="../../module/loading.wxml" />
+
+<view wx:if="{{load_Event}}">
+  <view class="header-box">
+    <view class="search" bindtap="searchBtn" style='text-align:{{keyword==""?"center":"left"}};font-size:{{keyword==""?"26rpx":"30rpx"}}'>
+      <view wx:if="{{keyword==''?true:false}}">
+        <image class="icon-search" src="../../icon/icon-search.png"></image>
+        <text>输入关键词搜索</text>
+      </view>
+      <view wx:else>
+        <image class="icon-search" src="../../icon/icon-search.png"></image>
+        <text class="keyword-color txt">{{keyword}}</text>
+      </view>
+    </view>
+
+    <view class="header-list">
+      <view class="business-name">
+        <text>询价单名称</text>
+      </view>
+      <view class="business-num" bindtap="EventQuote">
+        <text>采购量</text>
+        <text class='icon-arrow-up {{active==1?"active":""}}'></text>
+        <text class='icon-arrow-down {{active==2?"active":""}}'></text>
+      </view>
+      <view class="business-address">
+        <text>区域</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="padding-box"></view>
+
+  <view class="business-box">
+    <block wx:for='{{EnquiryList}}' wx:for-index="idx" wx:for-item="item">
+      <view class="business-list-pad {{item.OverDayDes=='已结束'?'enquiry-end':''}}">
+        <view class="business-box-lists" bindtap="Tobusiness" data-id='{{item.EnquiryNumber}}'>
+          <view class="business-name">
+            <text class="txt-hid">{{item.Title}}</text>
+            <text>{{item.EnquiryNumber}}</text>
+          </view>
+          <view class="business-num txt-hid">
+            <text>{{item.ProductQty}}</text>
+          </view>
+          <view class="business-address">
+            <text class="txt-hid">{{item.ReceiptCounty==""?"--":item.ReceiptCounty}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class="ordinarylist-load" hidden="{{loadShow}}">
+    <image src="../../icon/loading.gif" hidden="{{loading=='已加载全部'?true:false}}"></image>
+    <text>{{loading}}</text>
+  </view>
+  <view class="noneData" hidden="{{!noneData}}">暂无询价</view>
+</view>
+<view wx:else>
+  <template is="loading" />
+</view>

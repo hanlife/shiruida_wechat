@@ -1,9 +1,12 @@
-
 <!--page/supplier/supplier.wxml-->
+<import src="../../module/loading.wxml" />
 <import src="../../module/item-ordinarylist.wxml" />
 <template is="itme-ordinarylist-head" data="{{...item_head}}" />
+
+
 <view class="supplier-pad"></view>
- <view  wx:for="{{supplier_list}}" wx:for-item="item" wx:for-index="index" hidden="{{dataList}}">
+<view wx:if="{{load_Event}}">
+  <view wx:for="{{supplier_list}}" wx:for-item="item" wx:for-index="index" hidden="{{dataList}}">
     <view class="supplier-lists" bindtap="ToSupplier" data-enterpriseId="{{item.EnterpriseId}}">
       <view class="supplier-img">
         <image style="width: 208rpx;height: 154rpx; background-color: #eeeeee;" mode="aspectFill" src="{{item.FactoryCover}}" binderror="imgError"></image>
@@ -32,7 +35,8 @@
     <image src="../../icon/loading.gif" hidden="{{loading=='已加载全部'?true:false}}"></image>
     <text>{{loading}}</text>
   </view>
-<view class="noneData" hidden="{{!dataList}}">暂无供方企业</view>
-<view class="release-btn">
-  <navigator url="/page/ordinarylist/release/release" open-type="navigate" hover-class="other-navigator-hover"></navigator>
+  <view class="noneData" hidden="{{!dataList}}">暂无供方企业</view>
+</view>
+<view wx:else>
+  <template is="loading" />
 </view>

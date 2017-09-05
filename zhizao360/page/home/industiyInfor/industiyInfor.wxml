@@ -1,5 +1,5 @@
 <!--page/home/industiyInfor/industiyInfor.wxml-->
-<import src="../common/homeCommon.wxml" />
+<import src="/module/homeCommon.wxml" />
 <view class="view-body pd-t30">
     <view class="border-tb1px pd-l30 bg-fff">
         <view class="ai border-b1px h88">
@@ -15,14 +15,14 @@
             </view>
         </view>
         <view class="flex border-b1px pd-tb30">
-            <text class="w200 lh1">详细地址</text><textarea class="industiyInfor_addressDetail addressDetail black" bindinput="bindInputTeatarea" value="{{addressDetail}}" auto-height placeholder="街道门牌信息" />
+            <text class="w200 lh1">详细地址</text><textarea class="industiyInfor_addressDetail addressDetail black" bindinput="bindInputTeatarea"  value="{{addressDetail}}"  auto-height placeholder="街道门牌信息" />
         </view>
         <view class="flex pd-tb30">
             <text class="as w200 lh1">营业执照</text>
             <view class="images-list as">
                 <block wx:key="*this" wx:for-items="{{photoArray}}" wx:for-index="index" wx:for-item="imgSrc">
                     <view class="por mg-r50">
-                        <image src="{{imgSrc}}" class="industiyInfor_image images-image" data-src="{{imgSrc}}" bindtap="previewImage"></image>
+                        <image src="{{imgSrc}}" class="industiyInfor_image images-image" data-src="{{imgSrc}}" bindtap="previewImage" ></image>
                     </view>
                 </block>
                 <view class="industiyInfor_upload_image"><template is="add-imageBox" data="{{bindtap:'ChooseImage'}}"></template></view>

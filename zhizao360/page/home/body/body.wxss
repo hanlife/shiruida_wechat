@@ -1,5 +1,5 @@
 /* page/home/body/body.wxss */
-@import "../common/homeCommon.wxss";
+@import "/module/homeCommon.wxss";
 .mg-l20{ margin-left: 20rpx; }
 
 .panel{

@@ -1,0 +1,72 @@
+<!--index.wxml-->
+<import src="../../module/homeCommon.wxml"></import>
+<view class="bg-fcf9fe pd-t30">
+
+   <view class="list jc-between ai-center mg-b30 bd-tb1px-d6d5d6" bindtap="open">
+                    <view>
+                        <text class="des">所属区域</text>
+                    </view>
+                    <view class="jc-between" style="width:455rpx;">
+                      <text>{{city ?  city : '不限'}}</text>
+                      <text>{{county ? county : '不限' }}</text>
+                    </view>
+                    <view>
+                        <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
+                    </view>
+   </view>
+   <picker bindchange="ProfessionPickerChange" value="{{professionIndex}}" range="{{professionArray}}" range-key="Name" >
+        <view class="list jc-between ai-center mg-b30 bd-tb1px-d6d5d6">
+                      <view>
+                          <text class="des">应聘工种</text>
+                      </view>
+                      <view class="jc-between" style="width:455rpx;">
+                        <text> {{professionArray[professionIndex].Name ? professionArray[professionIndex].Name : '不限'}}</text>
+                      </view>
+                      <view>
+                          <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
+                      </view>
+    </view>
+   </picker>
+    
+    <picker bindchange="PayPickerChange" value="{{payIndex}}" range="{{payArray}}" range-key="Name" >  
+         <view class="list jc-between ai-center mg-b30 bd-tb1px-d6d5d6">
+                    <view>
+                        <text class="des">薪资要求</text>
+                    </view>
+                    <view class="jc-between" style="width:455rpx;">
+                      <text>{{ payArray[payIndex].Name ? payArray[payIndex].Name : '不限' }}</text>
+                    </view>
+                    <view>
+                        <image class="arrow" src="{{imageUrl.iconArrow}}"></image>
+                    </view>
+         </view>
+    </picker>
+   
+   <block wx:if="{{!condition}}">
+      <view class="fixedBtn jc-center ai-center">
+        <view class="bg-fbfaf black" bindtap="ResetFuc">重置</view>
+        <view class="bg-0189ff cfff" bindtap="ConfirmFuc">确认</view>
+      </view>
+   </block>
+  
+  
+  
+</view>
+<view wx:if="{{condition}}" class="citypicker">
+  <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="bindChange" class="citybody">
+    <view class="cityheader jc-between ai-center">
+      <view bindtap="open" class="city-cancel">取消</view>
+      <view>{{province}}{{city}}{{county}}</view>
+      <view bindtap="open" class="city-true">确定</view>
+    </view>
+    <picker-view-column>
+      <view wx:for="{{provinces}}" wx:key="item" >{{item.name}}</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{citys}}" wx:key="item" >{{item.name}}</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{countys}}" wx:key="item" >{{item.name}}</view>
+    </picker-view-column>
+  </picker-view>
+</view>

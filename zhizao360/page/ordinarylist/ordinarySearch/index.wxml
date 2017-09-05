@@ -1,0 +1,16 @@
+<!--page/ordinarylist/ordinarySearch/index.wxml-->
+
+<view class="header-box">
+  <view class="header-mar">
+    <view class="input-box" style="width:{{width}}">
+      <image src="../../../icon/icon-search.png"></image>
+      <input type="text" name="keyword" confirm-type='search' focus="{{Focus}}" value="{{inputValue}}" bindinput="EventInput" bindfocus="EventFocus" bindconfirm='EventSearch' placeholder="搜索关键字" placeholder-class="ph-style" />
+      <icon type="clear" size="14" bindtap="ClearTxt" class="icon-clear" hidden="{{clearShow}}"/>
+    </view>
+    <text class="search-console" bindtap="EventConsole" hidden="">{{search_txt}}</text>
+  </view>
+</view>
+ <view class="tip-box">
+    <view>支持搜索</view>
+    <view class="fas30">设备名称、设备类型</view>
+  </view>

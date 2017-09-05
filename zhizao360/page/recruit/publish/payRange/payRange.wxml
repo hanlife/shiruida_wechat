@@ -1,0 +1,36 @@
+<!--page/recruit/publish/payRange/payRange.wxml-->
+<import src="/module/homeCommon.wxml"></import>
+<view class="payRange-content fs34 black">
+
+    <view class="content01 flex ai-center pd-l30 relative">
+        <view class="diyBtn-box flex ai-center" bindtap="chooseDiyPay">
+            <view class="square"></view>
+            <block wx:if="{{diyPayFlag}}">
+                     <icon type="success_no_circle" size="16"></icon>
+            </block>
+            <text class="mg-l12">自定义</text>
+        </view>
+        <input type="digit" placeholder="" maxlength='5' class="mg-l36" value="{{diyStart}}" bindinput="diyStartFuc" />
+        <view class="mg-lr20">-</view>
+        <input type="digit" placeholder="" maxlength='5' class="mg-r10" value="{{diyEnd}}" bindinput="diyEndFuc" />K/月
+    </view>
+
+    <view class="content02 border-tb1px">
+        <block wx:for="{{array}}" wx:for-index="i" wx:for-item="item">
+            <view class="pd-l30" data-id="{{item.Id}}" data-name="{{item.Name}}" data-index="{{i}}" catchtap="choosePay">
+                <view class="h88 jc-between ai-center  {{i == array.length-1 ? '' :'bd-b1px-d6d5d6'}} ">
+                    <view class="list-info flex" data-id="" catchtap="NavToDetail">
+                        <view class="">{{item.Name}}</view>
+                    </view>
+                    <view class="mg-r30" wx:if="{{payArray[i] && payIndex == i}}">
+                        <icon type="success_no_circle" size="20"></icon>
+                    </view>
+                </view>
+
+            </view>
+        </block>
+    </view>
+
+    <view class="fixed-Btn h88 bg-0189ff cfff text-center" bindtap="confirmPay">确定</view>
+
+</view>

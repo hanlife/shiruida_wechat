@@ -1,12 +1,15 @@
 {
   "pages": [
+    "page/supplier/supplier",
     "page/ordinarylist/index",
     "page/home/body/body",
     "page/home/myInformation/myInformation",
     "page/home/equipment/detail/detail",
     "page/ordinarylist/release/release",
+    "page/ordinarylist/ordinarySearch/index",
+    "page/supplier/supplier/index",
+    "page/supplier/guide/guide",
     "page/member/login",
-    "page/supplier/supplier",
     "page/home/equipment/equipment",
     "page/home/homepageSupplier/homepageSupplier",
     "page/home/industiyInfor/industiyInfor",
@@ -15,7 +18,18 @@
     "page/home/photoMannage/photoMannage",
     "page/home/aboutUs/aboutUs",
     "page/home/mybussine/mybussine",
-    "page/error/index"
+    "page/error/index",
+    "page/recruit/recruit",
+    "page/recruit/filter/filter",
+    "page/recruit/search/search",
+    "page/recruit/publish/publish",
+    "page/recruit/recruitInfo/verify/verify",
+    "page/recruit/publish/payRange/payRange",
+    "page/recruit/recruitInfo/recruitInfo",
+    "page/recruit/recruitDetail/recruitDetail",
+    "page/business/index",
+    "page/business/businessDetail/index",
+    "page/business/businessSearch/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -26,16 +40,28 @@
   "tabBar": {
     "list": [
       {
+        "pagePath": "page/supplier/supplier",
+        "text": "供方企业",
+        "iconPath": "icon/icon-supplier.png",
+        "selectedIconPath": "icon/icon-supplier-a.png"
+      },
+      {
         "pagePath": "page/ordinarylist/index",
         "text": "闲置产能",
         "iconPath": "icon/icon-ordinary.png",
         "selectedIconPath": "icon/icon-ordinary-a.png"
       },
       {
-        "pagePath": "page/supplier/supplier",
-        "text": "供方企业",
-        "iconPath": "icon/icon-supplier.png",
-        "selectedIconPath": "icon/icon-supplier-a.png"
+        "pagePath": "page/business/index",
+        "text": "询价",
+        "iconPath": "icon/icon-business.png",
+        "selectedIconPath": "icon/icon-business-a.png"
+      },
+      {
+        "pagePath": "page/recruit/recruit",
+        "text": "招聘",
+        "iconPath": "icon/icon-recruit.png",
+        "selectedIconPath": "icon/icon-recruit-b.png"
       },
       {
         "pagePath": "page/home/body/body",

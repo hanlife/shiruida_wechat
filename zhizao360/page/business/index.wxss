@@ -1,0 +1,203 @@
+/* page/bussines/index.wxss */
+
+.header-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 158rpx;
+  width: 750rpx;
+  background-color: #efeff4;
+  z-index: 999;
+}
+
+.header-box .search {
+  margin: 14rpx;
+  border: 1rpx solid #eaeaef;
+  border-radius: 5rpx;
+  background-color: #fff;
+  height: 56rpx;
+  line-height: 56rpx;
+}
+
+.icon-search {
+  display: inline-block;
+  width: 25rpx;
+  height: 25rpx;
+}
+
+.header-box .search image {
+  margin: 0 12rpx;
+  vertical-align: middle;
+}
+
+.header-box .search text {
+  vertical-align: middle;
+  font-size: 26rpx;
+  color: #b2b2b2;
+}
+
+.search .txt{
+  display: inline-block;
+  width: 645rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-box .search .keyword-color {
+  color: #333;
+}
+
+.header-list {
+  background-color: #fafafa;
+  border-top: 1rpx solid #d6d6db;
+  border-bottom: 1rpx solid #eeeeee;
+  font-size: 30rpx;
+  height: 70rpx;
+  line-height: 50rpx;
+  color: #333;
+  text-align: center;
+}
+
+.header-list view {
+  margin: 10rpx 0;
+}
+
+.header-list .business-name {
+  width: 342rpx;
+}
+
+.business-name {
+  display: inline-block;
+  width: 313rpx;
+}
+
+.business-num {
+  display: inline-block;
+  width: 203rpx;
+  text-align: center;
+  position: relative;
+  z-index: 99;
+}
+.business-num text:first-child{
+  padding-right: 20rpx;
+}
+.header-list .business-num {
+  border-left: 1rpx solid #eee;
+  border-right: 1rpx solid #eee;
+}
+
+.business-address {
+  display: inline-block;
+  width: 203rpx;
+}
+
+.icon-arrow-up {
+  display: inline-block;
+  position: absolute;
+  top: 27rpx;
+  right: 30rpx;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10rpx 10rpx 0rpx;
+  border-color: #ccc transparent transparent;
+  vertical-align: text-bottom;
+}
+
+.icon-arrow-up.active {
+  border-color: #0189ff transparent transparent; /*灰 透明 透明 */
+}
+
+.icon-arrow-down {
+  display: inline-block;
+  position: absolute;
+  top: 12rpx;
+  right: 30rpx;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0px 10rpx 10rpx 10rpx;
+  border-color: transparent transparent #ccc;
+  vertical-align: text-top;
+}
+
+.icon-arrow-down.active {
+  border-color: transparent transparent #0189ff; /*灰 透明 透明 */
+}
+
+.padding-box {
+  height: 157rpx;
+}
+
+.business-box {
+  background-color: #fff;
+  /*border-top: 1rpx solid #eee;*/
+}
+
+.business-box-lists {
+  border-bottom: 1rpx solid #eee;
+  height: 118rpx;
+  line-height: 118rpx;
+  font-size: 34rpx;
+  color: #666;
+}
+
+.business-list-pad{
+  padding-left: 29rpx;
+}
+
+.business-box-lists>view {
+  vertical-align: middle;
+}
+
+.business-box .business-name {
+  text-align: left;
+  line-height: 40rpx;
+  height: 118rpx;
+  font-size: 0;
+}
+
+.business-box .business-name text {
+  display: inline-block;
+  width: 100%;
+  font-size: 28rpx;
+  color:#666666;
+  vertical-align: middle;
+}
+
+.business-box .business-name .txt-hid {
+  margin-top: 20rpx;
+  margin-bottom: 5rpx;
+  color: #333;
+  font-size: 34rpx;
+}
+
+.business-box .business-address {
+  height: 118rpx;
+  text-align: center;
+}
+
+.business-address .txt-hid {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+.noneData{
+  text-align: center;
+  margin: 20rpx 0;
+}
+
+
+.load-pos{
+  position: absolute;
+  width: 750rpx;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: red;
+}
+.enquiry-end{
+  background-color: #f8f8f8;
+}

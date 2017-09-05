@@ -1,5 +1,5 @@
 /* page/home/equipment/detail/detail.wxss */
-@import "../../common/homeCommon.wxss";
+@import "/module/homeCommon.wxss";
 .number{
     width: 86rpx;
     height: 42rpx;

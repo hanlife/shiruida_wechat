@@ -188,17 +188,18 @@ Page({
       message += "设备类型不能为空；"
     }
     if (!val.name) {
-      message += "设备名称不能为空；"
+      // message += "设备名称不能为空；"
+      val.name = that.data.TypeName
     }
-    if (!val.brand) {
-      message += "设备品牌不能为空；"
-    }
+    // if (!val.brand) {
+    //   message += "设备品牌不能为空；"
+    // }
     if (!parseInt(val.amount)) {
       message += "设备数量不能为空；"
     }
-    if (!val.preciseLevel) {
-      message += "设备密度不能为空；"
-    }
+    // if (!val.preciseLevel) {
+    //   message += "设备密度不能为空；"
+    // }
 
     if (message && true) {
       wx.showModal({
@@ -250,28 +251,6 @@ Page({
           }
       }).done();
 
-      // utils.DeviceRequest({
-      //   url: 'UpdateDevice',
-      //   method: 'POST',
-      //   data: { model: obj },
-      //   callback: function (res) {
-      //     if (res.data.Succeed) {
-      //       wx.showToast({
-      //         title: '修改成功',
-      //         icon: 'success',
-      //         duration: 1000,
-      //         mask: true,
-      //         success: function () {
-      //           var pageArr = getCurrentPages();
-      //           wx.navigateBack({
-      //             delta: 1
-      //           })
-      //         }
-      //       })
-      //     }
-      //   }
-      // })
-
     } else {                        //添加
       promisefy.DevicePromise({
         url: 'AddDevice',
@@ -291,26 +270,6 @@ Page({
             }
           })
       }).done();
-
-      // utils.DeviceRequest({
-      //   url: 'AddDevice',
-      //   method: 'POST',
-      //   data: { model: obj },
-      //   callback: function (res) {
-      //     wx.showToast({
-      //       title: '添加成功',
-      //       icon: 'success',
-      //       duration: 1000,
-      //       mask: true,
-      //       success: function () {
-      //         var pageArr = getCurrentPages();
-      //         wx.navigateBack({
-      //           delta: 1
-      //         })
-      //       }
-      //     })
-      //   }
-      // })
     }
 
   },

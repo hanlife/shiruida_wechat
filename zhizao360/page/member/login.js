@@ -45,10 +45,12 @@ Page({
         },
         callback: function (res) {
           if (res.data.Succeed) {
+            var cookie = res.data.Data.ASPXAUTH.Name + "=" + res.data.Data.ASPXAUTH.Value + ";" + res.data.Data.NET_SessionId.Name + "=" + res.data.Data.NET_SessionId.Value;
+            setStorage("cookie", cookie);
+            setStorage("rd_session", res.data.Data.rd_session);
             setStorage("IsWxBind", res.data.Data.IsWxBind); //手机号是否绑定
             setStorage("IsWxLogin", res.data.Data.IsWxLogin); //code换session_key是否成功
             setStorage("isImLogin", res.data.Data.isImLogin); //平台是否登录成功
-            app.globalData.guideline = false;
             if (!res.data.Data.enterprieId) {
               //已认证   立即申请
               Certification();
@@ -81,12 +83,14 @@ Page({
             },
             callback: function (res) {
               if (res.data.Succeed) {
+                var cookie = res.data.Data.ASPXAUTH.Name + "=" + res.data.Data.ASPXAUTH.Value + ";" + res.data.Data.NET_SessionId.Name + "=" + res.data.Data.NET_SessionId.Value;
+                setStorage("cookie", cookie);
+                setStorage("rd_session", res.data.Data.rd_session);
                 setStorage("IsWxBind", res.data.Data.IsWxBind); //手机号是否绑定
                 setStorage("IsWxLogin", res.data.Data.IsWxLogin); //code换session_key是否成功
                 setStorage("isImLogin", res.data.Data.isImLogin); //平台是否登录成功
-                app.globalData.guideline = false;
                 wx.switchTab({
-                  url: '/page/ordinarylist/index'
+                  url: '/page/supplier/supplier'
                 })
               } else {
                 wx.showModal({
@@ -179,11 +183,11 @@ Page({
   },
   //企业名称
   bindName: function (e) {
-    loginData.EnterpriseName = e.detail.value;
+    loginData.EnterpriseName = e.detail.value.trim();
   },
   ToOrdinarylist: function () {
     wx.switchTab({
-      url: '/page/ordinarylist/index'
+      url: '/page/supplier/supplier'
     })
   },
   accountType: function (e) {
@@ -299,7 +303,7 @@ function Certification() {
         })
       } else {
         wx.switchTab({
-          url: '/page/ordinarylist/index'
+          url: '/page/supplier/supplier'
         })
       }
     },
@@ -326,7 +330,7 @@ function NoCertification() {
         })
       } else {
         wx.switchTab({
-          url: '/page/ordinarylist/index'
+          url: '/page/supplier/supplier'
         })
       }
     },

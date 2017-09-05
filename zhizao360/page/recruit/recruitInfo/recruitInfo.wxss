@@ -1,0 +1,271 @@
+/* page/recruit/recruitInfo/recruitInfo.wxss */
+
+page {
+   background-color: #fcf9fe;
+}
+.bg-color{
+background-color: #fff;
+}
+.f_l {
+  float: left;
+}
+
+.f_r {
+  float: right;
+}
+
+.border-top {
+  border-top: 1rpx solid #d6d6db;
+}
+
+.recruit-box {
+  margin-left: 30rpx;
+}
+
+.recruit-title {
+  border-bottom: 1rpx solid #eaeaea;
+  padding: 20rpx 30rpx 20rpx 0;
+}
+
+.recruit-title-name {
+  font-size: 36rpx;
+  line-height: 64rpx;
+  overflow: hidden;
+}
+
+.recruit-title-name text:first-child {
+  color: #333;
+  font-weight: bold;
+  display: inline-block;
+  width: 450rpx;
+  vertical-align: text-bottom;
+  line-height:50rpx;
+}
+
+.recruit-title-name text:last-child {
+  color: #e7211a;
+  display: inline-block;
+  width: 240rpx;
+  text-align: right;
+  vertical-align: text-bottom;
+}
+
+.recruit-title-detail {
+  font-size: 28rpx;
+  color: #999;
+  line-height: 40rpx;
+}
+
+.recruit-title-detail text {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 200rpx;
+}
+
+.detail-txt {
+  margin-right: 64rpx;
+}
+
+.recruit-company {
+  line-height: 88rpx;
+  font-size: 34rpx;
+  color: #333;
+  border-bottom: 1rpx solid #eaeaea;
+  overflow: hidden;
+  position: relative;
+}
+
+.recruit-company-icon::after {
+  content: " ";
+  position: absolute;
+  right: 30rpx;
+  bottom: 35rpx;
+  display: inline-block;
+  height: 18rpx;
+  width: 18rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-color: #c7c7cc;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+}
+
+.recruit-company-name {
+  display: inline-block;
+  width: 650rpx;
+  line-height:45rpx;
+  margin-top: 20rpx;
+}
+
+.recruit-address {
+  font-size: 34rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+  position:relative;
+}
+
+.recruit-address text:last-child {
+  line-height: 40rpx;
+  width: 500rpx;
+  display: inline-block;
+  margin-top: 25rpx;
+  vertical-align: top;
+  padding-right: 10rpx
+}
+
+.recruit-address text:first-child {
+  line-height: 88rpx;
+  vertical-align: top;
+  display: inline-block;
+  width: 170rpx;
+}
+
+.requirements {
+  font-size: 36rpx;
+  line-height: 88rpx;
+  color: #333;
+  border-bottom: 1rpx solid #eaeaea;
+  font-weight: bold;
+}
+
+.requirements-lists {
+  margin: 20rpx 0;
+}
+
+.requirements-list {
+  font-size: 28rpx;
+  line-height: 42rpx;
+  color: #333;
+}
+
+.requirements-list text {
+  display: inline-block;
+  width: 660rpx;
+  vertical-align: top;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.contact-name, .contact-tel {
+  color: #000;
+  font-size: 34rpx;
+  line-height: 88rpx;
+  border-bottom: 1rpx solid #eaeaea;
+}
+
+view.contact-tel {
+  border-bottom: 0rpx;
+  display: inline-block;
+  position: relative;
+  z-index: 9;
+  width: 720rpx;
+}
+
+.contact-name-l {
+  width: 140rpx;
+  text-align: left;
+  display: inline-block;
+}
+
+.contact-name-r {
+  width: 550rpx;
+  line-height: 88rpx;
+}
+
+.contact-tel-color {
+  color: #0189ff;
+}
+
+.contact-tel-icon{
+  position: absolute;
+  right: 30rpx;
+  top:16rpx;
+  display: inline-block;
+  width: 56rpx;
+  height: 56rpx;
+}
+
+.ontherRecruit {
+  margin-top: 30rpx;
+  background-color: #fcf9fe;
+}
+.ontherRecruit>view{
+   background-color: #fff;
+}
+.ontherRecruit-title {
+  border-top: 1rpx solid #d6d6db;
+  padding-left: 30rpx;
+  color: #333;
+  font-size: 34rpx;
+  line-height: 88rpx;
+  font-weight: bold;
+}
+
+.ontherRecruit-list {
+  margin: 0 30rpx;
+  border-top: 1rpx solid #d6d6db;
+  font-size: 34rpx;
+  padding: 20rpx 0;
+   border-bottom: 1rpx solid #d6d6db;
+   margin-top: -1rpx;
+}
+.ontherRecruit-lists-t {
+  overflow: hidden;
+}
+
+.ontherRecruit-lists-t text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.ontherRecruit-lists-b {
+  font-size: 28rpx;
+  color: #999;
+  line-height: 44rpx;
+}
+
+.ontherRecruit-lists-b text {
+  margin-right: 70rpx;
+  line-height: 34rpx;
+}
+
+.ontherRecruit-lists-name {
+  max-width: 320rpx;
+  color: #333;
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-right: 20rpx;
+}
+
+.ontherRecruit-lists-num {
+  background-color: #78bcfa;
+  color: #fff;
+  font-size: 28rpx;
+  padding: 0 10rpx;
+}
+
+.ontherRecruit-lists-salary {
+  float: right;
+  font-size: 36rpx;
+  color: #e7211a;
+}
+
+.verification {
+  position: fixed;
+  bottom: 0;
+  width: 750rpx;
+  background-color: #0189ff;
+  color: #fff;
+  font-size: 36rpx;
+  line-height: 88rpx;
+  text-align: center;
+  z-index: 999;
+}
+
+.contact-box {
+  padding-left: 30rpx;
+  border-bottom: 1rpx solid #d6d6db;
+}
+.margin-bottom{
+  height: 128rpx;
+  width: 750rpx;
+}

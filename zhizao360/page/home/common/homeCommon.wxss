@@ -96,6 +96,7 @@
 .c999{ color:#999; }
 .c777{ color: #777; }
 .c333{ color:#333; }
+.cfff{ color:#fff; }
 .theme{ color: #1986ff; }
 .bg-grey{  background-color: #efeff4; }
 .bg-fff{  background-color: #fff; }

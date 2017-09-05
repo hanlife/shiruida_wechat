@@ -1,0 +1,65 @@
+<!--page/recruit/recruit.wxml-->
+<import src="/module/homeCommon"></import>
+<view class="bg-grey recruit-content">
+
+    <view class="fixed-search bg-grey">
+        <view class="input-search-box">
+            <!--<input type="search" class="input-search fs26 cb2b2b2"  placeholder="{{placeholder}}"  catchtap="NavToSearch" />-->
+            <block wx:if="{{KeyWord == ''? true: false }}">
+                <view class="input-search fs26 cb2b2b2  ai-center jc-center" catchtap="NavToSearch">
+                    <image src="/icon/icon-search.png"></image>
+                    <text>{{placeholder}}</text>
+                </view>
+            </block>
+            <block wx:else>
+                <view class="input-search fs26 cb2b2b2 flex ai-center jc-start" catchtap="NavToSearch">
+                    <image src="/icon/icon-search.png"></image>
+                    <text class="c333 w560 ell text-left">{{KeyWord}}</text>
+                </view>
+            </block>
+
+            <view class="fs32 c0189ff flex ai-center" catchtap="openFilter">
+                <text>筛选</text>
+            </view>
+        </view>
+    </view>
+
+    <block wx:if="{{recuitArray.length}}">
+        <view class="recruit-list">
+            <block wx:for="{{recuitArray}}" wx:for-index="i" wx:for-item="item">
+                <view class="recruit-info-box pd-l30" data-id="{{item.Id}}" catchtap="NavToRecruitInfo">
+                    <view class="recruit-info pd-r35 {{ i == recuitArray.length-1 ? '' : 'bd-b1px-eaeaea'}}">
+                        <view class="jc-between pd-tb30 ai-center">
+                            <view class="jc-between ai-center">
+                                <view class="ell fs36 c333 job-name bold">{{item.JobName}}</view>
+                                <view class="job-num fs28 mg-l20 cfff bg-78bcfa">{{item.HiringQty}}人</view>
+                            </view>
+                            <view class="fs36 red">{{item.SalaryRange}}</view>
+                        </view>
+                        <view class="jc-between ai-center pd-b20 lh1">
+                            <view class="fs34 c666 ell company-name">{{item.EnterpriseName}}</view>
+                            <view class="fs28 c999">{{item.LastUpdateTimeDes}}</view>
+                        </view>
+                        <view class="flex ai-center fs28 c999 pd-b30 lh1">
+                            <view>{{item.City}}-{{item.County}}</view>
+                            <view class="mg-l72">距离{{item.Distance}}km</view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </block>
+    <view class="h90 jc-center ai-center fs32 c333 bg-fff" hidden="{{recuitArray.length > 6  || loadingFlag  ? false : true}}">
+        <block wx:if="{{londingText == '加载中...'}}">
+            <template is="icon_loading"></template>
+        </block>
+        <text>{{londingText}}</text>
+    </view>
+    <view class="noneData" hidden="{{!noneData}}">暂无招聘职位</view>
+
+    <view class="fixed-Btn  bg-0189ff lh1" bindtap='publishRecruit'>
+        <image src="/icon/publish.png" style="width: 35rpx;height: 35rpx;"></image>
+        <view class="fs22 cfff">发布</view>
+    </view>
+
+</view>

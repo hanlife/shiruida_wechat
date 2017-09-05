@@ -1,0 +1,36 @@
+/* page/recruit/publish/payRange/payRange.wxss */
+@import '/module/homeCommon.wxss';
+page{ background-color: #fcf9fe; }
+.content01{ height: 89rpx; background-color: #f8f8f8; } 
+.content01 input[type='digit']{
+     width: 118rpx;
+     height: 58rpx;
+     border: 1px solid #ccc;
+     background-color: #eee;
+     text-align: center;
+}
+.content01 .diyBtn-box{ height: 100%; }
+.square{
+    display: inline-block;
+    width: 34rpx;
+    height: 34rpx;
+    border-radius: 5rpx;
+    border: 1px solid #d6d6db;
+    background-color: #fff;
+}
+.content01 icon[type='success_no_circle']{
+    position: absolute;
+    top: 33rpx;
+    left: 36rpx;
+
+}
+.content02{
+    background-color: #fff;
+}
+.content02 icon[type='success_no_circle']{
+    width: 30rpx;
+    height: 30rpx;
+    line-height: 1;
+}
+.mg-l36{ margin-left: 36rpx; }
+.fixed-Btn{ position: absolute; bottom:0;left: 0; right:0;} 

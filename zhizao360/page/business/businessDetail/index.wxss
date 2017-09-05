@@ -1,0 +1,140 @@
+/* page/bussines/bussinesDetail/index.wxss */
+page{
+   background-color: #ffffff;
+}
+
+.detail-item {
+  margin-left: 30rpx;
+  border-bottom: 1rpx solid #d6d6db;
+  font-size: 34rpx;
+  color: #333;
+  text-align: left;
+}
+
+.item-left {
+  display: inline-block;
+  width: 180rpx;
+  line-height: 90rpx;
+  vertical-align: middle;
+}
+
+.item-right {
+  display: inline-block;
+  width: 500rpx;
+  line-height: 90rpx;
+  vertical-align: middle;
+}
+
+.color-red {
+  color: #e7211a;
+}
+
+.item-right .item-title {
+  display: block;
+  line-height: 40rpx;
+  margin-top: 24rpx;
+  width: 500rpx;
+}
+
+.item-right .item-ordername {
+  display: block;
+  color: #666;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  margin-bottom: 10rpx;
+}
+.detail-item-top{
+  vertical-align: top;
+}
+.item-margin{
+  height: 30rpx;
+  border-top:1rpx solid #d6d6db;
+  border-bottom:1rpx solid #d6d6db;
+  margin-top: -1rpx;
+  background-color: #fcf9fe;
+}
+.explain-txt{
+  padding-top:26rpx;
+  line-height: 40rpx;
+  vertical-align:top;
+  word-wrap:break-word;
+  word-break:normal; 
+}
+.footer{
+  height: 86rpx;
+  line-height:86rpx;
+  position: fixed;
+  bottom: 0rpx;
+  width: 750rpx;
+  background-color: #ffffff;
+}
+.footer .collect-btn{
+  display: inline-block;
+  width: 280rpx;
+  vertical-align: middle;
+}
+.collect-btn button{
+  background-color: #0189ff;
+  border-radius: 5rpx;
+  font-size: 36rpx;
+  color:#ffffff;
+  margin:0;
+  height:88rpx;
+  border: 0;
+}
+.collect-btn button[disabled]{
+background-color: #eeeeee;
+color:#999999;
+}
+.footer-tip{
+  display: inline-block;
+  width:470rpx;
+  font-size:36rpx;
+  color:#999999;
+  text-align: center;
+  vertical-align: middle;
+  border-top:1rpx solid #d6d6db;
+  border-bottom:1rpx solid #d6d6db;
+  height: 86rpx;
+  line-height: 86rpx;
+}
+.footer .login-btn{
+  margin: 0;
+  background-color:#0189ff;
+  font-size: 36rpx;
+  border-radius: 0;
+  color:#ffffff;
+  height:88rpx;
+  margin-top:-1rpx;
+}
+.item-bottom{
+  height: 146rpx;
+  border-top:1rpx solid #d6d6db;
+  margin-top: -1rpx;
+  background-color: #fcf9fe;
+}
+.detail-company{
+  display: inline-block;
+  line-height: 40rpx;
+  width:450rpx;
+  margin-top: 25rpx;
+}
+.icon-detail-company {
+  position: relative;
+}
+.icon-detail-company::after {
+  content: " ";
+  position: absolute;
+  right: 5rpx;
+  bottom: 34rpx;
+  display: inline-block;
+  height: 18rpx;
+  width: 18rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-color: #c7c7cc;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+}
+.top-margin{
+background-color: #fcf9fe;
+}

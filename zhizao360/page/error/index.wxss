@@ -1,23 +1,32 @@
 /* page/error/index.wxss */
-page{
-    background-color: #ffffff;
-}
-.error-box{
-    text-align: center;
-}
-.error-box image{
-    width: 380rpx;
-}
-.error-tip{
-    text-align: center;
-    font-size:40rpx; 
+
+page {
+  background-color: #fff;
 }
 
-.btn-open{
-    margin: 40rpx 30rpx;
+.error-box {
+  text-align: center;
 }
 
-.btn-open button{
-    border:1rpx solid #1986ff;
-    color:#1986ff;
+.error-box image {
+  width: 380rpx;
+}
+
+.error-tip {
+  text-align: center;
+  font-size: 40rpx;
+  margin: 0 20rpx;
+}
+
+.error-tip text {
+  display: block;
+}
+
+.btn-open {
+  margin: 40rpx 30rpx;
+}
+
+.btn-open button {
+  border: 1rpx solid #1986ff;
+  color: #1986ff;
 }

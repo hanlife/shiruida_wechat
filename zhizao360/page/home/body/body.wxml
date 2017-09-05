@@ -1,5 +1,5 @@
 <!--page/home/body/body.wxml-->
-<import src="../common/homeCommon.wxml"></import>
+<import src="/module/homeCommon.wxml"></import>
 <view class="view-body pd-t30 fs34">
     <view class="panel bg-fff mg-b30 border-tb1px" bindtap="toMyInfo">
         <view class="ai">

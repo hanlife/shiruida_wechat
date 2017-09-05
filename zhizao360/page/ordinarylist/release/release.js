@@ -22,7 +22,8 @@ Page({
     deleteDevice: true,
     addDevice: false,
     btn_disabled: false,
-    EnabledTime: ''
+    EnabledTime: '',
+    data_deviceList:[],
   },
   //减少
   num_Reduce: function (e) {
@@ -41,11 +42,11 @@ Page({
   num_Add: function (e) {
     var i = e.target.dataset.index;
     if (deviceList[i].Amount == 0) {
-      utils.TipModel('请选择设备名称！')
+      utils.TipModel('请选择设备名称！');
       return;
     }
     if (deviceList[i].deviceNum >= deviceList[i].Amount) {
-      utils.TipModel('闲置数量不能超过设备数量！')
+      utils.TipModel('闲置数量不能超过设备数量！');
       return;
     } else {
       deviceList[i].deviceNum++;
@@ -128,6 +129,7 @@ Page({
       }
       input.push(obj);
     }
+
     if (input.length == 0) {
       wx.showModal({
         title: '提示',
@@ -138,6 +140,9 @@ Page({
       })
       return;
     } else {
+      that.setData({
+        data_deviceList: input
+      })
       // 发布
       utils.DeviceRequest({
         url: "PublicCapacity",
@@ -221,7 +226,7 @@ Page({
                 btn_disabled: false,
               })
             }
-            EnabledTime = Time(time, Seconds);
+            EnabledTime = utils.Time(time, Seconds, Hours);
             if (!EnabledTime) {
               clearInterval(interval)
               that.setData({
